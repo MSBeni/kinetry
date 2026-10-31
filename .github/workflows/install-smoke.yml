@@ -44,7 +44,7 @@ jobs:
         run: |
           systemctl status kinetry --no-pager || true
           sudo journalctl -u kinetry -n 80 --no-pager || true
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: install-smoke-${{ matrix.os }}
