@@ -1,0 +1,16 @@
+<svg class="art" viewBox="0 0 400 300" aria-hidden="true">
+  <ellipse class="i-s a-pop" cx="200" cy="268" rx="120" ry="14" />
+  <g class="a-float">
+    <circle class="i-a a-pop" cx="200" cy="120" r="70" />
+    <circle class="i-b a-pop" cx="176" cy="96" r="16" opacity="0.55" />
+    <rect class="i-k a-rise" x="172" y="186" width="56" height="20" rx="6" />
+    <rect class="i-k a-rise" x="178" y="210" width="44" height="14" rx="6" />
+    <path class="i-ln a-draw" d="M184 186 v-40 l16 -18 l16 18 v40" />
+  </g>
+  <g class="rays">
+    <path class="i-ln a-draw" d="M200 22 v-14" /><path class="i-ln a-draw" d="M120 56 l-12 -10" /><path class="i-ln a-draw" d="M280 56 l12 -10" />
+    <path class="i-ln a-draw" d="M100 128 h-16" /><path class="i-ln a-draw" d="M300 128 h16" />
+  </g>
+  <path class="i-f a-pop a-spin" d="M84 214 l6 14 l14 6 l-14 6 l-6 14 l-6 -14 l-14 -6 l14 -6 z" />
+  <path class="i-f a-pop a-spin" d="M318 190 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z" />
+</svg>

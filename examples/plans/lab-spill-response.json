@@ -1,0 +1,123 @@
+{
+  "version": 2,
+  "title": "Small spill response",
+  "chrome_left": "Alder Bio",
+  "chrome_right": "Lab safety",
+  "design": {
+    "style": "minimal",
+    "format": "16:9",
+    "pacing": "calm"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Intro",
+      "data": {
+        "eyebrow": "Lab safety",
+        "headline": "Responding to a small spill",
+        "icon": "flask-conical"
+      },
+      "beats": [
+        {
+          "say": "A small spill is easy to handle, if you follow the same four steps every time.",
+          "show": [
+            "headline",
+            "icon"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "numbered_steps",
+      "nav": "Steps",
+      "data": {
+        "headline": "Four steps",
+        "steps": [
+          {
+            "title": "Alert people nearby",
+            "text": "Say it out loud so nobody walks through it."
+          },
+          {
+            "title": "Put on gloves and goggles"
+          },
+          {
+            "title": "Contain with the spill kit",
+            "text": "Work from the edges toward the middle."
+          },
+          {
+            "title": "Log it",
+            "text": "Every spill, every time, in the lab log."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "First, alert people nearby, out loud, so nobody walks through it.",
+          "show": [
+            "headline",
+            "steps.0"
+          ]
+        },
+        {
+          "say": "Second, put on gloves and goggles.",
+          "show": [
+            "steps.1"
+          ]
+        },
+        {
+          "say": "Third, contain it with the spill kit, working from the edges toward the middle.",
+          "show": [
+            "steps.2"
+          ]
+        },
+        {
+          "say": "Finally, log it. Every spill, every time.",
+          "show": [
+            "steps.3"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "journey",
+      "nav": "Course",
+      "data": {
+        "headline": "Where this fits",
+        "steps": [
+          "Lab basics",
+          "Spills",
+          "Waste",
+          "Fire"
+        ],
+        "current": 1
+      },
+      "beats": [
+        {
+          "say": "This is module two of the lab safety course.",
+          "show": [
+            "headline",
+            "steps",
+            "progress"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Next",
+      "data": {
+        "pre": "Before your next session",
+        "headline": "Find the spill kit in your lab"
+      },
+      "beats": [
+        {
+          "say": "Before your next session, find the spill kit in your lab.",
+          "show": [
+            "pre",
+            "headline"
+          ]
+        }
+      ]
+    }
+  ]
+}

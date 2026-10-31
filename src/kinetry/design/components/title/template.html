@@ -1,0 +1,9 @@
+<div class="cx{% if has('icon') %} with-icon{% endif %}">
+  {% if has('icon') %}<div class="hero-ic ic">{{ icon(d['icon']) }}</div>{% endif %}
+  <div class="tblock">
+    {{ t('eyebrow', tag='span', cls='eyebrow') }}
+    {{ t('headline', tag='h1') }}
+    {{ t('kicker', cls='kicker') }}
+    {% if has('chips') %}<div class="chips">{% for c in get('chips') %}<div class="pill chip chip-{{ loop.index0 }}"><span class="cn">{{ loop.index }}</span>{{ t('chips.' ~ loop.index0, tag='span') }}</div>{% endfor %}</div>{% endif %}
+  </div>
+</div>

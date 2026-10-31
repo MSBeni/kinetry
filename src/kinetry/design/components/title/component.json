@@ -1,0 +1,26 @@
+{
+  "id": "title", "name": "Title",
+  "purpose": "Opens the video: what this is about, in one strong headline.",
+  "use_when": ["the first scene of almost every video"],
+  "avoid_when": ["mid-video section breaks (use chapter)"],
+  "tags": ["opener"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true, "desc": "Program or series label"},
+    "headline": {"type": "text", "max": 60, "lines": 3, "role": "display", "desc": "The topic, 2-3 lines at most"},
+    "kicker": {"type": "text", "max": 90, "lines": 2, "role": "lead", "optional": true, "desc": "One-line promise or subtitle"},
+    "chips": {"type": "list", "min": 0, "max": 3, "optional": true, "desc": "Up to 3 short aims, numbered",
+              "of": {"type": "text", "max": 32, "lines": 1, "role": "small"}},
+    "icon": {"type": "icon", "optional": true, "desc": "A Lucide icon that draws itself on, e.g. 'coffee', 'shield-check'"}
+  },
+  "reveals": ["headline", "kicker", "chips.*", "icon"],
+  "layouts": {
+    "hero": {"desc": "Left-aligned headline; the icon sits beside it (above it in 9:16)"},
+    "center": {"desc": "Centered stack: icon, headline, kicker"},
+    "band": {"desc": "Headline inside a block of brand color"}
+  },
+  "example": {"eyebrow": "Barista basics · Day 1", "headline": "The perfect hello", "kicker": "Three small habits every guest notices.",
+              "chips": ["Smile", "Greet", "Ask"], "icon": "coffee"},
+  "example_beats": [{"say": "Welcome to your first shift.", "show": ["headline"]},
+                    {"say": "Today: the three small habits every guest notices.", "show": ["kicker", "chips.0", "chips.1", "chips.2"]}],
+  "focus": {"key": "headline", "sel": "h1"}
+}

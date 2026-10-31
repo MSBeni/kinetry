@@ -1,0 +1,8 @@
+.c-pull_quote .cx { position: relative; }
+.c-pull_quote .marks { font-family: var(--f-quote); font-size: calc(var(--fs-quote) * 3.2); line-height: 0.7; color: var(--fill2); height: 0.42em; font-style: italic; }
+.c-pull_quote.inv .marks { color: var(--fill2); }
+.c-pull_quote .lead { margin-top: var(--g3); }
+.c-pull_quote blockquote { margin-top: var(--g1); max-width: 26ch; }
+.c-pull_quote .hl { background-size: 0% 32%; }
+.c-pull_quote .attr { margin-top: var(--g3); }
+.c-pull_quote .attr::before { content: "— "; }

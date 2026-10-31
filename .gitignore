@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Kinetry outputs and caches
+out/
+runs/
+*.mp4
+*.webm
+*.mov
+*.wav
+snapshots/
+.kinetry/
+tooling/
+node_modules/
+
+# Secrets and local config
+.env
+.env.*
+*.pem
+*.key
+credentials*
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/

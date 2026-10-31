@@ -1,0 +1,50 @@
+{
+  "id": "bold",
+  "name": "Bold",
+  "description": "Poster energy: huge uppercase type, full-bleed brand color scenes, slams and color wipes.",
+  "best_for": [
+    "launches and announcements",
+    "sales enablement",
+    "short social clips"
+  ],
+  "energy": "high",
+  "ground": "white",
+  "type": {
+    "display": 176,
+    "h2": 124,
+    "h3": 56,
+    "lead": 42,
+    "body": 34,
+    "item": 48,
+    "label": 24,
+    "eyebrow": 26,
+    "small": 24,
+    "stat": 340,
+    "quote": 104,
+    "caption": 42
+  },
+  "fonts": {
+    "head": "display",
+    "label": "body",
+    "quote": "display",
+    "num": "display"
+  },
+  "accent_font": null,
+  "radius": 0,
+  "shadow": "none",
+  "border": 0,
+  "tracking": "-0.035em",
+  "head_case": "uppercase",
+  "display_weight": 800,
+  "motion": "bold",
+  "transition": "wipe",
+  "chrome": "corner",
+  "captions": "box",
+  "inverse_scenes": [
+    "title",
+    "closer",
+    "big_stat",
+    "chapter",
+    "pull_quote"
+  ]
+}

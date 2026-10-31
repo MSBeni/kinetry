@@ -1,0 +1,10 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="ccols">
+    {% for col in get('columns') %}{% set ci = loop.index0 %}<div class="card box ccol cc-{{ ci }}{% if col.get('pick') %} pick{% endif %}">
+      <div class="chd">{{ t('columns.' ~ ci ~ '.title') }}{% if col.get('pick') %}<span class="pk">✓</span>{% endif %}</div>
+      {% for p in col['points'] %}<div class="cp">{{ t('columns.' ~ ci ~ '.points.' ~ loop.index0) }}</div>{% endfor %}
+    </div>{% endfor %}
+  </div>
+</div>

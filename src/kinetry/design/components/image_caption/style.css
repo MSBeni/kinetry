@@ -1,0 +1,28 @@
+.c-image_caption .fig { margin: 0; position: relative; width: 100%; }
+.c-image_caption .ph { position: relative; overflow: hidden; border-radius: var(--r-md, 18px); background: var(--surface); }
+.c-image_caption .kb { display: block; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; will-change: transform; }
+.c-image_caption .cr { margin-top: var(--g1); opacity: 0.85; }
+
+/* full: the image fills the stage, caption on a dark band across its foot (readable on any photo) */
+.c-image_caption.l-full .fig { height: 100%; display: flex; }
+.c-image_caption.l-full .ph { flex: 1; min-height: 0; }
+.c-image_caption.l-full .txt { position: absolute; inset-inline: 0; bottom: 0; padding: var(--g3) var(--g4);
+  background: rgba(10, 12, 18, 0.86); border-end-start-radius: var(--r-md, 18px); border-end-end-radius: var(--r-md, 18px); }
+.c-image_caption.l-full .txt .tx { color: #fff; }
+.c-image_caption.l-full .txt .eyebrow { color: #fff; opacity: 0.9; }
+.c-image_caption.l-full .hd { margin-bottom: var(--g1); }
+
+/* split: image beside the text */
+.c-image_caption.l-split .fig { display: flex; align-items: center; gap: var(--g5); }
+.c-image_caption.l-split .ph { flex: 0 0 56%; aspect-ratio: 4 / 3; }
+.c-image_caption.l-split .txt { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--g2); }
+.fmt-1x1 .c-image_caption.l-split .ph { flex-basis: 50%; aspect-ratio: 3 / 4; }
+
+/* framed: a print with a white border, slightly tilted, caption beneath */
+.c-image_caption.l-framed .fig { display: flex; flex-direction: column; align-items: center; gap: var(--g3); text-align: center; }
+.c-image_caption.l-framed .ph { width: 52%; aspect-ratio: 16 / 10; border: calc(16px * var(--k)) solid #fff; border-radius: 6px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22); rotate: -1.5deg; }
+.fmt-9x16 .c-image_caption.l-framed .ph { width: 88%; aspect-ratio: 1 / 1; }
+.fmt-1x1 .c-image_caption.l-framed .ph { width: 60%; aspect-ratio: 4 / 3; }
+.c-image_caption.l-framed .txt { max-width: 80%; display: flex; flex-direction: column; gap: var(--g1); align-items: center; }
+.fmt-9x16 .c-image_caption.l-framed .txt { max-width: 100%; }

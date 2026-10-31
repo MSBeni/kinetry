@@ -1,0 +1,36 @@
+/* Adapted from the HyperFrames registry's flowchart and hw-pipeline (Apache-2.0): connectors grow out of the
+   question toward each outcome as it's spoken. */
+.c-decision .cx { display: flex; flex-direction: column; align-items: stretch; }
+.c-decision .q { align-self: center; text-align: center; max-width: 82%; padding: var(--g2) var(--g4); background: var(--fill); color: var(--on-fill);
+  border-radius: var(--r); box-shadow: var(--shadow); }
+.c-decision .q .tx { color: var(--on-fill); }
+.c-decision .paths { display: grid; grid-template-columns: 1fr 1fr; gap: var(--g4); }
+.c-decision .path { background: var(--surface); border-radius: var(--r); padding: var(--g3); display: flex; flex-direction: column; gap: var(--g1);
+  border-top: calc(8px * var(--k)) solid var(--accent); box-shadow: var(--shadow); min-width: 0; }
+.c-decision .p-no { border-top-color: var(--muted); }
+.c-decision .pl { display: flex; align-items: center; gap: var(--g1); }
+.c-decision .lb { color: var(--accent); font-size: calc(var(--fs-label) * 1.25 * var(--fit, 1)); }
+.c-decision .p-no .lb { color: var(--muted); }
+.c-decision .pt { color: var(--ink); }
+.c-decision .note { margin-top: var(--g3); text-align: center; }
+/* tree: stem down from the question, a bar across, a drop into each card */
+.c-decision .links { position: relative; height: calc(110px * var(--k)); }
+.c-decision .links i { position: absolute; background: var(--ink); opacity: 0.7; }
+.c-decision .stem { left: 50%; top: 0; width: calc(4px * var(--k)); height: 50%; margin-left: calc(-2px * var(--k)); transform-origin: top; }
+.c-decision .bar { top: 50%; height: calc(4px * var(--k)); left: 25%; right: 25%; margin-left: calc(-2px * var(--k)); transform-origin: center; }
+.c-decision .drop { top: 50%; width: calc(4px * var(--k)); height: 50%; transform-origin: top; }
+.c-decision .d-yes { left: calc(25% - var(--g4) / 4); }
+.c-decision .d-no { left: calc(75% + var(--g4) / 4); }
+.rtl .c-decision .d-yes { left: calc(75% + var(--g4) / 4); }
+.rtl .c-decision .d-no { left: calc(25% - var(--g4) / 4); }
+/* stacked: each path a row */
+.c-decision.l-stacked .q { margin-bottom: var(--g4); }
+.c-decision.l-stacked .paths { grid-template-columns: 1fr; gap: var(--g2); }
+.c-decision.l-stacked .path { display: grid; grid-template-columns: minmax(calc(170px * var(--k)), max-content) 1fr; align-items: baseline; gap: var(--g3); border-top: 0; border-inline-start: calc(8px * var(--k)) solid var(--accent); }
+.c-decision.l-stacked .p-no { border-inline-start-color: var(--muted); }
+.c-decision.l-stacked .pt { text-align: start; justify-self: stretch; }
+.c-decision .arr { width: calc(40px * var(--k)); height: calc(40px * var(--k)); fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+  color: var(--accent); flex: none; align-self: center; }
+.c-decision .p-no .arr { color: var(--muted); }
+.rtl .c-decision .arr { transform: scaleX(-1); }
+.fmt-9x16 .c-decision.l-stacked .path { grid-template-columns: 1fr; gap: var(--g1); }

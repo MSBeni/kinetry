@@ -1,0 +1,34 @@
+{
+  "id": "chat_thread", "name": "Chat thread",
+  "purpose": "Written messages arriving in a chat (team channel or phone), read out by the narrator, to show or examine an exchange.",
+  "use_when": ["the source quotes chat, Slack, Teams or text messages", "showing how a written message lands, or how a thread went wrong or right"],
+  "avoid_when": ["a spoken conversation to act out in two voices (use dialogue)", "a single email or screen to annotate (use annotated_mock)"],
+  "tags": ["chat", "messages", "conversation", "workplace"],
+  "adapted_from": "chat-message and thread-message-stack (HyperFrames registry)",
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 56, "lines": 2, "role": "h2", "optional": true},
+    "channel": {"type": "text", "max": 28, "lines": 1, "role": "label", "desc": "Channel or contact name, e.g. '#launch-team' or 'Priya'"},
+    "messages": {"type": "list", "min": 2, "max": 5, "of": {"type": "object", "fields": {
+      "from": {"type": "text", "max": 20, "lines": 1, "role": "label"},
+      "text": {"type": "text", "max": 110, "lines": 3, "role": "body"},
+      "me": {"type": "bool", "optional": true, "desc": "true for the viewer's own messages"}}}},
+    "note": {"type": "text", "max": 90, "lines": 2, "role": "body", "optional": true, "desc": "The takeaway about the thread"}
+  },
+  "reveals": ["messages.*", "note"],
+  "layouts": {
+    "app": {"desc": "A team-chat window: avatars, names, messages in a column"},
+    "phone": {"formats": ["9:16"], "desc": "A phone conversation: bubbles, yours on the other side, typing dots before replies"}
+  },
+  "example": {"eyebrow": "Read the thread", "channel": "#launch-team",
+              "messages": [{"from": "Priya", "text": "Can someone check the pricing page before 3?"},
+                           {"from": "Theo", "text": "On it. Two prices don't match the plan sheet.", "me": true},
+                           {"from": "Priya", "text": "Thanks for catching that! Which ones?"},
+                           {"from": "Theo", "text": "Team and Business. Fixing both now.", "me": true}],
+              "note": "Short, specific replies keep a thread moving."},
+  "example_beats": [{"say": "Priya asks for a check before three.", "show": ["messages.0"]},
+                    {"say": "Theo replies with exactly what he found.", "show": ["messages.1"]},
+                    {"say": "She asks which ones,", "show": ["messages.2"]},
+                    {"say": "and he names them and says what he's doing about it.", "show": ["messages.3"]},
+                    {"say": "Short, specific replies keep a thread moving.", "show": ["note"]}]
+}

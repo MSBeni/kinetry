@@ -1,0 +1,77 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kinetry"
+version = "0.3.0"
+description = "Turn learning content and a brand into narrated, on-brand videos."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "licenses/*"]
+authors = [{ name = "The Kinetry Authors" }]
+keywords = ["video", "e-learning", "text-to-video", "narration", "tts", "scorm", "lms", "llm", "hyperframes"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Education",
+  "Topic :: Multimedia :: Video",
+]
+dependencies = [
+  "pydantic>=2.7",
+  "httpx>=0.27",
+  "jinja2>=3.1",
+  "langgraph>=1.0",
+  "langchain-core>=1.0",
+  "langchain>=1.0",
+]
+
+[project.optional-dependencies]
+bedrock = ["langchain-aws>=1.0", "boto3>=1.34"]
+anthropic = ["langchain-anthropic>=1.0"]
+openai = ["langchain-openai>=1.0"]          # OpenAI, Azure OpenAI and any OpenAI-compatible endpoint
+google = ["langchain-google-genai>=4.0"]
+llms = ["kinetry[bedrock,anthropic,openai,google]"]
+kokoro = ["kokoro-onnx>=0.4", "soundfile>=0.12"]
+s3 = ["boto3>=1.34"]  # upload finished videos to S3-compatible storage
+docs = ["pypdf>=5", "fonttools>=4.50", "python-docx>=1.1", "python-pptx>=1.0", "trafilatura>=2.0"]  # Word, PowerPoint, PDF, web pages
+service = ["fastapi>=0.115", "uvicorn[standard]>=0.30", "python-multipart>=0.0.9"]
+mcp = ["mcp>=1.2"]
+brand3d = ["potracer>=0.0.4"]  # cutting a logo's symbol out of a logo image, for the 3D stage
+all = ["kinetry[llms,kokoro,service,mcp,docs,s3,brand3d]"]
+dev = ["kinetry[llms,service,mcp,docs,brand3d]", "pytest>=8", "ruff>=0.6", "build>=1.2"]
+
+[project.urls]
+Homepage = "https://kinetry.xyz"
+Documentation = "https://kinetry.xyz/docs/"
+
+[project.scripts]
+kinetry = "kinetry.cli:main"
+kinetry-mcp = "kinetry.integrations.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kinetry"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/kinetry", "tests", "examples", "README.md", "LICENSE", "NOTICE", "licenses", "THIRD_PARTY.md", "CHANGELOG.md", "CONTRIBUTING.md", "docs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501", "B008", "UP007"]

@@ -1,0 +1,7 @@
+.c-statement .stm { display: flex; flex-direction: column; align-items: flex-start; gap: var(--g3); }
+.c-statement h1.r-display { font-size: calc(var(--fs-display) * 1.18 * var(--fit, 1)); line-height: 1.02; letter-spacing: -0.02em; text-wrap: balance; }
+.c-statement .hlw > span { color: var(--accent); }
+.inv.c-statement .hlw > span { color: var(--fill2); }
+.c-statement .sub { margin-top: var(--g2); max-width: calc(1100px * var(--k)); }
+.c-statement.l-center .stm { align-items: center; text-align: center; }
+.c-statement.l-center .sub { margin-inline: auto; }

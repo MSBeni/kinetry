@@ -1,0 +1,116 @@
+/* Kinetry base: shared by every style and component. Tokens (colors, fonts, sizes, safe area)
+   come from :root variables the renderer writes; nothing here hard-codes a brand. */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: var(--W); height: var(--H); overflow: hidden; background: var(--bg); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--ink); background: var(--bg);
+  font-family: var(--f-body); -webkit-font-smoothing: antialiased;
+  --g1: calc(12px * var(--k)); --g2: calc(24px * var(--k)); --g3: calc(40px * var(--k)); --g4: calc(64px * var(--k)); --g5: calc(96px * var(--k)); }
+.scene { position: absolute; inset: 0; }
+.sc { position: absolute; inset: 0; }
+.ground { position: absolute; inset: 0; }
+.inv .ground { background: var(--bg); }
+.inv { color: var(--ink); }
+.stage { position: absolute; left: var(--px); right: var(--px); top: var(--pt); bottom: var(--pb);
+  display: flex; flex-direction: column; justify-content: safe center; min-height: 0; }
+
+/* text roles: size = role size x format scale x fit level */
+.tx { min-width: 0; overflow-wrap: break-word; }
+.r-display { font-family: var(--f-head); font-weight: var(--dw); font-size: calc(var(--fs-display) * var(--fit, 1));
+  line-height: 1.02; letter-spacing: var(--tracking); text-transform: var(--head-case); text-wrap: balance; }
+.r-h2 { font-family: var(--f-head); font-weight: var(--dw); font-size: calc(var(--fs-h2) * var(--fit, 1));
+  line-height: 1.05; letter-spacing: var(--tracking); text-transform: var(--head-case); text-wrap: balance; }
+.r-h3 { font-family: var(--f-head); font-weight: var(--dw); font-size: calc(var(--fs-h3) * var(--fit, 1));
+  line-height: 1.12; letter-spacing: calc(var(--tracking) * 0.6); text-wrap: balance; }
+.r-lead { font-size: calc(var(--fs-lead) * var(--fit, 1)); line-height: 1.32; color: var(--muted); text-wrap: balance; }
+.r-body { font-size: calc(var(--fs-body) * var(--fit, 1)); line-height: 1.38; color: var(--muted); text-wrap: pretty; }
+.r-item { font-size: calc(var(--fs-item) * var(--fit, 1)); line-height: 1.22; font-weight: 600; text-wrap: pretty; }
+.r-label { font-family: var(--f-label); font-size: calc(var(--fs-label) * var(--fit, 1)); font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.25; }
+.r-eyebrow { font-family: var(--f-label); font-size: calc(var(--fs-eyebrow) * var(--fit, 1)); font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); line-height: 1.25; }
+.r-small { font-size: calc(var(--fs-small) * var(--fit, 1)); line-height: 1.35; color: var(--muted); }
+.r-stat { font-family: var(--f-num); font-weight: 800; font-size: calc(var(--fs-stat) * var(--fit, 1)); line-height: 0.92;
+  letter-spacing: -0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.r-quote { font-family: var(--f-quote); font-size: calc(var(--fs-quote) * var(--fit, 1)); line-height: 1.12;
+  letter-spacing: -0.01em; text-wrap: balance; }
+.eyebrow { display: block; margin-bottom: var(--g2); }
+
+/* words wrapped for masked reveals */
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.04em 0.1em; margin: 0 -0.04em -0.1em; }
+.w > span { display: inline-block; }
+
+/* shared primitives */
+.card { background: var(--surface); border: var(--bw) solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); min-width: 0; }
+.pill { display: inline-flex; align-items: center; gap: var(--g1); padding: calc(14px * var(--k)) calc(26px * var(--k));
+  border-radius: 999px; background: var(--soft); color: var(--accent); font-weight: 700; white-space: nowrap; }
+.badge { flex: none; width: calc(64px * var(--k)); height: calc(64px * var(--k)); border-radius: 50%; display: grid; place-items: center;
+  background: var(--fill); color: var(--on-fill); font-family: var(--f-num); font-weight: 800; font-size: calc(30px * var(--k)); }
+.rule { height: calc(6px * var(--k)); width: calc(180px * var(--k)); background: var(--fill); border-radius: 3px; transform-origin: left center; }
+.icon { width: 100%; height: 100%; display: block; }
+.ic { flex: none; color: var(--accent); }
+.row { display: flex; gap: var(--g3); min-width: 0; }
+.col { display: flex; flex-direction: column; gap: var(--g2); min-width: 0; }
+.grow { flex: 1 1 0; min-width: 0; }
+.center { text-align: center; align-items: center; }
+.muted { color: var(--muted); }
+svg.draw { overflow: visible; }
+svg.draw path, svg.draw circle, svg.draw ellipse, svg.draw line, svg.draw polyline { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* portrait and square: side-by-side layouts stack */
+.fmt-9x16 .row.stackable, .fmt-1x1 .row.stack-sq { flex-direction: column; }
+
+/* captions */
+.caps { position: absolute; left: var(--px); right: var(--px); bottom: var(--cap-b, 56px); pointer-events: none; }
+.fmt-9x16 .caps { bottom: 250px; }
+.fmt-1x1 .caps { bottom: 44px; }
+.cap { position: absolute; left: 0; right: 0; bottom: 0; margin: 0 auto; width: fit-content; max-width: min(100%, 1400px);
+  text-align: center; font-family: var(--f-body); font-weight: 700; font-size: var(--fs-caption); line-height: 1.25;
+  padding: calc(18px * var(--k)) calc(32px * var(--k)); border-radius: calc(22px * var(--k)); opacity: 0; text-wrap: balance;
+  background: color-mix(in srgb, var(--ink) 92%, transparent); color: var(--bg); }
+.caps-plain .cap { background: none; color: var(--ink); text-shadow: 0 2px 16px var(--bg), 0 0 4px var(--bg); }
+.caps-box .cap { border-radius: 0; background: var(--fill); color: var(--on-fill); }
+
+/* transitions overlays */
+.trs { position: absolute; inset: 0; pointer-events: none; }
+.tr-panel { position: absolute; inset: 0; background: var(--fill); transform: scaleX(0); }
+.tr-scan { position: absolute; left: 0; right: 0; top: 0; height: 5px; background: var(--fill); opacity: 0;
+  box-shadow: 0 0 28px 8px color-mix(in srgb, var(--fill) 55%, transparent); }
+
+/* chrome (top/bottom furniture) */
+.chrome { position: absolute; inset: 0; pointer-events: none; color: var(--muted); }
+.chrome .top { position: absolute; left: var(--px); right: var(--px); top: calc(var(--pt) * 0.36); display: flex; align-items: center;
+  justify-content: space-between; gap: var(--g3); font-family: var(--f-label); font-size: var(--fs-small); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+.chrome .top > * { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.chrome .brandmark { display: flex; align-items: center; gap: var(--g1); color: var(--ink); }
+.chrome .logo { height: calc(40px * var(--k)); width: auto; display: block; }
+.chrome .dot { width: calc(14px * var(--k)); height: calc(14px * var(--k)); border-radius: 50%; background: var(--fill); flex: none; }
+.chrome .hair { position: absolute; left: var(--px); right: var(--px); top: calc(var(--pt) * 0.66); height: 1px; background: var(--line); transform-origin: left; }
+.chrome .bottom { position: absolute; left: var(--px); right: var(--px); bottom: calc(var(--pb) * 0.38); display: flex; gap: 10px; align-items: center; }
+/* captions own the bottom band: progress chrome moves under them in 9:16 and steps aside elsewhere */
+.fmt-9x16.caps-on .chrome .bottom { bottom: 150px; }
+.fmt-16x9.caps-on .chrome .bottom, .fmt-1x1.caps-on .chrome .bottom { display: none; }
+.chrome .count { position: relative; margin-inline-start: auto; font-family: var(--f-label); font-size: var(--fs-small); letter-spacing: 0.12em; height: 1.4em; min-width: 6em; }
+.chrome .count span { position: absolute; inset-inline-end: 0; bottom: 0; white-space: nowrap; opacity: 0; }
+.chrome .tick { flex: 1; height: 4px; background: var(--line); position: relative; overflow: hidden; border-radius: 2px; }
+.chrome .tick b { position: absolute; inset: 0; background: var(--fill); transform-origin: left; transform: scaleX(0); }
+.chrome .pline { flex: 1; height: 3px; background: var(--line); position: relative; overflow: hidden; }
+.chrome .pline .pl { position: absolute; inset: 0; background: var(--fill); transform-origin: left; transform: scaleX(0); }
+.chrome .nav { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.chrome .nav .bar { height: 4px; background: var(--line); position: relative; overflow: hidden; border-radius: 2px; }
+.chrome .nav .bar i { position: absolute; inset: 0; background: var(--grad); transform-origin: left; transform: scaleX(0); }
+.chrome .nav .lbl { font-size: var(--fs-nav, var(--fs-small)); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.55; }
+
+/* marker highlight on a phrase (pull quotes, key terms) */
+.hl { background-image: linear-gradient(color-mix(in srgb, var(--fill) 42%, transparent), color-mix(in srgb, var(--fill) 42%, transparent)); background-repeat: no-repeat; background-position: 0 88%;
+  background-size: 100% 32%; padding: 0 0.06em; margin: 0 -0.06em; }
+.inv .hl { background-image: linear-gradient(var(--fill2), var(--fill2)); }
+
+/* right-to-left scripts: flex rows, text alignment and word order follow the direction. It's set on the
+   composition root, never on the html element: HyperFrames renders a blank video when the document itself is rtl.
+   Arabic-script languages are cursive: letter-spacing would pull the joined letters apart. */
+.rtl { direction: rtl; }
+.cursive, .cursive * { letter-spacing: 0 !important; }
+/* growth from the start edge: transform-origin has no logical form */
+.rtl .c-agenda_timeline .prog, .rtl .c-bar_chart.l-rows .bar, .rtl .c-journey .prog { transform-origin: right center; }
+/* software windows (annotated_mock) take their direction from their own content (dir="auto" in the template) */

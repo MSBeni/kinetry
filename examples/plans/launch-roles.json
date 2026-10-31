@@ -1,0 +1,145 @@
+{
+  "version": 2,
+  "title": "Who does what in a launch",
+  "chrome_left": "Kestrel",
+  "chrome_right": "Launch playbook",
+  "design": {
+    "style": "bold",
+    "format": "1:1"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Intro",
+      "data": {
+        "eyebrow": "Launch playbook",
+        "headline": "Who does what in a launch"
+      },
+      "beats": [
+        {
+          "say": "Every launch needs four roles, even when one person wears two hats.",
+          "show": [
+            "headline"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "icon_grid",
+      "nav": "Roles",
+      "data": {
+        "headline": "Four roles",
+        "items": [
+          {
+            "icon": "crown",
+            "label": "Owner"
+          },
+          {
+            "icon": "hammer",
+            "label": "Builder"
+          },
+          {
+            "icon": "search-check",
+            "label": "Reviewer"
+          },
+          {
+            "icon": "megaphone",
+            "label": "Voice"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "The owner decides and unblocks.",
+          "show": [
+            "headline",
+            "items.0"
+          ]
+        },
+        {
+          "say": "The builder ships the work.",
+          "show": [
+            "items.1"
+          ]
+        },
+        {
+          "say": "The reviewer checks it before it goes out.",
+          "show": [
+            "items.2"
+          ]
+        },
+        {
+          "say": "And the voice tells customers.",
+          "show": [
+            "items.3"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "chapter",
+      "nav": "Rule",
+      "data": {
+        "number": "1",
+        "title": "One owner per launch"
+      },
+      "beats": [
+        {
+          "say": "The one rule: one owner per launch.",
+          "show": [
+            "number",
+            "title"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "checklist",
+      "nav": "Kickoff",
+      "data": {
+        "headline": "At kickoff",
+        "items": [
+          "Name the owner",
+          "Name the reviewer",
+          "Set the date"
+        ]
+      },
+      "beats": [
+        {
+          "say": "At kickoff, name the owner,",
+          "show": [
+            "headline",
+            "items.0"
+          ]
+        },
+        {
+          "say": "name the reviewer,",
+          "show": [
+            "items.1"
+          ]
+        },
+        {
+          "say": "and set the date.",
+          "show": [
+            "items.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Go",
+      "data": {
+        "headline": "Name your roles on day one"
+      },
+      "beats": [
+        {
+          "say": "Name your roles on day one, and your launch runs itself.",
+          "show": [
+            "headline"
+          ]
+        }
+      ]
+    }
+  ]
+}

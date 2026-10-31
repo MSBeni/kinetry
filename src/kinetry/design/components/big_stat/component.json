@@ -1,0 +1,18 @@
+{
+  "id": "big_stat", "name": "Big stat",
+  "purpose": "One number that matters, counted up large, with what it means beside it.",
+  "use_when": ["a number from the source that makes the point (a time, a percentage, a count)"],
+  "avoid_when": ["numbers not in the source: never invent a statistic"],
+  "tags": ["number", "emphasis"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "value": {"type": "text", "max": 10, "lines": 1, "role": "stat", "desc": "e.g. '10s', '92%', '3x', '45 min'. Percentages fill the ring."},
+    "label": {"type": "text", "max": 64, "lines": 3, "role": "h2", "desc": "What the number means"},
+    "sub": {"type": "text", "max": 110, "lines": 3, "role": "lead", "optional": true}
+  },
+  "reveals": ["value", "label", "sub"],
+  "layouts": {"ring": {"desc": "Number inside a ring that fills, text beside it"}, "giant": {"desc": "Oversized number with the label under it"}},
+  "example": {"eyebrow": "The whole check", "value": "10s", "label": "That's all it takes to check an email.", "sub": "The cheapest security tool we have."},
+  "example_beats": [{"say": "Ten seconds.", "show": ["value"]}, {"say": "That's all it takes to check an email, and it's the cheapest tool we have.", "show": ["label", "sub"]}],
+  "focus": {"key": "value", "sel": ".val"}
+}

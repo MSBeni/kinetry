@@ -1,0 +1,39 @@
+{
+  "title": "Run the room",
+  "chrome_left": "First team meeting · Part 2",
+  "chrome_right": "New team leads",
+  "scenes": [
+    {"kind": "title", "nav": "Welcome", "eyebrow": "Part 2 of 3", "kicker": "Leading your first team meeting",
+     "headline": "Run the room", "chips": ["Open with purpose", "Mostly listen"],
+     "beats": [
+       {"say": "This is part two of leading your first team meeting: running the room.", "show": []},
+       {"say": "Open with a clear purpose, then spend most of the meeting listening.", "show": ["chips.0", "chips.1"]}
+     ]},
+    {"kind": "split_list", "nav": "Go around", "eyebrow": "Hand the floor over", "headline": "Let the team talk first.",
+     "aside": "Your job is mostly to listen.", "panel_label": "Ask each person",
+     "items": ["What are you working on?", "What would make it easier?"],
+     "beats": [
+       {"say": "Say why you called the meeting and what you hope to leave with. Then hand the floor over quickly.", "show": []},
+       {"say": "In this first meeting, your job is mostly to listen.", "show": ["aside"]},
+       {"say": "Go around the room. Ask each person what they're working on,", "show": ["panel", "items.0"]},
+       {"say": "and one thing that would make their work easier. Write it where everyone can see.", "show": ["items.1"]}
+     ]},
+    {"kind": "question_cards", "nav": "Watch for", "eyebrow": "Three patterns to watch", "headline": "Read the room as you go.",
+     "cards": [
+       {"title": "The quiet one", "question": "Invite them in by name, gently."},
+       {"title": "The loud topic", "question": "Park it, with a clear promise to come back to it."},
+       {"title": "Fast agreement", "question": "Ask: what would make this fail?"}],
+     "beats": [
+       {"say": "As people talk, watch for three patterns.", "show": []},
+       {"say": "The quiet person who hasn't spoken yet. Invite them in by name, gently.", "show": ["cards.0"]},
+       {"say": "The loudest topic that takes over. Park it, with a clear promise to return to it.", "show": ["cards.1"]},
+       {"say": "And agreement that comes too fast. Ask, what would make this fail?", "show": ["cards.2"]}
+     ]},
+    {"kind": "closer", "nav": "Keep time", "pre": "One last thing", "headline": "End a few minutes early.",
+     "meta": "It builds more trust than a perfect agenda.",
+     "beats": [
+       {"say": "Finally, keep to time.", "show": ["pre"]},
+       {"say": "Ending a few minutes early builds more trust than a perfect agenda.", "show": ["headline", "meta"]}
+     ]}
+  ]
+}

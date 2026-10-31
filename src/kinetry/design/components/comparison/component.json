@@ -1,0 +1,121 @@
+{
+  "id": "comparison",
+  "name": "Comparison",
+  "purpose": "2-3 options side by side, each with a few points; one can be marked as the pick.",
+  "use_when": [
+    "options or approaches with trade-offs",
+    "before vs after",
+    "plan A vs plan B"
+  ],
+  "avoid_when": [
+    "simple right vs wrong (use do_dont)"
+  ],
+  "tags": [
+    "contrast",
+    "decision"
+  ],
+  "fields": {
+    "eyebrow": {
+      "type": "text",
+      "max": 40,
+      "role": "eyebrow",
+      "optional": true
+    },
+    "headline": {
+      "type": "text",
+      "max": 48,
+      "lines": 2,
+      "role": "h2"
+    },
+    "columns": {
+      "type": "list",
+      "min": 2,
+      "max": 3,
+      "of": {
+        "type": "object",
+        "fields": {
+          "title": {
+            "type": "text",
+            "max": 26,
+            "lines": 1,
+            "role": "h3"
+          },
+          "points": {
+            "type": "list",
+            "min": 1,
+            "max": 4,
+            "of": {
+              "type": "text",
+              "max": 56,
+              "lines": 2,
+              "role": "body"
+            }
+          },
+          "pick": {
+            "type": "bool",
+            "optional": true,
+            "desc": "Mark this column as the recommended one"
+          }
+        }
+      }
+    }
+  },
+  "reveals": [
+    "headline",
+    "columns.*"
+  ],
+  "layouts": {
+    "columns": {
+      "desc": "Side-by-side columns"
+    },
+    "rows": {
+      "desc": "Stacked, one option per row",
+      "formats": [
+        "9:16"
+      ]
+    }
+  },
+  "example": {
+    "eyebrow": "Two ways to start",
+    "headline": "Weekly check-in or monthly review?",
+    "columns": [
+      {
+        "title": "Weekly check-in",
+        "points": [
+          "15 minutes",
+          "Catches problems early",
+          "Light preparation"
+        ],
+        "pick": true
+      },
+      {
+        "title": "Monthly review",
+        "points": [
+          "60 minutes",
+          "Room for big topics",
+          "Easy to postpone"
+        ]
+      }
+    ]
+  },
+  "example_beats": [
+    {
+      "say": "You can start with a weekly check-in or a monthly review.",
+      "show": [
+        "headline"
+      ]
+    },
+    {
+      "say": "A weekly check-in is short and catches problems early.",
+      "show": [
+        "columns.0"
+      ]
+    },
+    {
+      "say": "A monthly review has room for big topics, but it's easy to postpone.",
+      "show": [
+        "columns.1"
+      ]
+    }
+  ]
+}

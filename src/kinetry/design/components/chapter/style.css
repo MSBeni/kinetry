@@ -1,0 +1,9 @@
+.c-chapter .cx { display: flex; align-items: center; gap: var(--g5); }
+.c-chapter .num { color: var(--accent); flex: none; }
+.c-chapter .tb { flex: 1 1 0; min-width: 0; }
+.c-chapter .sub { margin-top: var(--g3); }
+.c-chapter.l-band .cx { flex-direction: column; align-items: stretch; gap: var(--g3); }
+.c-chapter.l-band .num { font-size: calc(var(--fs-stat) * 0.45 * var(--fit, 1)); }
+.c-chapter.l-band .tb { background: var(--fill); color: var(--on-fill); padding: var(--g4) var(--g5); border-radius: var(--r); }
+.c-chapter.l-band .sub { color: var(--on-fill); opacity: 0.88; }
+.fmt-9x16 .c-chapter .cx, .fmt-1x1 .c-chapter .cx { flex-direction: column; align-items: flex-start; gap: var(--g3); }

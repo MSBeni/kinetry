@@ -1,0 +1,187 @@
+{
+  "version": 2,
+  "title": "Spot the phish in 60 seconds",
+  "chrome_left": "Northwind Ledger",
+  "chrome_right": "Security basics",
+  "design": {
+    "style": "technical",
+    "format": "16:9"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Intro",
+      "data": {
+        "eyebrow": "Security basics",
+        "headline": "Spot the phish in sixty seconds",
+        "chips": [
+          "3 red flags",
+          "1 rule"
+        ],
+        "icon": "shield-check"
+      },
+      "beats": [
+        {
+          "say": "Most attacks start with one email.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "Here are three red flags, and one rule that beats them all.",
+          "show": [
+            "chips.0",
+            "chips.1",
+            "icon"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "annotated_mock",
+      "nav": "Red flags",
+      "data": {
+        "eyebrow": "Look closer",
+        "kind": "email",
+        "address": "billing@northwind-ledger.co",
+        "header": [
+          {
+            "label": "From",
+            "text": "Northwind Billing"
+          },
+          {
+            "label": "Subject",
+            "text": "URGENT: payment failed, act within 1 hour"
+          }
+        ],
+        "title": "Your account will be suspended",
+        "body": "We could not process your last payment. Verify your card details now to avoid losing access to your account.",
+        "button": "Verify now",
+        "callouts": [
+          {
+            "target": "address",
+            "title": "Lookalike domain",
+            "text": "Ends in .co, not our real .com address."
+          },
+          {
+            "target": "header.1",
+            "title": "False urgency",
+            "text": "One hour deadlines are designed to rush you."
+          },
+          {
+            "target": "button",
+            "title": "Asks for details",
+            "text": "We never ask for card details by email."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Here's a real looking email. Look at the sender first.",
+          "show": [
+            "mock"
+          ]
+        },
+        {
+          "say": "The domain ends in dot co, not our real dot com address.",
+          "show": [
+            "callouts.0"
+          ]
+        },
+        {
+          "say": "Next, the false urgency. A one hour deadline is designed to rush you.",
+          "show": [
+            "callouts.1"
+          ]
+        },
+        {
+          "say": "And it asks for your card details. We never do that by email.",
+          "show": [
+            "callouts.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "big_stat",
+      "nav": "Why",
+      "data": {
+        "eyebrow": "Why it matters",
+        "value": "10s",
+        "label": "That's all it takes to check a sender",
+        "sub": "Ten seconds of checking is the cheapest security tool we have."
+      },
+      "beats": [
+        {
+          "say": "Checking a sender takes about ten seconds.",
+          "show": [
+            "value",
+            "label"
+          ]
+        },
+        {
+          "say": "It's the cheapest security tool we have.",
+          "show": [
+            "sub"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "do_dont",
+      "nav": "Rules",
+      "data": {
+        "headline": "When in doubt",
+        "do": [
+          "Report it with the Phish button",
+          "Open the site yourself"
+        ],
+        "dont": [
+          "Click links in urgent emails",
+          "Reply with any details"
+        ]
+      },
+      "beats": [
+        {
+          "say": "When in doubt, report it with the phish button, and open the site yourself.",
+          "show": [
+            "headline",
+            "do"
+          ]
+        },
+        {
+          "say": "Don't click links in urgent emails, and never reply with any details.",
+          "show": [
+            "dont"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Act",
+      "data": {
+        "pre": "One rule",
+        "headline": "Pause, check, then report",
+        "meta": "Security team: #ask-security",
+        "icon": "shield"
+      },
+      "beats": [
+        {
+          "say": "So remember one rule: pause, check, then report.",
+          "show": [
+            "pre",
+            "headline"
+          ]
+        },
+        {
+          "say": "Questions? Ask the security team any time.",
+          "show": [
+            "meta",
+            "icon"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="steps" style="--n: {{ get('steps')|length }}">
+    {% for s in get('steps') %}<div class="st box card sp-{{ loop.index0 }}"><i class="sfill"></i><span class="badge">{{ loop.index }}</span>
+      <div class="sx">{{ t('steps.' ~ loop.index0 ~ '.title') }}{{ t('steps.' ~ loop.index0 ~ '.text') }}</div></div>{% endfor %}
+  </div>
+</div>

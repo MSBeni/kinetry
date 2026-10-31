@@ -1,0 +1,44 @@
+{
+  "id": "corporate",
+  "name": "Corporate",
+  "description": "Clean and dependable: tinted ground, soft-shadow cards, steady slides and pushes.",
+  "best_for": [
+    "enterprise training",
+    "finance and operations",
+    "client-facing explainers"
+  ],
+  "energy": "medium",
+  "ground": "tint",
+  "type": {
+    "display": 140,
+    "h2": 92,
+    "h3": 48,
+    "lead": 38,
+    "body": 32,
+    "item": 40,
+    "label": 22,
+    "eyebrow": 22,
+    "small": 24,
+    "stat": 240,
+    "quote": 80,
+    "caption": 40
+  },
+  "fonts": {
+    "head": "display",
+    "label": "body",
+    "quote": "display",
+    "num": "display"
+  },
+  "accent_font": null,
+  "radius": 12,
+  "shadow": "soft",
+  "border": 1,
+  "tracking": "-0.02em",
+  "motion": "corporate",
+  "transition": "push",
+  "chrome": "bar",
+  "captions": "bar",
+  "inverse_scenes": [
+    "chapter"
+  ]
+}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 120">
+  <path fill="#0F766E" d="M10 110 60 10l50 100H84L60 60 36 110z"/>
+  <circle cx="60" cy="92" r="10" fill="#F59E0B"/>
+  <text x="134" y="86" font-family="DejaVu Sans, Arial, sans-serif" font-weight="700" font-size="58" fill="#14231F">Aula Norte</text>
+</svg>

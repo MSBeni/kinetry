@@ -1,0 +1,11 @@
+.c-instead_try .pair { display: flex; flex-direction: column; align-items: stretch; }
+.c-instead_try .card { padding: var(--g4); display: flex; flex-direction: column; gap: var(--g1); }
+.c-instead_try .was .r-label { color: var(--muted); }
+.c-instead_try .wq { position: relative; display: inline-block; align-self: flex-start; }
+.c-instead_try .strike { position: absolute; inset-inline-start: -4%; width: 108%; top: 38%; height: 30%; overflow: visible; }
+.c-instead_try .now { background: var(--fill); color: var(--on-fill); border-color: var(--fill); }
+.c-instead_try .now .r-label { color: var(--on-fill); opacity: 0.85; }
+.c-instead_try .arrow { width: calc(150px * var(--k)); height: calc(150px * var(--k)); align-self: center; margin: calc(var(--g2) * -1) 0; position: relative; z-index: 2; }
+.c-instead_try.l-side .pair { flex-direction: row; align-items: center; gap: var(--g2); }
+.c-instead_try.l-side .card { flex: 1 1 0; min-width: 0; }
+.c-instead_try.l-side .arrow { transform: rotate(-90deg); margin: 0; }

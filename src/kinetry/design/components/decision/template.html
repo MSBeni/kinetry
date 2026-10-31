@@ -1,0 +1,13 @@
+{# Adapted from the HyperFrames registry's flowchart and hw-pipeline (https://github.com/heygen-com/hyperframes, Apache-2.0). #}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  <div class="q box">{{ t('question', tag='h2') }}</div>
+  {% if L == 'tree' %}<div class="links" aria-hidden="true"><i class="stem"></i><i class="bar"></i><i class="drop d-yes"></i><i class="drop d-no"></i></div>{% endif %}
+  <div class="paths">
+    {% for k in ['yes', 'no'] %}<div class="path p-{{ k }} box">
+      <div class="pl">{% if L == 'stacked' %}<svg class="arr" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" /></svg>{% endif %}{{ t(k ~ '.label', cls='lb') }}</div>
+      {{ t(k ~ '.text', cls='pt') }}
+    </div>{% endfor %}
+  </div>
+  {{ t('note', cls='note') }}
+</div>

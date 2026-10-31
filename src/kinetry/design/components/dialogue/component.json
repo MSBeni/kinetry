@@ -1,0 +1,28 @@
+{
+  "id": "dialogue", "name": "Dialogue",
+  "purpose": "Two people talking: each line appears as it's spoken, in that person's voice.",
+  "use_when": ["mentor and mentee", "manager and report", "customer and staff", "modeling how a conversation should sound"],
+  "avoid_when": ["a single narrator explaining (use another scene)"],
+  "tags": ["conversation", "role-play"],
+  "speakers": true,
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "speakers": {"type": "object", "fields": {
+      "a": {"type": "object", "fields": {"name": {"type": "text", "max": 22, "lines": 1, "role": "h3"}, "role": {"type": "text", "max": 22, "lines": 1, "role": "label", "optional": true}}},
+      "b": {"type": "object", "fields": {"name": {"type": "text", "max": 22, "lines": 1, "role": "h3"}, "role": {"type": "text", "max": 22, "lines": 1, "role": "label", "optional": true}}}}},
+    "lines": {"type": "list", "min": 2, "max": 5, "of": {"type": "object", "fields": {
+      "who": {"type": "enum", "values": ["a", "b"]},
+      "text": {"type": "text", "max": 120, "lines": 3, "role": "lead"}}}}
+  },
+  "reveals": ["lines.*"],
+  "layouts": {"chat": {"desc": "Speakers at the top, lines as alternating bubbles"}, "focus": {"desc": "One line at a time, large, under the speaker's name"}},
+  "example": {"eyebrow": "In the conversation", "speakers": {"a": {"name": "Your mentor", "role": "Asks"}, "b": {"name": "You", "role": "Reflects"}},
+              "lines": [{"who": "a", "text": "What's one moment this month when you felt at your best?"},
+                        {"who": "b", "text": "Leading the customer demo. They really listened."},
+                        {"who": "a", "text": "So what skill was behind that?"},
+                        {"who": "b", "text": "Telling a clear story with data."}]},
+  "example_beats": [{"say": "What's one moment this month when you felt at your best?", "show": ["lines.0"], "voice": "a"},
+                    {"say": "Leading the customer demo. They really listened.", "show": ["lines.1"], "voice": "b"},
+                    {"say": "So what skill was behind that?", "show": ["lines.2"], "voice": "a"},
+                    {"say": "Telling a clear story with data.", "show": ["lines.3"], "voice": "b"}]
+}

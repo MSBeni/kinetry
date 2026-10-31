@@ -1,0 +1,7 @@
+{
+  "id": "exit",
+  "name": "Exit",
+  "kind": "exit",
+  "duration": 0.5,
+  "description": "Each scene leaves with its style's own exit move; the next scene builds itself in."
+}

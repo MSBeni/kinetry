@@ -1,0 +1,6 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  <div class="trm">{{ t('term', tag='h2') }}{{ t('kind', cls='kind') }}</div>
+  <div class="rule"></div>
+  <div class="def{% if L == 'card' %} card box{% endif %}">{{ t('definition') }}{{ t('example', cls='ex') }}</div>
+</div>

@@ -1,0 +1,13 @@
+<svg class="art" viewBox="0 0 400 300" aria-hidden="true">
+  <ellipse class="i-s a-pop" cx="200" cy="276" rx="120" ry="10" />
+  <circle class="i-f a-pop" cx="180" cy="148" r="112" />
+  <circle class="i-b a-pop" cx="180" cy="148" r="90" />
+  <g class="ticks"><rect class="i-k a-pop" x="176" y="66" width="8" height="18" rx="3" /><rect class="i-k a-pop" x="176" y="212" width="8" height="18" rx="3" />
+    <rect class="i-k a-pop" x="98" y="144" width="18" height="8" rx="3" /><rect class="i-k a-pop" x="244" y="144" width="18" height="8" rx="3" /></g>
+  <rect class="i-k hand-h a-spin-slow" x="176" y="100" width="8" height="52" rx="4" />
+  <rect class="i-a hand-m a-spin" x="177" y="76" width="6" height="76" rx="3" />
+  <circle class="i-k a-pop" cx="180" cy="148" r="10" />
+  <g class="a-rise"><rect class="i-b frame" x="286" y="168" width="84" height="84" rx="12" /><rect class="i-a" x="286" y="168" width="84" height="24" rx="12" />
+    <rect class="i-s" x="300" y="204" width="16" height="14" rx="3" /><rect class="i-f" x="322" y="204" width="16" height="14" rx="3" /><rect class="i-s" x="344" y="204" width="16" height="14" rx="3" />
+    <rect class="i-s" x="300" y="226" width="16" height="14" rx="3" /><rect class="i-s" x="322" y="226" width="16" height="14" rx="3" /></g>
+</svg>

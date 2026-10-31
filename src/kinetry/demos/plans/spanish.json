@@ -1,0 +1,246 @@
+{
+ "version": 2,
+ "title": "Feedback que ayuda",
+ "chrome_left": "Microlección",
+ "chrome_right": "Aula Norte",
+ "design": {
+  "style": "classic",
+  "format": "16:9",
+  "transition": "fade",
+  "lang": "es",
+  "captions": true,
+  "effects": {
+   "camera": "subtle",
+   "kinetic": "subtle"
+  }
+ },
+ "scenes": [
+  {
+   "type": "title",
+   "layout": "hero",
+   "nav": "Inicio",
+   "data": {
+    "eyebrow": "Microlección",
+    "headline": "Feedback que ayuda",
+    "kicker": "Cómo comentar el trabajo de un compañero para que mejore."
+   },
+   "beats": [
+    {
+     "say": "Bienvenidos. En esta microlección vas a aprender a dar feedback que de verdad ayuda.",
+     "show": [
+      "headline"
+     ]
+    },
+    {
+     "say": "Te servirá para revisar un proyecto, una presentación o el trabajo de un compañero de curso.",
+     "show": [
+      "kicker"
+     ],
+     "voice": "co"
+    }
+   ]
+  },
+  {
+   "type": "instead_try",
+   "layout": "side",
+   "nav": "Sé concreto",
+   "data": {
+    "eyebrow": "Sé concreto",
+    "instead_label": "En vez de",
+    "instead": "¡Buen trabajo!",
+    "try_label": "Prueba",
+    "try": "Tu introducción funciona porque empieza con un ejemplo real."
+   },
+   "beats": [
+    {
+     "say": "Un comentario como «buen trabajo» se agradece, pero no enseña nada.",
+     "show": [
+      "instead",
+      "strike"
+     ]
+    },
+    {
+     "say": "Di qué funcionó y por qué: tu introducción funciona porque empieza con un ejemplo real.",
+     "show": [
+      "try"
+     ],
+     "voice": "co"
+    }
+   ]
+  },
+  {
+   "type": "numbered_steps",
+   "layout": "rows",
+   "nav": "Tres partes",
+   "data": {
+    "eyebrow": "La fórmula",
+    "headline": "Tres partes de un buen comentario",
+    "steps": [
+     {
+      "title": "Lo que viste",
+      "text": "Un momento concreto del trabajo, no un juicio sobre la persona."
+     },
+     {
+      "title": "El efecto",
+      "text": "Qué causó en ti o en el grupo."
+     },
+     {
+      "title": "Un siguiente paso",
+      "text": "Una sola cosa para probar la próxima vez."
+     }
+    ]
+   },
+   "beats": [
+    {
+     "say": "Un buen comentario tiene tres partes.",
+     "show": [
+      "headline"
+     ]
+    },
+    {
+     "say": "Primero, lo que viste: un momento concreto del trabajo, no un juicio sobre la persona.",
+     "show": [
+      "steps.0"
+     ]
+    },
+    {
+     "say": "Después, el efecto: qué causó en ti o en el grupo.",
+     "show": [
+      "steps.1"
+     ],
+     "voice": "co"
+    },
+    {
+     "say": "Y por último, un siguiente paso: una sola cosa para probar la próxima vez.",
+     "show": [
+      "steps.2"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "dialogue",
+   "layout": "focus",
+   "nav": "Ejemplo",
+   "data": {
+    "eyebrow": "Así suena",
+    "speakers": {
+     "a": {
+      "name": "Mateo",
+      "role": "Compañero"
+     },
+     "b": {
+      "name": "Lucía",
+      "role": "Estudiante"
+     }
+    },
+    "lines": [
+     {
+      "who": "a",
+      "text": "Lucía, ¿te puedo comentar algo de tu presentación?"
+     },
+     {
+      "who": "b",
+      "text": "Claro, dime."
+     },
+     {
+      "who": "a",
+      "text": "En la diapositiva tres hablaste muy rápido y perdí las cifras. La próxima vez, haz una pausa después de cada una."
+     },
+     {
+      "who": "b",
+      "text": "Tiene sentido. Lo pruebo mañana en el ensayo."
+     }
+    ]
+   },
+   "beats": [
+    {
+     "say": "Lucía, ¿te puedo comentar algo de tu presentación?",
+     "show": [
+      "lines.0"
+     ],
+     "voice": "a"
+    },
+    {
+     "say": "Claro, dime.",
+     "show": [
+      "lines.1"
+     ],
+     "voice": "b"
+    },
+    {
+     "say": "En la diapositiva tres hablaste muy rápido y perdí las cifras. La próxima vez, haz una pausa después de cada una.",
+     "show": [
+      "lines.2"
+     ],
+     "voice": "a"
+    },
+    {
+     "say": "Tiene sentido. Lo pruebo mañana en el ensayo.",
+     "show": [
+      "lines.3"
+     ],
+     "voice": "b"
+    }
+   ]
+  },
+  {
+   "type": "checklist",
+   "layout": "split",
+   "nav": "Antes de enviar",
+   "data": {
+    "eyebrow": "Revisa",
+    "headline": "Antes de enviar tu comentario",
+    "items": [
+     "¿Es concreto?",
+     "¿Habla del trabajo, no de la persona?",
+     "¿Propone un solo paso?"
+    ]
+   },
+   "beats": [
+    {
+     "say": "Antes de enviar tu comentario, revisa tres cosas.",
+     "show": [
+      "headline"
+     ],
+     "voice": "co"
+    },
+    {
+     "say": "¿Es concreto? ¿Habla del trabajo, y no de la persona? ¿Propone un solo paso?",
+     "show": [
+      "items.0",
+      "items.1",
+      "items.2"
+     ],
+     "voice": "co"
+    }
+   ]
+  },
+  {
+   "type": "closer",
+   "layout": "center",
+   "nav": "Tu turno",
+   "data": {
+    "pre": "Tu turno",
+    "headline": "Comenta un trabajo esta semana",
+    "meta": "Usa las tres partes y publícalo en el foro del curso."
+   },
+   "beats": [
+    {
+     "say": "Ahora te toca a ti: comenta el trabajo de un compañero esta semana.",
+     "show": [
+      "pre",
+      "headline"
+     ]
+    },
+    {
+     "say": "Usa las tres partes, y publícalo en el foro del curso.",
+     "show": [
+      "meta"
+     ],
+     "voice": "co"
+    }
+   ]
+  }
+ ]
+}

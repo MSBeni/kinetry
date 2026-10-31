@@ -1,0 +1,9 @@
+/* bold: poster type, full-bleed brand color, blocks */
+.st-bold .ground::after { content: ""; position: absolute; left: 0; bottom: 0; width: calc(26px * var(--k)); height: 38%; background: var(--fill); }
+.st-bold .inv .ground::after { background: var(--on-fill); opacity: 0.18; width: 38%; height: calc(26px * var(--k)); }
+.st-bold .card { background: var(--soft); }
+.st-bold .r-eyebrow { background: var(--fill); color: var(--on-fill); padding: 0.25em 0.6em; display: inline-block; letter-spacing: 0.08em; }
+.st-bold .inv .r-eyebrow { background: var(--ink); color: var(--bg); }
+.st-bold .rule { height: calc(14px * var(--k)); width: calc(240px * var(--k)); border-radius: 0; }
+.st-bold .badge { border-radius: 0; }
+.st-bold .chrome .count { font-family: var(--f-display); font-weight: 800; font-size: calc(40px * var(--k)); color: var(--ink); letter-spacing: -0.02em; }

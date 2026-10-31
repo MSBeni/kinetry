@@ -1,0 +1,86 @@
+{
+  "url": "https://fernhill.example/",
+  "site_name": "Fernhill Academy",
+  "title": "Fernhill Academy",
+  "theme_color": "#0f766e",
+  "css_variables": {
+    "--brand": "#0f766e",
+    "--brand-dark": "#115e59",
+    "--spark": "#f97316",
+    "--ink": "#0b1f1d",
+    "--paper": "#f7faf9",
+    "--wp--preset--color--vivid-purple": "#9b51e0",
+    "--swiper-theme-color": "#007aff"
+  },
+  "text_colors": [
+    [
+      "#0b1f1d",
+      6200
+    ],
+    [
+      "#ffffff",
+      900
+    ],
+    [
+      "#0f766e",
+      300
+    ]
+  ],
+  "background_colors": [
+    [
+      "#f7faf9",
+      4000
+    ],
+    [
+      "#0f766e",
+      600
+    ],
+    [
+      "#f97316",
+      40
+    ]
+  ],
+  "border_colors": [
+    [
+      "#d6e4e0",
+      8
+    ]
+  ],
+  "fonts": [
+    [
+      "DM Sans",
+      7000
+    ]
+  ],
+  "heading_fonts": [
+    [
+      "Lora",
+      900
+    ]
+  ],
+  "loaded_fonts": [
+    "DM Sans",
+    "Lora"
+  ],
+  "roles": {
+    "buttons": [
+      {
+        "text": "Book a demo",
+        "color": "#ffffff",
+        "font": "DM Sans",
+        "radius": "10px",
+        "gradient": "linear-gradient(90deg, rgb(15, 118, 110), rgb(249, 115, 22))"
+      }
+    ]
+  },
+  "logos": [
+    {
+      "score": 13,
+      "tag": "svg",
+      "width": 120,
+      "height": 32,
+      "background": "#ffffff",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"120\" height=\"32\" viewBox=\"0 0 120 32\"><circle cx=\"16\" cy=\"16\" r=\"14\" fill=\"#0f766e\"/><path d=\"M10 20 L16 8 L22 20 Z\" fill=\"#f97316\"/><text x=\"36\" y=\"22\" font-family=\"sans-serif\" font-size=\"16\" fill=\"#0b1f1d\">Fernhill</text></svg>"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "ruff>=0.6"
+      - run: ruff check src tests
+      - run: ruff format --check src tests
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - run: pytest -p no:warnings
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build && python -m build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  # The service image, built and used the way a deployment would: start it, render a video through the API.
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: kinetry:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - run: docker image inspect kinetry:ci --format 'image size {{.Size}} bytes'
+      - run: python3 docker/smoke.py --image kinetry:ci --out smoke-out
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-smoke
+          path: smoke-out/
+          if-no-files-found: ignore
+
+  # Single required status check for branch protection.
+  ci-ok:
+    if: always()
+    needs: [lint, test, build, docker]
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          [ "${{ needs.lint.result }}" = success ] && [ "${{ needs.test.result }}" = success ] && [ "${{ needs.build.result }}" = success ] && [ "${{ needs.docker.result }}" = success ]

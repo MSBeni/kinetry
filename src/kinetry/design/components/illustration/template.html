@@ -1,0 +1,8 @@
+<div class="cx">
+  <div class="ill">{% if has('animation') %}<div class="lot" data-lottie="{{ lottie('animation') }}"></div>{% else %}{% include 'illustration/art/' ~ (get('art') or 'idea') ~ '.svg' %}{% endif %}</div>
+  <div class="txt">
+    {{ t('eyebrow', tag='span', cls='eyebrow') }}
+    {{ t('headline', tag='h2') }}
+    {{ t('body', cls='body') }}
+  </div>
+</div>

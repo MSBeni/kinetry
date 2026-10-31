@@ -1,0 +1,22 @@
+{
+  "id": "journey", "name": "Journey",
+  "purpose": "Where this sits in a longer path: a row of numbered stages with 'you are here'.",
+  "use_when": ["session N of a series", "a program's stages, with the current one marked"],
+  "avoid_when": ["steps the viewer will do now (use numbered_steps)"],
+  "tags": ["progress", "series"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 40, "lines": 2, "role": "h2"},
+    "question": {"type": "text", "max": 100, "lines": 2, "role": "lead", "optional": true},
+    "steps": {"type": "list", "min": 3, "max": 8, "of": {"type": "text", "max": 26, "lines": 2, "role": "body"}},
+    "current": {"type": "int", "min": 0, "max": 7, "optional": true, "desc": "0-based index of the current stage"},
+    "here_label": {"type": "text", "max": 20, "lines": 1, "role": "label", "optional": true, "desc": "Defaults to 'You are here'"}
+  },
+  "reveals": ["headline", "question", "steps", {"key": "progress", "requires": "steps"}],
+  "layouts": {"track": {"formats": ["16:9", "1:1"], "desc": "Horizontal track of stages"}, "ladder": {"desc": "Vertical list of stages"}},
+  "example": {"eyebrow": "Mentor+ program", "headline": "Where you are", "question": "Six sessions, one question: where do you grow next?",
+              "steps": ["Kick-off", "Map your next move", "Advocate for yourself", "Build allies", "Practice", "Celebrate"], "current": 1},
+  "example_beats": [{"say": "This program has six sessions.", "show": ["headline", "steps"]},
+                    {"say": "You're on session two, and every session builds on the last.", "show": ["question", "progress"]}],
+  "checks": [{"index": "current", "of": "steps"}]
+}

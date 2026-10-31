@@ -1,0 +1,9 @@
+<div class="cx row stackable">
+  <div class="hd">
+    {{ t('eyebrow', tag='span', cls='eyebrow') }}
+    {{ t('headline', tag='h2') }}
+  </div>
+  <div class="list">
+    {% for x in get('items') %}<div class="ck ck-{{ loop.index0 }}"><div class="cb"><svg class="draw" viewBox="0 0 76 76"><path d="M18 40 L32 54 L60 22" stroke="var(--fill)" stroke-width="9"/></svg></div>{{ t('items.' ~ loop.index0) }}</div>{% endfor %}
+  </div>
+</div>

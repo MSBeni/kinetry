@@ -1,0 +1,19 @@
+{
+  "name": "Aula Norte",
+  "background": "#f3f7f5",
+  "surface": "#ffffff",
+  "ink": "#14231f",
+  "muted": "#4f5d59",
+  "line": "#dce6e2",
+  "accent": "#0f766e",
+  "accent2": "#f59e0b",
+  "display_font": "Plus Jakarta Sans",
+  "body_font": "Inter",
+  "display_weight": 700,
+  "gradient": [],
+  "radius": 20,
+  "tone": "friendly",
+  "rationale": "a made-up brand, bundled for the demo",
+  "accent_ink": "#ffffff",
+  "accent_fill": ""
+}

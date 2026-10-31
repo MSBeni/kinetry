@@ -1,0 +1,46 @@
+{
+  "id": "technical",
+  "name": "Technical",
+  "description": "Dark console: grid ground, monospace labels, one signal color, wipes and hard cuts.",
+  "best_for": [
+    "security and compliance",
+    "software how-tos",
+    "data and engineering"
+  ],
+  "energy": "crisp",
+  "ground": "dark",
+  "type": {
+    "display": 138,
+    "h2": 96,
+    "h3": 48,
+    "lead": 38,
+    "body": 32,
+    "item": 44,
+    "label": 22,
+    "eyebrow": 22,
+    "small": 24,
+    "stat": 260,
+    "quote": 80,
+    "caption": 40
+  },
+  "fonts": {
+    "head": "display",
+    "label": "accent",
+    "quote": "display",
+    "num": "accent"
+  },
+  "accent_font": {
+    "family": "JetBrains Mono",
+    "kind": "sans"
+  },
+  "radius": 14,
+  "shadow": "none",
+  "border": 2,
+  "tracking": "-0.025em",
+  "motion": "technical",
+  "transition": "scan",
+  "chrome": "status",
+  "ambient": "grid",
+  "captions": "box",
+  "inverse_scenes": []
+}

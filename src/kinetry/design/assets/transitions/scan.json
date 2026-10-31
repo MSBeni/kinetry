@@ -1,0 +1,7 @@
+{
+  "id": "scan",
+  "name": "Scan line",
+  "kind": "overlay",
+  "duration": 0.45,
+  "description": "A glowing line sweeps down the frame on a hard cut."
+}

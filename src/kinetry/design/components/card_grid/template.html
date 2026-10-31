@@ -1,0 +1,10 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  {{ t('sub', cls='sub') }}
+  <div class="grid" style="--n: {{ get('cards')|length }}">
+    {% for x in get('cards') %}<div class="card gcard box gc-{{ loop.index0 }}"><div class="bar"></div>{{ t('cards.' ~ loop.index0 ~ '.label') }}{{ t('cards.' ~ loop.index0 ~ '.text', cls='gtxt') }}</div>{% endfor %}
+  </div>
+  {% if has('strip_label') %}<div class="strip box"><div class="sl"><span class="sdot"></span>{{ t('strip_label', tag='span') }}</div>
+    {% for x in get('strip_items') or [] %}<div class="sitem si-{{ loop.index0 }}"><span class="arr">→</span>{{ t('strip_items.' ~ loop.index0, tag='span') }}</div>{% endfor %}</div>{% endif %}
+</div>

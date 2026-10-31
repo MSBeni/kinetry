@@ -1,0 +1,22 @@
+.c-dialogue .who-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--g3); padding: calc(12px * var(--k)); }
+.c-dialogue .who { display: flex; align-items: center; gap: var(--g2); min-width: 0; }
+.c-dialogue .who-b { flex-direction: row-reverse; text-align: end; }
+.c-dialogue .av { position: relative; width: calc(96px * var(--k)); height: calc(96px * var(--k)); border-radius: 50%; display: grid; place-items: center; flex: none;
+  font-family: var(--f-head); font-weight: 800; font-size: calc(42px * var(--k)); }
+.c-dialogue .who-a .av { background: var(--fill); color: var(--on-fill); }
+.c-dialogue .who-b .av { background: var(--fill2); color: var(--bg); }
+.c-dialogue .ring { position: absolute; inset: calc(-12px * var(--k)); border-radius: 50%; border: 4px solid var(--fill); opacity: 0; }
+.c-dialogue .who-b .ring { border-color: var(--fill2); }
+.c-dialogue .wn .r-label { color: var(--muted); }
+.c-dialogue .chat { display: flex; flex-direction: column; gap: var(--g2); }
+.c-dialogue .bub { width: fit-content; max-width: 70%; padding: var(--g2) var(--g3); border-radius: calc(26px * var(--k)); }
+.c-dialogue .bub .r-lead { color: inherit; }
+.c-dialogue .b-a { align-self: flex-start; background: var(--surface); border: var(--bw) solid var(--line); border-top-left-radius: 6px; color: var(--ink); }
+.c-dialogue .b-b { align-self: flex-end; background: var(--ink); color: var(--bg); border-top-right-radius: 6px; }
+.fmt-9x16 .c-dialogue .bub { max-width: 88%; }
+.c-dialogue.l-focus .chat { display: grid; }
+.c-dialogue.l-focus .bub { grid-area: 1 / 1; max-width: 100%; width: 100%; background: none; border: 0; padding: 0; color: var(--ink); align-self: start; }
+.c-dialogue.l-focus .bub .r-lead { font-family: var(--f-quote); font-size: calc(var(--fs-quote) * 0.8 * var(--fit, 1)); line-height: 1.15; }
+.c-dialogue.l-focus .b-b { text-align: end; }
+.c-dialogue.l-focus .bwho { color: var(--accent); margin-bottom: var(--g1); }
+.c-dialogue.l-focus .who-row { margin-bottom: var(--g4); }

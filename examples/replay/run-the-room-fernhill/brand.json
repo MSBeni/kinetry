@@ -1,0 +1,17 @@
+{
+  "name": "Fernhill Academy",
+  "background": "#f7faf9",
+  "surface": "#ffffff",
+  "ink": "#0b1f1d",
+  "muted": "#4b635e",
+  "line": "#d6e4e0",
+  "accent": "#0f766e",
+  "accent2": "#f97316",
+  "display_font": "Lora",
+  "body_font": "DM Sans",
+  "display_weight": 400,
+  "gradient": [],
+  "radius": 14,
+  "tone": "warm",
+  "rationale": "--brand #0f766e is the theme color and drives links, buttons and nav; --spark #f97316 is the badge color, a distinct warm hue for decoration. Ink #0b1f1d and paper #f7faf9 come from the body styles. Headings use Lora and body uses DM Sans (both on Fontsource). Cards use a 14px radius."
+}

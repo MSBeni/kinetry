@@ -1,0 +1,12 @@
+<svg class="art" viewBox="0 0 400 300" aria-hidden="true">
+  <ellipse class="i-s a-pop" cx="200" cy="272" rx="120" ry="12" />
+  <g class="a-float">
+    <path class="i-f a-pop" d="M200 24 L290 58 V136 C290 196 250 236 200 256 C150 236 110 196 110 136 V58 Z" />
+    <path class="i-b a-pop" d="M200 50 L266 74 V136 C266 182 238 212 200 228 Z" opacity="0.25" />
+    <rect class="i-b a-rise" x="168" y="122" width="64" height="56" rx="10" />
+    <path class="i-ln on-b a-draw" d="M180 122 v-14 a20 20 0 0 1 40 0 v14" />
+    <path class="i-ln accent thick a-draw" d="M184 150 l12 12 l22 -24" />
+  </g>
+  <circle class="i-a a-pop" cx="84" cy="80" r="10" /><circle class="i-a a-pop" cx="320" cy="200" r="8" />
+  <path class="i-a a-pop a-spin" d="M326 70 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z" />
+</svg>

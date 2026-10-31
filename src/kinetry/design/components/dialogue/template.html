@@ -1,0 +1,11 @@
+{% set sp = get('speakers') or {} %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  <div class="who-row">
+    {% for k in ['a', 'b'] %}<div class="who who-{{ k }}">{% set nm = ((sp.get(k) or {}).get('name') or k).split() %}{% set nm = nm[1:] if nm|length > 1 and nm[0]|lower in ['your', 'the', 'a', 'an', 'our'] else nm %}<div class="av">{{ (nm[0] if nm else k)[:1]|upper }}<i class="ring"></i></div>
+      <div class="wn">{{ t('speakers.' ~ k ~ '.name') }}{{ t('speakers.' ~ k ~ '.role') }}</div></div>{% endfor %}
+  </div>
+  <div class="chat">
+    {% for ln in get('lines') %}<div class="bub box b-{{ ln['who'] }} ln-{{ loop.index0 }}">{% if L == 'focus' %}<div class="bwho tx r-label">{{ (sp.get(ln['who']) or {}).get('name') or '' }}</div>{% endif %}{{ t('lines.' ~ loop.index0 ~ '.text') }}</div>{% endfor %}
+  </div>
+</div>

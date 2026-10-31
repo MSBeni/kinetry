@@ -1,0 +1,10 @@
+<svg class="art" viewBox="0 0 400 300" aria-hidden="true">
+  <ellipse class="i-s a-pop" cx="190" cy="276" rx="130" ry="10" />
+  <circle class="i-f a-pop" cx="180" cy="150" r="112" />
+  <circle class="i-b a-pop" cx="180" cy="150" r="84" />
+  <circle class="i-f a-pop" cx="180" cy="150" r="56" />
+  <circle class="i-b a-pop" cx="180" cy="150" r="30" />
+  <circle class="i-a a-pop" cx="180" cy="150" r="14" />
+  <g class="a-fly"><path class="i-ln thick a-keep" d="M182 148 L350 40" /><path class="i-a" d="M330 30 l34 -6 l-6 34 l-8 -14 z" /><path class="i-ln accent thick" d="M346 32 l24 -24" /></g>
+  <g class="a-swing pivot-b"><path class="i-ln" d="M330 270 v-90" /><path class="i-a" d="M330 180 h46 l-12 16 l12 16 h-46 z" /></g>
+</svg>

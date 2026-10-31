@@ -1,0 +1,43 @@
+{
+  "id": "minimal",
+  "name": "Minimal",
+  "description": "White space and restraint: lighter type, no decoration, slow fades.",
+  "best_for": [
+    "healthcare and wellbeing",
+    "policy and HR",
+    "premium brands"
+  ],
+  "energy": "calm",
+  "ground": "white",
+  "type": {
+    "display": 128,
+    "h2": 84,
+    "h3": 46,
+    "lead": 38,
+    "body": 32,
+    "item": 38,
+    "label": 20,
+    "eyebrow": 22,
+    "small": 22,
+    "stat": 240,
+    "quote": 80,
+    "caption": 40
+  },
+  "fonts": {
+    "head": "display",
+    "label": "body",
+    "quote": "display",
+    "num": "display"
+  },
+  "accent_font": null,
+  "radius": "brand",
+  "shadow": "none",
+  "border": 1,
+  "tracking": "-0.02em",
+  "display_weight": 500,
+  "motion": "minimal",
+  "transition": "fade",
+  "chrome": "line",
+  "captions": "plain",
+  "inverse_scenes": []
+}

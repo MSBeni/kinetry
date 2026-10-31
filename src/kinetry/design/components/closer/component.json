@@ -1,0 +1,18 @@
+{
+  "id": "closer", "name": "Closer",
+  "purpose": "Ends the video on one clear call to action.",
+  "use_when": ["the last scene"],
+  "avoid_when": ["anything that isn't the ending"],
+  "tags": ["ending", "action"],
+  "fields": {
+    "pre": {"type": "text", "max": 40, "role": "eyebrow", "optional": true, "desc": "Small lead-in, e.g. 'Your next step'"},
+    "headline": {"type": "text", "max": 56, "lines": 3, "role": "display", "desc": "The single action"},
+    "meta": {"type": "text", "max": 80, "lines": 2, "role": "lead", "optional": true, "desc": "When, where, or what comes next"},
+    "icon": {"type": "icon", "optional": true}
+  },
+  "reveals": ["pre", "headline", "meta", "icon"],
+  "layouts": {"center": {"desc": "Centered with an underline"}, "left": {"desc": "Left-aligned, editorial"}},
+  "example": {"pre": "Your next step", "headline": "Try it on your next shift", "meta": "We're so glad you're here.", "icon": "heart"},
+  "example_beats": [{"say": "Try it on your next shift.", "show": ["headline"]}, {"say": "We're so glad you're here.", "show": ["meta", "icon"]}],
+  "focus": {"key": "headline", "sel": "h2"}
+}

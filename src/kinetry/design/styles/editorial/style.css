@@ -1,0 +1,5 @@
+/* editorial: hairlines, serif accents, no shadows */
+.st-editorial .r-eyebrow::before { content: ""; display: inline-block; width: 1.8em; height: 2px; background: currentColor; vertical-align: 0.3em; margin-inline-end: 0.7em; }
+.st-editorial .card { box-shadow: none; }
+.st-editorial .badge { background: transparent; color: var(--accent); border: 2px solid var(--accent); font-family: var(--f-accent); font-style: italic; font-weight: 500; }
+.st-editorial .r-stat { font-weight: 400; font-style: italic; letter-spacing: -0.05em; }

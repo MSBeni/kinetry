@@ -1,0 +1,17 @@
+.c-bar_chart .chart { display: flex; align-items: flex-end; gap: var(--g3); height: calc(400px * var(--k)); margin-top: var(--g4); }
+.fmt-9x16 .c-bar_chart .chart { height: calc(620px * var(--k)); }
+.c-bar_chart .bc { flex: 1 1 0; min-width: 0; height: 100%; display: flex; flex-direction: column; align-items: stretch; gap: var(--g1); }
+.c-bar_chart .btrack { flex: 1; position: relative; }
+.c-bar_chart .bar { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--v) * 100%); background: color-mix(in srgb, var(--fill) 45%, var(--surface));
+  border-radius: var(--r-sm) var(--r-sm) 0 0; transform-origin: bottom; }
+.c-bar_chart .hi .bar { background: var(--fill); }
+.c-bar_chart .bv { font-family: var(--f-num); font-weight: 800; font-size: calc(48px * var(--k)); text-align: center; font-variant-numeric: tabular-nums; }
+.c-bar_chart .hi .bv { color: var(--accent); }
+.c-bar_chart .bl { text-align: center; border-top: var(--bw) solid var(--ink); padding-top: var(--g1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-bar_chart .note { margin-top: var(--g2); }
+.c-bar_chart.l-rows .chart { flex-direction: column; align-items: stretch; height: auto; gap: var(--g2); }
+.c-bar_chart.l-rows .bc { flex-direction: row-reverse; align-items: center; height: calc(64px * var(--k)); gap: var(--g2); }
+.c-bar_chart.l-rows .bl { flex: 0 0 28%; text-align: start; border: 0; padding: 0; }
+.c-bar_chart.l-rows .btrack { height: 100%; }
+.c-bar_chart.l-rows .bar { top: 0; bottom: 0; height: auto; width: calc(var(--v) * 100%); inset-inline-end: auto; border-start-start-radius: 0; border-end-start-radius: 0; border-start-end-radius: var(--r-sm); border-end-end-radius: var(--r-sm); transform-origin: left; }
+.c-bar_chart.l-rows .bv { flex: 0 0 auto; min-width: 3.2em; text-align: end; }

@@ -1,0 +1,558 @@
+{
+  "version": 2,
+  "title": "Kinetry: every kind of scene",
+  "chrome_left": "Kinetry",
+  "chrome_right": "Capability reel",
+  "design": {
+    "style": "editorial",
+    "format": "16:9",
+    "captions": true,
+    "transition": "push",
+    "effects": {
+      "level": "rich"
+    },
+    "pacing": "normal"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Intro",
+      "data": {
+        "eyebrow": "Kinetry",
+        "headline": "One lesson in. A finished video out.",
+        "kicker": "Every scene you're about to see was picked, written and animated by the engine.",
+        "chips": [
+          "23 scene types",
+          "7 styles",
+          "3 formats"
+        ],
+        "icon": "clapperboard"
+      },
+      "beats": [
+        {
+          "say": "One lesson in. A finished video out.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "Every scene you're about to see was picked, written and animated by the engine.",
+          "show": [
+            "kicker"
+          ]
+        },
+        {
+          "say": "Twenty-three scene types, seven styles, three formats.",
+          "show": [
+            "chips.0",
+            "chips.1",
+            "chips.2",
+            "icon"
+          ]
+        }
+      ],
+      "layout": "hero"
+    },
+    {
+      "type": "statement",
+      "nav": "Idea",
+      "data": {
+        "lead": "The idea",
+        "text": "Your content decides the shape of every scene.",
+        "emphasis": "shape of every scene"
+      },
+      "beats": [
+        {
+          "say": "Here's the idea.",
+          "show": [
+            "lead"
+          ]
+        },
+        {
+          "say": "Your content decides the shape of every scene.",
+          "show": [
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "annotated_mock",
+      "nav": "Source",
+      "data": {
+        "eyebrow": "It starts from your content",
+        "kind": "document",
+        "title": "Week 1: Run your first team meeting",
+        "body": "Open by saying why you called the meeting. Ask each person what they're working on and where they're stuck. End a few minutes early.",
+        "callouts": [
+          {
+            "target": "title",
+            "title": "The topic",
+            "text": "Becomes the title and the chapter labels."
+          },
+          {
+            "target": "body",
+            "title": "The substance",
+            "text": "Becomes narration, lists and on-screen text."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "It starts from content you already have, like a lesson page.",
+          "show": [
+            "mock"
+          ]
+        },
+        {
+          "say": "The topic becomes the title.",
+          "show": [
+            "callouts.0"
+          ]
+        },
+        {
+          "say": "The substance becomes narration and on-screen text.",
+          "show": [
+            "callouts.1"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "agenda_timeline",
+      "nav": "Pipeline",
+      "data": {
+        "eyebrow": "How a video gets made",
+        "headline": "Five steps, one command",
+        "stops": [
+          {
+            "title": "Brand"
+          },
+          {
+            "title": "Look"
+          },
+          {
+            "title": "Script"
+          },
+          {
+            "title": "Voice"
+          },
+          {
+            "title": "Render"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Five steps get you from page to video, in one command.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "Capture the brand,",
+          "show": [
+            "stops.0"
+          ]
+        },
+        {
+          "say": "choose the look,",
+          "show": [
+            "stops.1"
+          ]
+        },
+        {
+          "say": "write the script,",
+          "show": [
+            "stops.2"
+          ]
+        },
+        {
+          "say": "voice it,",
+          "show": [
+            "stops.3"
+          ]
+        },
+        {
+          "say": "and render.",
+          "show": [
+            "stops.4"
+          ]
+        }
+      ],
+      "layout": "horizontal"
+    },
+    {
+      "type": "dialogue",
+      "nav": "Dialogue",
+      "data": {
+        "eyebrow": "Two voices",
+        "speakers": {
+          "a": {
+            "name": "Maya",
+            "role": "Coach"
+          },
+          "b": {
+            "name": "Leo",
+            "role": "New manager"
+          }
+        },
+        "lines": [
+          {
+            "who": "a",
+            "text": "How did your first team meeting go?"
+          },
+          {
+            "who": "b",
+            "text": "I talked for twenty minutes straight."
+          },
+          {
+            "who": "a",
+            "text": "Next time, ask each person one question first."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "How did your first team meeting go?",
+          "show": [
+            "lines.0"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "I talked for twenty minutes straight.",
+          "show": [
+            "lines.1"
+          ],
+          "voice": "b"
+        },
+        {
+          "say": "Next time, ask each person one question first.",
+          "show": [
+            "lines.2"
+          ],
+          "voice": "a"
+        }
+      ]
+    },
+    {
+      "type": "big_stat",
+      "nav": "Range",
+      "data": {
+        "eyebrow": "Range",
+        "value": "861",
+        "label": "ways a single scene can look",
+        "sub": "Scene types times layouts, styles and formats, before your brand colors."
+      },
+      "beats": [
+        {
+          "say": "All told, there are eight hundred sixty-one ways a single scene can look,",
+          "show": [
+            "value",
+            "label"
+          ]
+        },
+        {
+          "say": "before your brand colors are even applied.",
+          "show": [
+            "sub"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "icon_grid",
+      "nav": "Yours",
+      "data": {
+        "eyebrow": "Bring your own",
+        "headline": "Your model, voice and brand",
+        "items": [
+          {
+            "icon": "brain",
+            "label": "Any LLM"
+          },
+          {
+            "icon": "mic",
+            "label": "Any voice"
+          },
+          {
+            "icon": "palette",
+            "label": "Your brand"
+          },
+          {
+            "icon": "music",
+            "label": "Your music"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Bring your own model,",
+          "show": [
+            "headline",
+            "items.0"
+          ]
+        },
+        {
+          "say": "your own voice,",
+          "show": [
+            "items.1"
+          ]
+        },
+        {
+          "say": "your brand,",
+          "show": [
+            "items.2"
+          ]
+        },
+        {
+          "say": "and your music.",
+          "show": [
+            "items.3"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "comparison",
+      "nav": "Motion",
+      "data": {
+        "eyebrow": "Motion layers",
+        "headline": "Plain, or with motion?",
+        "columns": [
+          {
+            "title": "Plain",
+            "points": [
+              "Calm, focused reveals",
+              "Fastest to render",
+              "Smallest files"
+            ]
+          },
+          {
+            "title": "Rich motion",
+            "points": [
+              "Camera moves and punch-ins",
+              "Kinetic type",
+              "Ambient light"
+            ],
+            "pick": true
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Every video can stay plain and calm,",
+          "show": [
+            "headline",
+            "columns.0"
+          ]
+        },
+        {
+          "say": "or add camera moves, kinetic type and ambient light, like this one.",
+          "show": [
+            "columns.1"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "bar_chart",
+      "nav": "Cost",
+      "data": {
+        "eyebrow": "Honest numbers",
+        "headline": "Seconds to render a 43-second clip",
+        "unit": "s",
+        "bars": [
+          {
+            "label": "Plain",
+            "value": 91
+          },
+          {
+            "label": "Subtle motion",
+            "value": 151
+          },
+          {
+            "label": "Rich motion",
+            "value": 231
+          }
+        ],
+        "highlight": 0,
+        "note": "Measured on two CPUs. Motion costs time and file size."
+      },
+      "beats": [
+        {
+          "say": "Motion isn't free.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "On two CPUs, a plain clip renders in ninety-one seconds, rich motion in about four minutes.",
+          "show": [
+            "bars"
+          ]
+        },
+        {
+          "say": "So it stays optional.",
+          "show": [
+            "note"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "do_dont",
+      "nav": "Content",
+      "data": {
+        "headline": "What makes good source content",
+        "do": [
+          "One clear topic per video",
+          "Real facts and numbers"
+        ],
+        "dont": [
+          "Five topics at once",
+          "Numbers you can't source"
+        ]
+      },
+      "beats": [
+        {
+          "say": "Good source content has one clear topic and real facts.",
+          "show": [
+            "headline",
+            "do"
+          ]
+        },
+        {
+          "say": "The engine won't invent numbers you can't source.",
+          "show": [
+            "dont"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "steps_path",
+      "nav": "Use it",
+      "data": {
+        "headline": "Three ways in",
+        "steps": [
+          {
+            "title": "Command line",
+            "text": "kinetry run lesson.md"
+          },
+          {
+            "title": "HTTP service",
+            "text": "For any app or LMS."
+          },
+          {
+            "title": "Agents",
+            "text": "MCP and LangChain tools."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Use it from the command line,",
+          "show": [
+            "headline",
+            "steps.0"
+          ]
+        },
+        {
+          "say": "as an HTTP service for any app,",
+          "show": [
+            "steps.1"
+          ]
+        },
+        {
+          "say": "or let an agent call it.",
+          "show": [
+            "steps.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "definition",
+      "nav": "Profiles",
+      "data": {
+        "eyebrow": "Stay on brand",
+        "term": "Brand profile",
+        "kind": "noun",
+        "definition": "A company's standing choices: allowed styles, a pinned format, voices, music and scene types to avoid.",
+        "example": "Every video for that brand follows it automatically."
+      },
+      "beats": [
+        {
+          "say": "A brand profile keeps every video consistent:",
+          "show": [
+            "term"
+          ]
+        },
+        {
+          "say": "allowed styles, a pinned format, voices, music, and scene types to avoid.",
+          "show": [
+            "definition"
+          ]
+        },
+        {
+          "say": "Every video follows it automatically.",
+          "show": [
+            "example"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "pull_quote",
+      "nav": "Principle",
+      "data": {
+        "lead": "The principle",
+        "quote": "The model decides what to say. Code decides how it looks and moves.",
+        "highlight": "Code decides how it looks"
+      },
+      "beats": [
+        {
+          "say": "The model decides what to say.",
+          "show": [
+            "lead",
+            "quote"
+          ]
+        },
+        {
+          "say": "Code decides how it looks and moves, so every render is the same.",
+          "show": [
+            "highlight"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Try it",
+      "data": {
+        "pre": "Your turn",
+        "headline": "Turn your next lesson into a video",
+        "meta": "Same plan, any style: this reel also exists in 9:16.",
+        "icon": "play"
+      },
+      "beats": [
+        {
+          "say": "Your turn. Turn your next lesson into a video.",
+          "show": [
+            "pre",
+            "headline"
+          ]
+        },
+        {
+          "say": "And yes, this exact reel also exists as a vertical cut.",
+          "show": [
+            "meta",
+            "icon"
+          ]
+        }
+      ]
+    }
+  ]
+}

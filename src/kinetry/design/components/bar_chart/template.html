@@ -1,0 +1,16 @@
+{% set bars = get('bars') %}
+{% set mx = (bars|map(attribute='value')|max) or 1 %}
+{% set hi = get('highlight') %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="chart" style="--n: {{ bars|length }}">
+    {% for b in bars %}<div class="bc bc-{{ loop.index0 }}{% if hi is not none and loop.index0 == hi %} hi{% endif %}" style="--v: {{ (b['value'] / mx)|round(4) }}">
+      {%- set u = get('unit') or '' %}{% set pre = u.strip() in ['$', '€', '£', '¥', '₹', 'US$', 'C$', 'A$'] %}
+      <div class="bv">{{ u.strip() if pre else '' }}<span class="cnum">{{ b['value']|round(1)|string|replace('.0', '') }}</span>{{ '' if pre else u }}</div>
+      <div class="btrack"><i class="bar"></i></div>
+      {{ t('bars.' ~ loop.index0 ~ '.label', cls='bl') }}
+    </div>{% endfor %}
+  </div>
+  {{ t('note', cls='note') }}
+</div>

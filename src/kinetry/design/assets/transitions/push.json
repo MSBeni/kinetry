@@ -1,0 +1,7 @@
+{
+  "id": "push",
+  "name": "Push",
+  "kind": "overlap",
+  "duration": 0.6,
+  "description": "The next scene pushes the last one off to the left."
+}

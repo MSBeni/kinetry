@@ -1,0 +1,19 @@
+.c-big_stat .cx { align-items: center; gap: var(--g5); }
+.c-big_stat .fig { position: relative; flex: none; display: grid; place-items: center; }
+.c-big_stat .txt { flex: 1 1 0; min-width: 0; }
+.c-big_stat .sub { margin-top: var(--g3); }
+.c-big_stat .val { color: var(--ink); }
+.c-big_stat.l-ring .fig { width: calc(640px * var(--k)); height: calc(640px * var(--k)); }
+.c-big_stat.l-ring .val { font-size: calc(var(--fs-stat) * 0.8 * var(--fit, 1)); }
+.c-big_stat .ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.c-big_stat .ring circle { fill: none; stroke-width: 9; }
+.c-big_stat .ring .rb { stroke: var(--line); }
+.c-big_stat .ring .rf { stroke: var(--fill); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
+.c-big_stat.l-giant .cx { flex-direction: column; align-items: flex-start; gap: var(--g4); }
+.c-big_stat.l-giant .val { line-height: 1.02; }
+.c-big_stat.l-giant .val { color: var(--accent); font-size: calc(var(--fs-stat) * 1.35 * var(--fit, 1)); }
+.fmt-9x16 .c-big_stat .cx { align-items: flex-start; }
+.fmt-1x1 .c-big_stat.l-ring .fig { width: calc(420px * var(--k)); height: calc(420px * var(--k)); }
+.fmt-1x1 .c-big_stat .cx { gap: var(--g4); }
+/* CJK fonts draw digits in a box about 1.45em tall, so the giant number keeps clear of the label below it */
+html:lang(zh) .c-big_stat.l-giant .val, html:lang(ja) .c-big_stat.l-giant .val, html:lang(ko) .c-big_stat.l-giant .val { margin-bottom: 0.24em; }

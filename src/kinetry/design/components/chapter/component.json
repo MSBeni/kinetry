@@ -1,0 +1,17 @@
+{
+  "id": "chapter", "name": "Chapter",
+  "purpose": "A section break in a longer video: a big number and the next section's title.",
+  "use_when": ["videos with 2+ distinct parts, e.g. a course summary moving to the next module"],
+  "avoid_when": ["short single-topic videos"],
+  "tags": ["structure"],
+  "fields": {
+    "number": {"type": "text", "max": 8, "role": "stat", "optional": true, "desc": "e.g. '02' or 'Part 2'"},
+    "title": {"type": "text", "max": 56, "lines": 2, "role": "display"},
+    "sub": {"type": "text", "max": 90, "lines": 2, "role": "lead", "optional": true}
+  },
+  "reveals": ["number", "title", "sub"],
+  "layouts": {"number": {"desc": "Oversized number with the title beside or under it"}, "band": {"desc": "Title on a full-width band"}},
+  "example": {"number": "02", "title": "Look ahead", "sub": "Name the skill you want to grow next."},
+  "example_beats": [{"say": "Part two: look ahead.", "show": ["number", "title"]}, {"say": "Name the skill you want to grow next.", "show": ["sub"]}],
+  "focus": {"key": "title", "sel": "h2"}
+}

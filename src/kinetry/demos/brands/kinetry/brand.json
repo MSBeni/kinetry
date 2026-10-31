@@ -1,0 +1,19 @@
+{
+  "name": "Kinetry",
+  "background": "#edeff5",
+  "surface": "#ffffff",
+  "ink": "#1b1e3f",
+  "muted": "#4a4f78",
+  "line": "#d5d9e8",
+  "accent": "#2e5bff",
+  "accent2": "#ff4fa3",
+  "display_font": "Anybody",
+  "body_font": "Hanken Grotesk",
+  "display_weight": 700,
+  "gradient": [],
+  "radius": 16,
+  "tone": "bold",
+  "rationale": "Kinetry's own brand, bundled for the demo",
+  "accent_ink": "#ffffff",
+  "accent_fill": ""
+}

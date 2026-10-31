@@ -1,0 +1,11 @@
+.c-question_cards .qrow { display: flex; gap: var(--g3); margin-top: var(--g4); }
+.c-question_cards .qcard { flex: 1 1 0; padding: var(--g4) var(--g3); }
+.c-question_cards.l-stack .qrow { flex-direction: column; gap: var(--g2); }
+.c-question_cards.l-stack .qcard { display: grid; grid-template-columns: auto 1fr; column-gap: var(--g3); align-items: center; padding: var(--g3); }
+.c-question_cards.l-stack .qic { grid-row: span 2; margin: 0; }
+.c-question_cards .qic { width: calc(72px * var(--k)); height: calc(72px * var(--k)); border-radius: calc(20px * var(--k)); background: var(--soft); position: relative; margin-bottom: var(--g3); }
+.c-question_cards .qic i { position: absolute; width: 36%; height: 36%; top: 32%; border-radius: 50%; }
+.c-question_cards .qic i:first-child { left: 18%; background: var(--fill); }
+.c-question_cards .qic i:last-child { right: 18%; background: var(--fill2); }
+.c-question_cards .qt { color: var(--accent); }
+.c-question_cards .qq { margin-top: var(--g1); font-family: var(--f-quote); }

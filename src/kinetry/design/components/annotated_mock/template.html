@@ -1,0 +1,17 @@
+{% set cos = get('callouts') or [] %}
+{% macro flags(target) %}{% for co in cos %}{% if co['target'] == target %}<span class="flag fl-{{ loop.index0 }}">{{ loop.index }}</span>{% endif %}{% endfor %}{% endmacro %}
+<div class="cx row">
+  <div class="mockcol">
+    {{ t('eyebrow', tag='span', cls='eyebrow') }}
+    <div class="mock kind-{{ get('kind') or 'email' }}" dir="auto">
+      <div class="wbar"><i></i><i></i><i></i>{% if has('address') %}<span class="addr tg tg-address">{{ t('address') }}{{ flags('address') }}</span>{% endif %}</div>
+      {% if has('header') %}<div class="hdr">{% for h in get('header') %}<div class="hrow tg tg-header-{{ loop.index0 }}">{{ t('header.' ~ loop.index0 ~ '.label', cls='hlab') }}{{ t('header.' ~ loop.index0 ~ '.text') }}{{ flags('header.' ~ loop.index0) }}</div>{% endfor %}</div>{% endif %}
+      {% if has('title') %}<div class="mt tg tg-title">{{ t('title') }}{{ flags('title') }}</div>{% endif %}
+      {% if has('body') %}<div class="mb tg tg-body">{{ t('body') }}{{ flags('body') }}</div>{% endif %}
+      {% if has('button') %}<div class="mbtn tg tg-button">{{ t('button', tag='span') }}{{ flags('button') }}</div>{% endif %}
+    </div>
+  </div>
+  <div class="notes">
+    {% for co in cos %}<div class="note nt-{{ loop.index0 }}" data-target="{{ co['target']|replace('.', '-') }}"><span class="nb">{{ loop.index }}</span><div class="ntx">{{ t('callouts.' ~ loop.index0 ~ '.title') }}{{ t('callouts.' ~ loop.index0 ~ '.text') }}</div></div>{% endfor %}
+  </div>
+</div>

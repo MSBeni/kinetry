@@ -1,0 +1,113 @@
+{
+  "id": "do_dont",
+  "name": "Do / Don't",
+  "purpose": "Right and wrong side by side: what to do, and what to avoid.",
+  "use_when": [
+    "behaviors with a clear wrong version",
+    "safety, compliance, etiquette"
+  ],
+  "avoid_when": [
+    "nuanced trade-offs (use comparison)"
+  ],
+  "tags": [
+    "contrast",
+    "behavior"
+  ],
+  "fields": {
+    "eyebrow": {
+      "type": "text",
+      "max": 40,
+      "role": "eyebrow",
+      "optional": true
+    },
+    "headline": {
+      "type": "text",
+      "max": 48,
+      "lines": 2,
+      "role": "h2",
+      "optional": true
+    },
+    "do_label": {
+      "type": "text",
+      "max": 16,
+      "lines": 1,
+      "role": "label",
+      "optional": true,
+      "desc": "Defaults to 'Do'"
+    },
+    "dont_label": {
+      "type": "text",
+      "max": 16,
+      "lines": 1,
+      "role": "label",
+      "optional": true,
+      "desc": "Defaults to 'Don't'"
+    },
+    "do": {
+      "type": "list",
+      "min": 1,
+      "max": 3,
+      "of": {
+        "type": "text",
+        "max": 52,
+        "lines": 2,
+        "role": "item"
+      }
+    },
+    "dont": {
+      "type": "list",
+      "min": 1,
+      "max": 3,
+      "of": {
+        "type": "text",
+        "max": 52,
+        "lines": 2,
+        "role": "item"
+      }
+    }
+  },
+  "reveals": [
+    "headline",
+    "do",
+    "do.*",
+    "dont",
+    "dont.*"
+  ],
+  "layouts": {
+    "columns": {
+      "desc": "Two columns"
+    },
+    "rows": {
+      "desc": "Do above, don't below",
+      "formats": [
+        "9:16"
+      ]
+    }
+  },
+  "example": {
+    "headline": "When an email feels off",
+    "do": [
+      "Hover to preview every link",
+      "Report it with the Phish button"
+    ],
+    "dont": [
+      "Reply to it or forward it",
+      "Type your password anywhere it asks"
+    ]
+  },
+  "example_beats": [
+    {
+      "say": "If something feels off, hover, then report it.",
+      "show": [
+        "headline",
+        "do"
+      ]
+    },
+    {
+      "say": "Don't reply, don't forward, and never type your password.",
+      "show": [
+        "dont"
+      ]
+    }
+  ]
+}

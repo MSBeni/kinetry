@@ -1,0 +1,12 @@
+<svg class="art" viewBox="0 0 400 300" aria-hidden="true">
+  <ellipse class="i-s a-pop" cx="200" cy="270" rx="160" ry="14" />
+  <g class="a-rise"><circle class="i-k" cx="110" cy="112" r="26" /><rect class="i-f" x="74" y="146" width="72" height="92" rx="30" /></g>
+  <g class="a-rise"><circle class="i-k" cx="200" cy="92" r="30" /><rect class="i-a" x="158" y="130" width="84" height="108" rx="34" /></g>
+  <g class="a-rise"><circle class="i-k" cx="290" cy="112" r="26" /><rect class="i-m" x="254" y="146" width="72" height="92" rx="30" /></g>
+  <rect class="i-s a-grow" x="52" y="210" width="296" height="20" rx="8" />
+  <rect class="i-k a-grow" x="70" y="230" width="12" height="40" rx="4" /><rect class="i-k a-grow" x="318" y="230" width="12" height="40" rx="4" />
+  <g class="a-pop a-float">
+    <rect class="i-b" x="228" y="20" width="96" height="46" rx="18" /><path class="i-b" d="M246 62 l-8 18 l22 -16 z" />
+    <circle class="i-f" cx="256" cy="43" r="6" /><circle class="i-f" cx="276" cy="43" r="6" /><circle class="i-f" cx="296" cy="43" r="6" />
+  </g>
+</svg>

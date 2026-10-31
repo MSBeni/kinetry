@@ -1,0 +1,23 @@
+{
+  "id": "split_list", "name": "Split list",
+  "purpose": "A headline with context on one side and a numbered list on the other.",
+  "use_when": ["a point plus 2-4 things that support it", "questions to ask, things to bring"],
+  "avoid_when": ["steps that must happen in order (use numbered_steps)"],
+  "tags": ["list"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 48, "lines": 3, "role": "h2"},
+    "aside": {"type": "text", "max": 60, "lines": 2, "role": "lead", "optional": true, "desc": "One-liner under the headline"},
+    "tags": {"type": "list", "min": 0, "max": 2, "optional": true, "of": {"type": "text", "max": 24, "lines": 1, "role": "label"}},
+    "panel_label": {"type": "text", "max": 32, "lines": 1, "role": "label", "desc": "Label over the list, e.g. 'Ask each person'"},
+    "items": {"type": "list", "min": 2, "max": 4, "of": {"type": "text", "max": 44, "lines": 2, "role": "item"}}
+  },
+  "reveals": ["headline", "aside", "tags.*", "panel", "items.*"],
+  "layouts": {"panel": {"desc": "Text left, list in a card on the right (stacked on 9:16)"}, "stacked": {"desc": "Text above, open list below"}},
+  "example": {"eyebrow": "Your first week", "headline": "Run the room in thirty minutes", "aside": "Small team, short meeting, clear outcomes.",
+              "tags": ["30 min", "Whole team"], "panel_label": "Ask each person",
+              "items": ["What's going well for you?", "Where are you stuck?", "What would help this week?"]},
+  "example_beats": [{"say": "Your first meeting only needs thirty minutes.", "show": ["headline", "tags.0", "tags.1"]},
+                    {"say": "Go round the room and ask each person three things.", "show": ["panel"]},
+                    {"say": "What's going well, where they're stuck, and what would help.", "show": ["items.0", "items.1", "items.2"]}]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "bar_chart", "name": "Bar chart",
+  "purpose": "A few numbers compared as bars that grow, with values counting up.",
+  "use_when": ["2-6 numbers from the source worth comparing"],
+  "avoid_when": ["numbers not in the source: never invent data", "a single number (use big_stat)"],
+  "tags": ["data", "number"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 56, "lines": 2, "role": "h2"},
+    "unit": {"type": "text", "max": 10, "optional": true, "desc": "Unit for values: a suffix like '%', 'h', ' min', or a currency symbol ('$', '€'), which goes in front"},
+    "bars": {"type": "list", "min": 2, "max": 6, "of": {"type": "object", "fields": {
+      "label": {"type": "text", "max": 24, "lines": 1, "role": "small"},
+      "value": {"type": "number", "min": 0}}}},
+    "highlight": {"type": "int", "min": 0, "max": 5, "optional": true, "desc": "Index of the bar to emphasize"},
+    "note": {"type": "text", "max": 100, "lines": 2, "role": "small", "optional": true, "desc": "Source or caveat"}
+  },
+  "reveals": ["headline", "bars", "note"],
+  "layouts": {"columns": {"formats": ["16:9", "1:1"], "desc": "Vertical bars"}, "rows": {"desc": "Horizontal bars"}},
+  "example": {"eyebrow": "Where the hours go", "headline": "Time spent per week", "unit": "h",
+              "bars": [{"label": "Meetings", "value": 12}, {"label": "Focused work", "value": 18}, {"label": "Email", "value": 7}, {"label": "Learning", "value": 3}],
+              "highlight": 3, "note": "Team survey, March."},
+  "example_beats": [{"say": "Here's where our week goes.", "show": ["headline", "bars"]}, {"say": "Learning gets just three hours.", "show": ["note"]}],
+  "checks": [{"index": "highlight", "of": "bars"}]
+}

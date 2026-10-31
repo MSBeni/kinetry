@@ -1,0 +1,27 @@
+{
+  "id": "card_grid", "name": "Card grid",
+  "purpose": "2-4 parallel ideas as labeled cards, with an optional strip of takeaways.",
+  "use_when": ["a few equal-weight ideas, roles, or options", "what X looks like vs Y in short phrases"],
+  "avoid_when": ["ordered steps", "anything needing more than ~30 characters per card"],
+  "tags": ["grid", "concepts"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 48, "lines": 2, "role": "h2"},
+    "sub": {"type": "text", "max": 90, "lines": 2, "role": "lead", "optional": true},
+    "cards": {"type": "list", "min": 2, "max": 4, "of": {"type": "object", "fields": {
+      "label": {"type": "text", "max": 20, "lines": 1, "role": "label"},
+      "text": {"type": "text", "max": 32, "lines": 2, "role": "h3"}}}},
+    "strip_label": {"type": "text", "max": 28, "lines": 1, "role": "label", "optional": true},
+    "strip_items": {"type": "list", "min": 0, "max": 2, "optional": true, "of": {"type": "text", "max": 36, "lines": 1, "role": "body"}}
+  },
+  "reveals": ["headline", "sub", "cards.*", {"key": "strip", "requires": "strip_label"}, {"key": "strip.*", "of": "strip_items"}],
+  "layouts": {"row": {"desc": "Cards in one row (two columns on 9:16)"}, "grid": {"desc": "Two-by-two grid"}},
+  "example": {"eyebrow": "The four roles", "headline": "Who does what in a launch", "sub": "Every launch needs all four, even when one person wears two hats.",
+              "cards": [{"label": "Owner", "text": "Decides and unblocks"}, {"label": "Builder", "text": "Ships the work"},
+                        {"label": "Reviewer", "text": "Checks before it goes out"}, {"label": "Voice", "text": "Tells customers"}],
+              "strip_label": "Remember", "strip_items": ["One owner per launch", "Name roles on day one"]},
+  "example_beats": [{"say": "Every launch needs four roles.", "show": ["headline", "sub"]},
+                    {"say": "An owner, a builder, a reviewer, and a voice.", "show": ["cards.0", "cards.1", "cards.2", "cards.3"]},
+                    {"say": "Name them on day one, and keep one owner.", "show": ["strip", "strip.0", "strip.1"]}],
+  "checks": [{"needs": ["strip_items", "strip_label"]}]
+}

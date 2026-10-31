@@ -1,0 +1,28 @@
+{
+  "id": "image_caption", "name": "Image",
+  "purpose": "A photo, screenshot or illustration with a short caption; the image drifts slowly (Ken Burns).",
+  "use_when": ["context.images offers an image that shows what this part of the narration is about", "a place, a product, a screen or a team worth seeing"],
+  "avoid_when": ["no image was provided: never invent an image reference", "a list, steps or a comparison (use their own scene types)"],
+  "tags": ["image", "photo", "media"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "image": {"type": "image", "desc": "A ref from context.images (https URL, upload:<id> or brand:<n>)"},
+    "alt": {"type": "text", "max": 160, "optional": true, "desc": "What the image shows, for accessibility (not displayed)"},
+    "headline": {"type": "text", "max": 56, "lines": 2, "role": "h2", "optional": true},
+    "caption": {"type": "text", "max": 120, "lines": 3, "role": "body"},
+    "credit": {"type": "text", "max": 60, "lines": 1, "role": "small", "optional": true, "desc": "Photo credit or source"}
+  },
+  "reveals": ["image", "headline", "caption", "credit"],
+  "layouts": {
+    "full": {"desc": "The image fills the stage; the caption sits on a dark band across its foot"},
+    "split": {"formats": ["16:9", "1:1"], "desc": "The image beside the headline and caption"},
+    "framed": {"desc": "A framed print, slightly tilted, with the caption beneath"}
+  },
+  "example": {"eyebrow": "Your new workspace", "image": "catalog:image_caption/example.jpg",
+              "alt": "A bright, abstract illustration of a shared workspace",
+              "headline": "Where the team meets", "caption": "The third-floor studio is open from 8 to 6, and the corner booth is yours to book.",
+              "credit": "Illustration: Kinetry"},
+  "example_beats": [{"say": "This is where the team meets.", "show": ["image", "headline"]},
+                    {"say": "The third-floor studio is open from eight to six, and you can book the corner booth.", "show": ["caption", "credit"]}],
+  "focus": {"key": "image", "sel": ".ph"}
+}

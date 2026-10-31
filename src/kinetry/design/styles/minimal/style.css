@@ -1,0 +1,6 @@
+/* minimal: nothing but type and space */
+.st-minimal .card { box-shadow: none; background: transparent; }
+.st-minimal .badge { background: transparent; color: var(--ink); border: 1px solid var(--line); font-weight: 500; }
+.st-minimal .r-item { font-weight: 500; }
+.st-minimal .r-label, .st-minimal .r-eyebrow { font-weight: 600; letter-spacing: 0.16em; }
+.st-minimal .rule { height: 2px; }

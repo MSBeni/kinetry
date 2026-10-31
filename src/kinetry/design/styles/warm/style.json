@@ -1,0 +1,46 @@
+{
+  "id": "warm",
+  "name": "Warm",
+  "description": "Notebook on the break-room table: paper ground, hand-lettered accents, chunky outlined cards, bouncy motion.",
+  "best_for": [
+    "frontline onboarding",
+    "hospitality and retail",
+    "culture and quick tips"
+  ],
+  "energy": "playful",
+  "ground": "paper",
+  "type": {
+    "display": 156,
+    "h2": 104,
+    "h3": 54,
+    "lead": 40,
+    "body": 34,
+    "item": 46,
+    "label": 30,
+    "eyebrow": 34,
+    "small": 26,
+    "stat": 260,
+    "quote": 88,
+    "caption": 42
+  },
+  "fonts": {
+    "head": "display",
+    "label": "accent",
+    "quote": "display",
+    "num": "display"
+  },
+  "accent_font": {
+    "family": "Caveat",
+    "kind": "serif"
+  },
+  "radius": 32,
+  "shadow": "hard",
+  "border": 4,
+  "tracking": "-0.02em",
+  "display_weight": 800,
+  "motion": "warm",
+  "transition": "scribble",
+  "chrome": "wordmark",
+  "captions": "bar",
+  "inverse_scenes": []
+}

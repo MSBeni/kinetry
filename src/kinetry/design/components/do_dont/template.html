@@ -1,0 +1,10 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="cols">
+    {% for side, sym in [('do', '✓'), ('dont', '✕')] %}<div class="col box card dd dd-{{ side }}">
+      <div class="dtag"><span class="dic">{{ sym }}</span>{% if has(side ~ '_label') %}{{ t(side ~ '_label', tag='span') }}{% else %}<span class="tx r-label">{{ 'Do' if side == 'do' else "Don't" }}</span>{% endif %}</div>
+      {% for x in get(side) %}<div class="drow dr-{{ side }}-{{ loop.index0 }}">{{ t(side ~ '.' ~ loop.index0) }}</div>{% endfor %}
+    </div>{% endfor %}
+  </div>
+</div>

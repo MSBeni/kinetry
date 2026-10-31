@@ -1,0 +1,18 @@
+{# Adapted from the HyperFrames registry's chat-message and thread-message-stack (https://github.com/heygen-com/hyperframes, Apache-2.0). #}
+{% set msgs = get('messages') or [] %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2', cls='hd') }}
+  <div class="app">
+    <div class="ahead"><span class="dot"></span>{{ t('channel', cls='chan') }}</div>
+    <div class="msgs">
+      {% for m in msgs %}{% set nm = (m.get('from') or '?').strip() %}
+      <div class="msg m-{{ loop.index0 }}{% if m.get('me') %} me{% endif %}">
+        <div class="av">{{ nm[:1]|upper }}</div>
+        {% if L == 'phone' and not m.get('me') %}<div class="typing"><i></i><i></i><i></i></div>{% endif %}
+        <div class="mb box">{{ t('messages.' ~ loop.index0 ~ '.from', cls='who') }}{{ t('messages.' ~ loop.index0 ~ '.text', cls='mt') }}</div>
+      </div>{% endfor %}
+    </div>
+  </div>
+  {{ t('note', cls='note') }}
+</div>

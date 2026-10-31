@@ -1,0 +1,21 @@
+{
+  "id": "steps_path", "name": "Steps path",
+  "purpose": "A few simple steps joined by a winding, hand-drawn path.",
+  "use_when": ["2-4 simple habits or moves", "playful how-tos", "frontline training"],
+  "avoid_when": ["formal procedures (use numbered_steps)", "more than 4 steps"],
+  "tags": ["sequence", "playful"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 40, "lines": 2, "role": "h2"},
+    "steps": {"type": "list", "min": 2, "max": 4, "of": {"type": "object", "fields": {
+      "title": {"type": "text", "max": 26, "lines": 2, "role": "h3"},
+      "text": {"type": "text", "max": 50, "lines": 2, "role": "body", "optional": true}}}}
+  },
+  "reveals": ["headline", "steps.*"],
+  "layouts": {"wave": {"desc": "Stops along a curving dashed path"}},
+  "example": {"headline": "Three small steps",
+              "steps": [{"title": "Look up and smile", "text": "within three seconds"}, {"title": "Greet them warmly", "text": "use their name if you know it"},
+                        {"title": "Ask one easy question", "text": "'The usual today?'"}]},
+  "example_beats": [{"say": "It takes three small steps.", "show": ["headline"]}, {"say": "Look up and smile.", "show": ["steps.0"]},
+                    {"say": "Greet them warmly.", "show": ["steps.1"]}, {"say": "Ask one easy question.", "show": ["steps.2"]}]
+}

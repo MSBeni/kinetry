@@ -1,0 +1,19 @@
+{
+  "id": "instead_try", "name": "Instead of / Try",
+  "purpose": "Swap a common habit for a better one: the old phrase gets crossed out, the new one appears.",
+  "use_when": ["better wording or scripts", "replacing a bad habit"],
+  "avoid_when": ["lists of several rules (use do_dont)"],
+  "tags": ["contrast", "language"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "instead_label": {"type": "text", "max": 20, "lines": 1, "role": "label", "optional": true, "desc": "Defaults to 'Instead of'"},
+    "instead": {"type": "text", "max": 60, "lines": 2, "role": "h2"},
+    "try_label": {"type": "text", "max": 20, "lines": 1, "role": "label", "optional": true, "desc": "Defaults to 'Try'"},
+    "try": {"type": "text", "max": 100, "lines": 3, "role": "h3"}
+  },
+  "reveals": ["instead", {"key": "strike", "requires": "instead"}, "try"],
+  "layouts": {"stack": {"desc": "Old above, new below, an arrow between"}, "side": {"formats": ["16:9"], "desc": "Old left, new right"}},
+  "example": {"instead": "“Next!”", "try": "“Hi! What can I get started for you?”"},
+  "example_beats": [{"say": "Instead of calling out next...", "show": ["instead", "strike"]}, {"say": "try: hi, what can I get started for you?", "show": ["try"]}],
+  "focus": {"key": "try", "sel": ".now"}
+}

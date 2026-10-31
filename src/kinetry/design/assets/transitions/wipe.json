@@ -1,0 +1,7 @@
+{
+  "id": "wipe",
+  "name": "Color wipe",
+  "kind": "overlay",
+  "duration": 0.7,
+  "description": "A full-frame panel in the brand color sweeps across and reveals the next scene."
+}

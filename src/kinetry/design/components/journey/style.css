@@ -1,0 +1,22 @@
+.c-journey .question { margin-top: var(--g2); font-family: var(--f-quote); font-style: italic; }
+.c-journey .arc { position: relative; display: flex; margin-top: var(--g5); --dot: calc(64px * var(--k)); }
+.c-journey .node { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
+.c-journey .trk, .c-journey .prog { position: absolute; top: calc(var(--dot) / 2 - 2px); left: calc(100% / var(--n) / 2); right: calc(100% / var(--n) / 2);
+  height: 4px; background: var(--line); transform-origin: left center; }
+.c-journey .prog { background: var(--grad); height: 6px; top: calc(var(--dot) / 2 - 3px); }
+.c-journey .dn { width: var(--dot); height: var(--dot); border-radius: 50%; background: var(--surface); border: 4px solid var(--line);
+  display: grid; place-items: center; font-weight: 700; font-size: calc(26px * var(--k)); color: var(--muted); }
+.c-journey .now .dn { background: var(--fill); border-color: var(--fill); color: var(--on-fill); }
+.c-journey .last .dn { border-color: var(--accent); color: var(--accent); }
+.c-journey .nt { margin-top: var(--g2); padding: 0 6px; display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.c-journey .nl { color: var(--muted); }
+.c-journey .now .nl, .c-journey .last .nl { color: var(--ink); font-weight: 600; }
+.c-journey .here { color: var(--accent); white-space: nowrap; }
+.c-journey.l-ladder .arc { flex-direction: column; gap: var(--g2); --dot: calc(56px * var(--k)); }
+.c-journey.l-ladder .node { flex-direction: row; text-align: start; gap: var(--g3); }
+.c-journey.l-ladder .nt { margin-top: 0; align-items: flex-start; }
+.c-journey.l-ladder .trk, .c-journey.l-ladder .prog { inset-inline-start: calc(var(--dot) / 2 - 2px); inset-inline-end: auto; width: 4px; height: auto;
+  top: calc(var(--dot) / 2); bottom: calc(var(--dot) / 2); transform-origin: center top; }
+.c-journey.l-ladder .prog { width: 6px; inset-inline-start: calc(var(--dot) / 2 - 3px); }
+.fmt-16x9 .c-journey.l-ladder .arc { display: grid; grid-auto-flow: column; grid-template-rows: repeat(4, auto); column-gap: var(--g5); }
+.fmt-16x9 .c-journey.l-ladder .trk, .fmt-16x9 .c-journey.l-ladder .prog { display: none; }

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://kinetry.xyz/docs/
+    about: Install, quick start, the catalog and the API.

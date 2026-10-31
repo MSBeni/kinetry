@@ -1,0 +1,100 @@
+name: Live checks
+
+# Real providers and the open internet, on demand only. Each part runs when it can:
+# - always: probe a public website for a brand (headless Chrome, no keys) and render a video with it
+# - with INWORLD_API_KEY: check-inworld (voices, every TTS model, STT round trip)
+# - with a model input and its key: check-llm (creative director + script writer, optional render)
+# - with voices input: check-voices (each voice, listened back with Inworld STT when that key exists)
+# Keys come from repository secrets (Settings > Secrets and variables > Actions) and are never printed.
+on:
+  workflow_dispatch:
+    inputs:
+      site:
+        description: "Public website to probe for a brand"
+        default: "https://www.python.org"
+      page:
+        description: "Public web page to read as a source"
+        default: "https://en.wikipedia.org/wiki/Feedback"
+      llm:
+        description: "Model for check-llm, e.g. bedrock:us.anthropic.claude-sonnet-4-5-20250929-v1:0 or anthropic:claude-sonnet-5-5 (empty = skip)"
+        default: ""
+      render:
+        description: "check-llm also renders the video it planned"
+        type: boolean
+        default: false
+      voices:
+        description: "Voices for check-voices, space separated, e.g. openai:coral elevenlabs:<voice_id> (empty = skip)"
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SITE: ${{ inputs.site }}
+      PAGE: ${{ inputs.page }}
+      LLM: ${{ inputs.llm }}
+      VOICES: ${{ inputs.voices }}
+      RENDER: ${{ inputs.render }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      INWORLD_API_KEY: ${{ secrets.INWORLD_API_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
+      AWS_REGION: ${{ secrets.AWS_REGION || 'us-east-1' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg espeak-ng
+      - run: pip install ".[kokoro,llms]"
+      - run: kinetry setup
+      - name: Which checks can run
+        run: |
+          for k in ANTHROPIC_API_KEY OPENAI_API_KEY GOOGLE_API_KEY ELEVENLABS_API_KEY INWORLD_API_KEY AWS_ACCESS_KEY_ID AWS_BEARER_TOKEN_BEDROCK; do
+            if [ -n "${!k}" ]; then echo "$k: set"; else echo "$k: not set"; fi
+          done
+      - name: Brand from a live website, then a video in that brand
+        run: |
+          mkdir -p out
+          kinetry brand "$SITE" --save out/brand | tee out/brand.json
+          kinetry run --plan docker/smoke-plan.json --brand out/brand --out out/branded.mp4 --run-dir out/branded
+      - name: Read a live web page as a source (no keys)
+        run: kinetry sections "$PAGE" | tee out/page-sections.txt
+      - name: Inworld (voices, TTS models, STT round trip)
+        if: env.INWORLD_API_KEY != ''
+        run: kinetry check-inworld --out out/inworld
+      - name: Model (creative director, script writer)
+        if: env.LLM != ''
+        run: |
+          args=(--llm "$LLM" --out out/llm)
+          if [ "$RENDER" = "true" ]; then args+=(--render); fi
+          kinetry check-llm "${args[@]}"
+      - name: Voices
+        if: env.VOICES != ''
+        run: |
+          read -ra specs <<< "$VOICES"
+          kinetry check-voices "${specs[@]}" --out out/voices
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-checks
+          # real voices, real sites and model output: keep them only long enough to look at
+          retention-days: 1
+          path: |
+            out/*.txt
+            out/**/*.mp4
+            out/**/*.wav
+            out/**/*.json
+            out/**/qa/*.png
+          if-no-files-found: ignore

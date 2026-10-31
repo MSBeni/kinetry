@@ -1,0 +1,16 @@
+name: Feature request
+description: A scene type, style, voice, integration or anything else you'd like Kinetry to do.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What you're trying to make
+      description: The video or workflow you have in mind, and where Kinetry falls short today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How it could work
+      description: Optional. A sketch of the command, plan field or API you'd expect.

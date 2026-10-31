@@ -1,0 +1,35 @@
+/* Adapted from the HyperFrames registry's chat-message and thread-message-stack (Apache-2.0). The app surface is
+   light in every style so the messages read like a real client. */
+.c-chat_thread .cx { display: flex; flex-direction: column; align-items: stretch; }
+.c-chat_thread .hd { margin-bottom: var(--g3); }
+.c-chat_thread .app { --ink: #1d2433; --muted: #4b5468; width: 100%; max-width: calc(1240px * var(--k)); align-self: center; background: #fff; color: #1d2433;
+  border-radius: calc(20px * var(--k)); box-shadow: 0 30px 70px rgba(10, 20, 40, 0.22); overflow: hidden; border: 1px solid #e3e8f0; }
+.c-chat_thread .ahead { display: flex; align-items: center; gap: var(--g1); padding: calc(18px * var(--k)) var(--g3); background: #f3f5f9; border-bottom: 1px solid #e3e8f0; }
+.c-chat_thread .ahead .dot { width: calc(14px * var(--k)); height: calc(14px * var(--k)); border-radius: 50%; background: #2fb36b; flex: none; }
+.c-chat_thread .chan { color: #1d2433; letter-spacing: 0; text-transform: none; }
+.c-chat_thread .msgs { display: flex; flex-direction: column; gap: var(--g2); padding: var(--g3); }
+.c-chat_thread .msg { position: relative; display: flex; gap: var(--g2); align-items: flex-start; }
+.c-chat_thread .av { flex: none; width: calc(60px * var(--k)); height: calc(60px * var(--k)); border-radius: calc(14px * var(--k)); display: grid; place-items: center;
+  background: #5b6b8c; color: #fff; font-weight: 800; font-size: calc(26px * var(--k)); }
+.c-chat_thread .me .av { background: var(--fill); color: var(--on-fill); }
+.c-chat_thread .mb { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.c-chat_thread .who { color: #1d2433; text-transform: none; letter-spacing: 0; }
+.c-chat_thread .mt { color: #2b3346; font-size: calc(var(--fs-body) * 0.95 * var(--fit, 1)); }
+.c-chat_thread .note { margin-top: var(--g3); max-width: calc(1240px * var(--k)); align-self: center; width: 100%; padding-inline-start: var(--g2);
+  border-inline-start: calc(6px * var(--k)) solid var(--accent); color: var(--ink); }
+.fmt-9x16 .c-chat_thread .msgs, .fmt-1x1 .c-chat_thread .msgs { padding: var(--g2); }
+
+/* phone: bubbles, the viewer's own on the far side */
+.c-chat_thread.l-phone .app { max-width: calc(860px * var(--k)); border-radius: calc(48px * var(--k)); border: calc(14px * var(--k)) solid #12151c; }
+.c-chat_thread.l-phone .ahead { justify-content: center; padding-top: calc(26px * var(--k)); }
+.c-chat_thread.l-phone .msgs { gap: var(--g1); background: #fff; }
+.c-chat_thread.l-phone .av { display: none; }
+.c-chat_thread.l-phone .msg { max-width: 82%; }
+.c-chat_thread.l-phone .mb { background: #e9edf3; border-radius: calc(28px * var(--k)); padding: calc(16px * var(--k)) calc(24px * var(--k)); }
+.c-chat_thread.l-phone .who { font-size: calc(var(--fs-small) * 0.9); color: #4b5468; }
+.c-chat_thread.l-phone .me { align-self: flex-end; }
+.c-chat_thread.l-phone .me .mb { background: var(--fill); }
+.c-chat_thread.l-phone .me .mt, .c-chat_thread.l-phone .me .who { color: var(--on-fill); }
+.c-chat_thread.l-phone .typing { position: absolute; inset-inline-start: 0; top: 0; display: flex; gap: 8px; background: #e9edf3; border-radius: calc(28px * var(--k));
+  padding: calc(22px * var(--k)) calc(26px * var(--k)); opacity: 0; }
+.c-chat_thread.l-phone .typing i { width: calc(12px * var(--k)); height: calc(12px * var(--k)); border-radius: 50%; background: #8a93a6; }

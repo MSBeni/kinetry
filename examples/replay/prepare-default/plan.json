@@ -1,0 +1,37 @@
+{
+  "title": "Prepare with a purpose",
+  "chrome_left": "First team meeting · Part 1",
+  "chrome_right": "New team leads",
+  "scenes": [
+    {"kind": "title", "nav": "Welcome", "eyebrow": "Part 1 of 3", "kicker": "Leading your first team meeting",
+     "headline": "Prepare with a purpose", "chips": ["Decide what it's for", "Gather three inputs"],
+     "beats": [
+       {"say": "Your first team meeting sets the tone for how you lead. Let's prepare for it.", "show": []},
+       {"say": "You'll decide what the meeting is for, and gather three inputs before you walk in.", "show": ["chips.0", "chips.1"]}
+     ]},
+    {"kind": "split_list", "nav": "Purpose", "eyebrow": "Before you send the invite", "headline": "Write one sentence.",
+     "aside": "Not a status update.", "panel_label": "For example",
+     "items": ["We know how we'll work together", "for the next month"],
+     "beats": [
+       {"say": "This meeting is not a status update. It's your team's first impression of how you lead.", "show": ["aside"]},
+       {"say": "So write one sentence that says what you want the team to leave with.", "show": []},
+       {"say": "For example: we know how we will work together for the next month.", "show": ["panel", "items.0", "items.1"]}
+     ]},
+    {"kind": "card_grid", "nav": "Inputs", "eyebrow": "Gather three inputs", "headline": "Know what you're walking into.",
+     "sub": "In their own words, not yours.",
+     "cards": [{"label": "Work", "text": "What each person is doing"}, {"label": "Signal", "text": "One win, one blocker"},
+               {"label": "Settled", "text": "Decisions not to reopen"}],
+     "beats": [
+       {"say": "Then gather three inputs.", "show": []},
+       {"say": "What each person is working on right now, in their own words.", "show": ["cards.0", "sub"]},
+       {"say": "One thing that's going well for the team, and one thing slowing it down.", "show": ["cards.1"]},
+       {"say": "And any decisions that are already made, and shouldn't be reopened.", "show": ["cards.2"]}
+     ]},
+    {"kind": "closer", "nav": "Send it", "pre": "A day ahead", "headline": "Send a short agenda.",
+     "meta": "So nobody walks in guessing.",
+     "beats": [
+       {"say": "Last step: send a short agenda a day ahead,", "show": ["pre", "headline"]},
+       {"say": "so nobody walks in guessing.", "show": ["meta"]}
+     ]}
+  ]
+}

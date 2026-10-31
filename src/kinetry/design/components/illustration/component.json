@@ -1,0 +1,26 @@
+{
+  "id": "illustration", "name": "Illustration",
+  "purpose": "An animated illustration beside a headline: a bulb lighting up, a chart growing, a shield locking, people meeting. Or the caller's own Lottie animation.",
+  "use_when": ["an idea, a goal, a change or a feeling that's better shown than listed", "a pause between denser scenes"],
+  "avoid_when": ["the point is a list, steps or numbers (use their scene types)", "more than one illustration scene in a row"],
+  "tags": ["illustration", "animation", "visual"],
+  "requires": "illustration",
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "art": {"type": "enum", "values": ["idea", "team", "growth", "security", "checklist", "conversation", "time", "goal"],
+            "desc": "idea: a bulb lighting up; team: people at a table; growth: bars and a rising line; security: a shield with a lock; checklist: items ticked off; conversation: speech bubbles; time: a clock and calendar; goal: an arrow in a target"},
+    "animation": {"type": "animation", "optional": true, "desc": "A Lottie ref from context.animations; shown instead of the art"},
+    "headline": {"type": "text", "max": 56, "lines": 2, "role": "h2"},
+    "body": {"type": "text", "max": 130, "lines": 3, "role": "lead", "optional": true}
+  },
+  "reveals": ["art", "headline", "body"],
+  "layouts": {
+    "side": {"formats": ["16:9", "1:1"], "desc": "The illustration beside the headline"},
+    "hero": {"desc": "A large illustration above the headline"}
+  },
+  "example": {"eyebrow": "The big idea", "art": "idea", "headline": "Small changes add up",
+              "body": "One better habit a week is fifty a year."},
+  "example_beats": [{"say": "Here's the big idea.", "show": ["art"]},
+                    {"say": "Small changes add up: one better habit a week is fifty a year.", "show": ["headline", "body"]}],
+  "focus": {"key": "art", "sel": ".ill"}
+}

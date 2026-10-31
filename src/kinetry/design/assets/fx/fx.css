@@ -1,0 +1,22 @@
+/* Motion layers (opt-in, see design.effects). Loaded only when a video asks for them. */
+
+/* camera: two rigs around the stage, a slow move (.cam) and a punch-in (.cam2) */
+.cam, .cam2 { position: absolute; inset: 0; transform-origin: 50% 46%; will-change: transform; }
+/* own compositor layers: moving them re-uses their pixels instead of repainting text and shadows each frame */
+.fx-cam-subtle .ground, .fx-cam-rich .ground, .amb .ab, .amb .pt, .amb .ag { will-change: transform; }
+.fx-cam-subtle .ground, .fx-cam-rich .ground { transform-origin: 50% 50%; }
+
+/* ambient light: soft brand-colored pools that drift behind the scene; optional particles and spotlight */
+.amb { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.amb .ab { position: absolute; left: 0; top: 0; width: calc(var(--W) * 0.6); aspect-ratio: 1; border-radius: 50%; opacity: 0;
+  background: radial-gradient(closest-side, var(--amb1), transparent); }
+.amb .ab1, .amb .ab3 { background: radial-gradient(closest-side, var(--amb2), transparent); }
+.fmt-9x16 .amb .ab { width: calc(var(--W) * 1.1); }
+.amb .pt { position: absolute; left: 0; top: 0; width: calc(7px * var(--k)); height: calc(7px * var(--k)); border-radius: 50%;
+  background: var(--amb1); opacity: 0; }
+.amb .pt:nth-child(3n) { background: var(--amb2); width: calc(5px * var(--k)); height: calc(5px * var(--k)); }
+.amb-grid .ag { position: absolute; left: 0; top: 0; width: calc(var(--W) * 0.9); aspect-ratio: 1; opacity: 0;
+  background: radial-gradient(closest-side, var(--amb1), transparent); }
+
+/* kinetic type: rich moves words in 3D and with scale, so word masks must not clip them */
+.fx-kin-rich .w { overflow: visible; }

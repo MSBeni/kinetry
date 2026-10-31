@@ -1,0 +1,140 @@
+{
+ "items": [
+  {
+   "id": "title",
+   "text": "Votre première vidéo Kinetry"
+  },
+  {
+   "id": "chrome_left",
+   "text": "Premier essai"
+  },
+  {
+   "id": "chrome_right",
+   "text": "kinetry.xyz"
+  },
+  {
+   "id": "s0.nav",
+   "text": "Bonjour"
+  },
+  {
+   "id": "s0.d.eyebrow",
+   "text": "Votre première vidéo Kinetry"
+  },
+  {
+   "id": "s0.d.headline",
+   "text": "Faite sur votre machine, à l’instant"
+  },
+  {
+   "id": "s0.d.kicker",
+   "text": "Ni clé ni compte : un plan, une marque et une voix locale gratuite."
+  },
+  {
+   "id": "s0.b0.say",
+   "text": "Cette vidéo a été faite sur votre ordinateur, il y a une minute."
+  },
+  {
+   "id": "s0.b1.say",
+   "text": "Ni clé, ni compte. Juste un plan, une marque et une voix locale gratuite."
+  },
+  {
+   "id": "s1.nav",
+   "text": "Ce qui s’est passé"
+  },
+  {
+   "id": "s1.d.eyebrow",
+   "text": "En coulisses"
+  },
+  {
+   "id": "s1.d.headline",
+   "text": "Ce qui vient de se passer"
+  },
+  {
+   "id": "s1.d.steps.0.title",
+   "text": "Chaque phrase a été dite"
+  },
+  {
+   "id": "s1.d.steps.0.text",
+   "text": "Chaque extrait a été mesuré : le rythme vient du vrai son."
+  },
+  {
+   "id": "s1.d.steps.1.title",
+   "text": "Chaque texte a été vérifié"
+  },
+  {
+   "id": "s1.d.steps.1.text",
+   "text": "Trop long ? La taille diminue, ou un modèle le raccourcit."
+  },
+  {
+   "id": "s1.d.steps.2.title",
+   "text": "Les images ont été rendues"
+  },
+  {
+   "id": "s1.d.steps.2.text",
+   "text": "Le même plan et la même voix donnent toujours la même vidéo."
+  },
+  {
+   "id": "s1.b0.say",
+   "text": "Voici ce qui vient de se passer."
+  },
+  {
+   "id": "s1.b1.say",
+   "text": "Chaque phrase a été dite, puis mesurée, pour que chaque élément apparaisse au moment où on le dit."
+  },
+  {
+   "id": "s1.b2.say",
+   "text": "Chaque texte a été vérifié pour tenir à l’écran."
+  },
+  {
+   "id": "s1.b3.say",
+   "text": "Ensuite, les images ont été rendues. Le même plan donne toujours la même vidéo."
+  },
+  {
+   "id": "s2.nav",
+   "text": "À vous"
+  },
+  {
+   "id": "s2.d.eyebrow",
+   "text": "Ensuite"
+  },
+  {
+   "id": "s2.d.headline",
+   "text": "À vous de jouer"
+  },
+  {
+   "id": "s2.d.title",
+   "text": "terminal"
+  },
+  {
+   "id": "s2.d.note",
+   "text": "Pour partir de votre propre contenu, il faut une clé de modèle, chez n’importe quel fournisseur."
+  },
+  {
+   "id": "s2.b0.say",
+   "text": "Pour faire la vôtre, lisez votre marque depuis votre site web, puis lancez-la sur une leçon."
+  },
+  {
+   "id": "s2.b1.say",
+   "text": "Pour partir de votre propre contenu, il faut une clé de modèle, chez le fournisseur de votre choix."
+  },
+  {
+   "id": "s3.nav",
+   "text": "Docs"
+  },
+  {
+   "id": "s3.d.pre",
+   "text": "Quand vous voulez"
+  },
+  {
+   "id": "s3.d.headline",
+   "text": "Tout le reste est dans la documentation"
+  },
+  {
+   "id": "s3.d.meta",
+   "text": "kinetry.xyz/docs"
+  },
+  {
+   "id": "s3.b0.say",
+   "text": "Tout le reste est dans la documentation. Amusez-vous bien."
+  }
+ ]
+}

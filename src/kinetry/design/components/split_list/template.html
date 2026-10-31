@@ -1,0 +1,12 @@
+<div class="cx row stackable stack-sq">
+  <div class="left">
+    {{ t('eyebrow', tag='span', cls='eyebrow') }}
+    {{ t('headline', tag='h2') }}
+    {{ t('aside', cls='aside') }}
+    {% if has('tags') %}<div class="tags">{% for x in get('tags') %}<span class="pill tag tag-{{ loop.index0 }}">{{ t('tags.' ~ loop.index0, tag='span') }}</span>{% endfor %}</div>{% endif %}
+  </div>
+  <div class="panel box{% if L == 'panel' %} card{% endif %}">
+    <div class="plabel"><span class="pdot"></span>{{ t('panel_label', tag='span') }}</div>
+    {% for x in get('items') %}<div class="item item-{{ loop.index0 }}"><span class="num">{{ num(loop.index) }}</span>{{ t('items.' ~ loop.index0, tag='span') }}</div>{% endfor %}
+  </div>
+</div>

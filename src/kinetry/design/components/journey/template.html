@@ -1,0 +1,13 @@
+{% set cur = get('current') or 0 %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  {{ t('question', cls='question') }}
+  <div class="arc" style="--n: {{ get('steps')|length }}">
+    <div class="trk"></div><div class="prog"></div>
+    {% for s in get('steps') %}<div class="node nd-{{ loop.index0 }}{% if loop.index0 == cur %} now{% endif %}{% if loop.last %} last{% endif %}">
+      <div class="dn">{{ loop.index }}</div>
+      <div class="nt">{% if loop.index0 == cur %}{% if has('here_label') %}{{ t('here_label', tag='span', role='label', cls='here') }}{% else %}<span class="here tx r-label">You are here</span>{% endif %}{% endif %}{{ t('steps.' ~ loop.index0, cls='nl') }}</div>
+    </div>{% endfor %}
+  </div>
+</div>

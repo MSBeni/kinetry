@@ -1,0 +1,170 @@
+{
+  "version": 2,
+  "title": "Feedback that lands",
+  "chrome_left": "Lumen Academy",
+  "chrome_right": "Manager essentials",
+  "design": {
+    "style": "editorial",
+    "format": "16:9",
+    "transition": "fade"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Intro",
+      "data": {
+        "eyebrow": "Manager essentials",
+        "headline": "Feedback that lands",
+        "kicker": "Specific, timely, and about the work."
+      },
+      "beats": [
+        {
+          "say": "Good feedback is specific, timely, and about the work, not the person.",
+          "show": [
+            "headline",
+            "kicker"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "definition",
+      "nav": "SBI",
+      "data": {
+        "eyebrow": "A simple model",
+        "term": "SBI",
+        "kind": "noun",
+        "definition": "Situation, Behavior, Impact: say where it happened, what the person did, and what it caused.",
+        "example": "In Tuesday's demo, you skipped the intro, and the client got lost."
+      },
+      "beats": [
+        {
+          "say": "One simple model is S B I: situation, behavior, impact.",
+          "show": [
+            "term",
+            "definition"
+          ]
+        },
+        {
+          "say": "For example: in Tuesday's demo, you skipped the intro, and the client got lost.",
+          "show": [
+            "example"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dialogue",
+      "nav": "In practice",
+      "data": {
+        "eyebrow": "How it sounds",
+        "speakers": {
+          "a": {
+            "name": "Priya",
+            "role": "Manager"
+          },
+          "b": {
+            "name": "Theo",
+            "role": "Designer"
+          }
+        },
+        "lines": [
+          {
+            "who": "a",
+            "text": "In Tuesday's demo, you skipped the intro slide."
+          },
+          {
+            "who": "b",
+            "text": "I wanted to save time for questions."
+          },
+          {
+            "who": "a",
+            "text": "Makes sense. The client got lost early, though. What could we try next time?"
+          },
+          {
+            "who": "b",
+            "text": "A thirty second intro, then straight to questions."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "In Tuesday's demo, you skipped the intro slide.",
+          "show": [
+            "lines.0"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "I wanted to save time for questions.",
+          "show": [
+            "lines.1"
+          ],
+          "voice": "b"
+        },
+        {
+          "say": "Makes sense. The client got lost early, though. What could we try next time?",
+          "show": [
+            "lines.2"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "A thirty second intro, then straight to questions.",
+          "show": [
+            "lines.3"
+          ],
+          "voice": "b"
+        }
+      ]
+    },
+    {
+      "type": "pull_quote",
+      "nav": "Principle",
+      "data": {
+        "lead": "Remember",
+        "quote": "Describe what happened, not who someone is.",
+        "highlight": "not who someone is"
+      },
+      "beats": [
+        {
+          "say": "Describe what happened,",
+          "show": [
+            "lead",
+            "quote"
+          ]
+        },
+        {
+          "say": "not who someone is.",
+          "show": [
+            "highlight"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Try it",
+      "data": {
+        "pre": "This week",
+        "headline": "Give one piece of SBI feedback",
+        "meta": "Then ask: what would you try next time?"
+      },
+      "beats": [
+        {
+          "say": "This week, give one piece of S B I feedback.",
+          "show": [
+            "pre",
+            "headline"
+          ]
+        },
+        {
+          "say": "Then ask: what would you try next time?",
+          "show": [
+            "meta"
+          ]
+        }
+      ]
+    }
+  ]
+}

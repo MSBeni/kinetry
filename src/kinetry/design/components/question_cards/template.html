@@ -1,0 +1,7 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="qrow">
+    {% for x in get('cards') %}<div class="card qcard box qc-{{ loop.index0 }}"><div class="qic"><i></i><i></i></div>{{ t('cards.' ~ loop.index0 ~ '.title', cls='qt') }}{{ t('cards.' ~ loop.index0 ~ '.question', cls='qq') }}</div>{% endfor %}
+  </div>
+</div>

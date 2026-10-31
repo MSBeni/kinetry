@@ -1,0 +1,33 @@
+{
+  "id": "decision", "name": "Decision",
+  "purpose": "One question that splits into two paths: if yes, do this; if no, do that.",
+  "use_when": ["the source gives a rule with a condition (if / when / unless)", "a judgment call with two clear outcomes"],
+  "avoid_when": ["more than two outcomes (use comparison or card_grid)", "steps in a fixed order (use numbered_steps)"],
+  "tags": ["decision", "flowchart", "process"],
+  "adapted_from": "flowchart and hw-pipeline (HyperFrames registry)",
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "question": {"type": "text", "max": 70, "lines": 2, "role": "h2", "desc": "The decision point, as a question"},
+    "yes": {"type": "object", "fields": {
+      "label": {"type": "text", "max": 14, "lines": 1, "role": "label", "desc": "e.g. 'Yes', 'Under $500', 'Urgent'"},
+      "text": {"type": "text", "max": 64, "lines": 3, "role": "item", "desc": "What to do on this path"}}},
+    "no": {"type": "object", "fields": {
+      "label": {"type": "text", "max": 14, "lines": 1, "role": "label"},
+      "text": {"type": "text", "max": 64, "lines": 3, "role": "item"}}},
+    "note": {"type": "text", "max": 90, "lines": 2, "role": "body", "optional": true}
+  },
+  "reveals": ["question", "yes", "no", "note"],
+  "layouts": {
+    "tree": {"desc": "The question on top, branching down into two outcome cards"},
+    "stacked": {"desc": "The question, then each path as a labeled row with an arrow"}
+  },
+  "example": {"eyebrow": "Expenses", "question": "Is the purchase over $500?",
+              "yes": {"label": "Yes", "text": "Get your manager's approval before you buy."},
+              "no": {"label": "No", "text": "Buy it and submit the receipt within a week."},
+              "note": "Either way, keep the receipt."},
+  "example_beats": [{"say": "Before you buy anything for work, ask one question: is it over five hundred dollars?", "show": ["question"]},
+                    {"say": "If it is, get your manager's approval first.", "show": ["yes"]},
+                    {"say": "If not, just buy it and submit the receipt within a week.", "show": ["no"]},
+                    {"say": "Either way, keep the receipt.", "show": ["note"]}],
+  "focus": {"key": "question", "sel": ".q"}
+}

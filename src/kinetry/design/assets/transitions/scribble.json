@@ -1,0 +1,7 @@
+{
+  "id": "scribble",
+  "name": "Scribble",
+  "kind": "subcomp",
+  "duration": 2.2,
+  "description": "Hand-drawn marker bands scribble over the frame and clear to reveal the next scene. From the HyperFrames registry (Apache-2.0)."
+}

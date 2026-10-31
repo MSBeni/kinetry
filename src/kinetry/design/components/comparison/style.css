@@ -1,0 +1,9 @@
+.c-comparison .ccols { display: flex; gap: var(--g3); margin-top: var(--g4); }
+.c-comparison .ccol { flex: 1 1 0; padding: var(--g3) var(--g4); }
+.c-comparison .ccol.pick { border-color: var(--fill); border-width: calc(var(--bw) + 2px); }
+.c-comparison .chd { display: flex; align-items: center; justify-content: space-between; gap: var(--g2); padding-bottom: var(--g2); }
+.c-comparison .pk { width: calc(48px * var(--k)); height: calc(48px * var(--k)); border-radius: 50%; background: var(--fill); color: var(--on-fill); display: grid; place-items: center;
+  font-weight: 800; flex: none; }
+.c-comparison .cp { padding: var(--g1) 0; border-top: var(--bw) solid var(--line); }
+.c-comparison .cp .r-body { color: var(--ink); }
+.c-comparison.l-rows .ccols, .fmt-9x16 .c-comparison .ccols { flex-direction: column; gap: var(--g2); }

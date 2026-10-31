@@ -1,0 +1,23 @@
+{
+  "id": "definition", "name": "Definition",
+  "purpose": "One key term, defined plainly, with an optional example.",
+  "use_when": ["jargon or a concept the rest of the video depends on"],
+  "avoid_when": ["terms the audience already knows"],
+  "tags": ["concept", "language"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "term": {"type": "text", "max": 32, "lines": 2, "role": "display"},
+    "kind": {"type": "text", "max": 24, "lines": 1, "role": "small", "optional": true, "desc": "e.g. 'noun', 'abbr.'"},
+    "definition": {"type": "text", "max": 170, "lines": 4, "role": "h3"},
+    "example": {"type": "text", "max": 110, "lines": 2, "role": "body", "optional": true}
+  },
+  "reveals": ["term", "definition", "example"],
+  "layouts": {"dictionary": {"desc": "Term, then a rule, then the definition"}, "card": {"desc": "Definition set in a card under the term"}},
+  "example": {"eyebrow": "Key term", "term": "Phishing", "kind": "noun",
+              "definition": "A message pretending to be someone you trust, written to get you to click, pay, or share a password.",
+              "example": "An 'IT Support' email asking you to verify your account today."},
+  "example_beats": [{"say": "First, a word: phishing.", "show": ["term"]},
+                    {"say": "It's a message pretending to be someone you trust, written to get you to click, pay, or share a password.", "show": ["definition"]},
+                    {"say": "Like an IT support email asking you to verify your account today.", "show": ["example"]}],
+  "focus": {"key": "term", "sel": ".trm"}
+}

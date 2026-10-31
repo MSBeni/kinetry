@@ -1,0 +1,23 @@
+{
+  "id": "numbered_steps", "name": "Numbered steps",
+  "purpose": "What to do, in order: 2-5 steps that light up as they're said.",
+  "use_when": ["procedures", "if-this-happens responses", "how-to"],
+  "avoid_when": ["unordered ideas (use card_grid or checklist)"],
+  "tags": ["sequence", "how-to"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 48, "lines": 2, "role": "h2"},
+    "steps": {"type": "list", "min": 2, "max": 5, "of": {"type": "object", "fields": {
+      "title": {"type": "text", "max": 44, "lines": 2, "role": "item"},
+      "text": {"type": "text", "max": 90, "lines": 2, "role": "body", "optional": true}}}}
+  },
+  "reveals": ["headline", "steps.*"],
+  "layouts": {"rows": {"desc": "Full-width rows"}, "cards": {"formats": ["16:9", "1:1"], "desc": "Side-by-side cards"}},
+  "example": {"eyebrow": "Incident response", "headline": "Clicked by mistake?",
+              "steps": [{"title": "Disconnect from the network"}, {"title": "Tell security right away", "text": "Fast reporting is what stops the damage."},
+                        {"title": "Change your password"}]},
+  "example_beats": [{"say": "Clicked by mistake? It happens.", "show": ["headline"]},
+                    {"say": "Disconnect from the network.", "show": ["steps.0"]},
+                    {"say": "Tell security right away.", "show": ["steps.1"]},
+                    {"say": "Then change your password.", "show": ["steps.2"]}]
+}

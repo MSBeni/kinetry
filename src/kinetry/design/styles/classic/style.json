@@ -1,0 +1,42 @@
+{
+  "id": "classic",
+  "name": "Classic",
+  "description": "The original Kinetry look: soft gradient ground, gradient accents, rounded cards, numbered navigation.",
+  "best_for": [
+    "general training",
+    "onboarding",
+    "anything"
+  ],
+  "energy": "medium",
+  "ground": "brand",
+  "type": {
+    "display": 146,
+    "h2": 100,
+    "h3": 48,
+    "lead": 40,
+    "body": 34,
+    "item": 38,
+    "label": 22,
+    "eyebrow": 24,
+    "small": 24,
+    "stat": 240,
+    "quote": 84,
+    "caption": 40
+  },
+  "fonts": {
+    "head": "display",
+    "label": "body",
+    "quote": "display",
+    "num": "display"
+  },
+  "accent_font": null,
+  "radius": "brand",
+  "shadow": "soft",
+  "border": 2,
+  "tracking": "-0.02em",
+  "motion": "classic",
+  "transition": "exit",
+  "chrome": "navbar",
+  "captions": "bar",
+  "inverse_scenes": []
+}

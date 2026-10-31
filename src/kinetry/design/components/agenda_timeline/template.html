@@ -1,0 +1,11 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="tline" style="--n: {{ get('stops')|length }}">
+    <div class="trk"></div><div class="prog"></div>
+    {% for s in get('stops') %}<div class="stop st-{{ loop.index0 }}">
+      <div class="dot">{{ loop.index }}</div>
+      <div class="sb">{{ t('stops.' ~ loop.index0 ~ '.time', cls='tm') }}{{ t('stops.' ~ loop.index0 ~ '.title') }}{{ t('stops.' ~ loop.index0 ~ '.text') }}</div>
+    </div>{% endfor %}
+  </div>
+</div>

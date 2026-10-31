@@ -1,0 +1,48 @@
+{
+  "id": "editorial",
+  "name": "Editorial",
+  "description": "Magazine-like: big confident type, hairline rules, a serif accent for quotes and numbers, calm masked reveals.",
+  "best_for": [
+    "courses and programs",
+    "leadership and mentoring",
+    "thought pieces"
+  ],
+  "energy": "calm",
+  "ground": "brand",
+  "type": {
+    "display": 168,
+    "h2": 104,
+    "h3": 52,
+    "lead": 40,
+    "body": 32,
+    "item": 42,
+    "label": 22,
+    "eyebrow": 24,
+    "small": 24,
+    "stat": 300,
+    "quote": 100,
+    "caption": 40
+  },
+  "fonts": {
+    "head": "display",
+    "label": "body",
+    "quote": "accent",
+    "num": "accent"
+  },
+  "accent_font": {
+    "family": "Fraunces",
+    "kind": "serif"
+  },
+  "radius": "brand",
+  "shadow": "none",
+  "border": 2,
+  "tracking": "-0.03em",
+  "motion": "editorial",
+  "transition": "fade",
+  "chrome": "rule",
+  "captions": "plain",
+  "inverse_scenes": [
+    "pull_quote",
+    "chapter"
+  ]
+}

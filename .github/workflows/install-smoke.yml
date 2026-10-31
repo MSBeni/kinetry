@@ -1,0 +1,52 @@
+name: Install without Docker
+
+# Runs deploy/install.sh on a fresh Ubuntu machine (systemd, no containers), then the same end-to-end
+# smoke test as the Docker image: health, auth, fonts, a real render through the API, the download.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "41 6 * * 1"
+  pull_request:
+    paths:
+      - "deploy/**"
+      - "pyproject.toml"
+      - "docker/smoke.py"
+      - "docker/smoke-plan.json"
+      - "src/kinetry/service.py"
+      - "src/kinetry/jobs.py"
+      - "src/kinetry/tooling.py"
+      - "src/kinetry/config.py"
+      - ".github/workflows/install-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install (as a server would)
+        run: sudo deploy/install.sh "$GITHUB_WORKSPACE"
+      - name: Re-run is an in-place upgrade
+        run: sudo deploy/install.sh "$GITHUB_WORKSPACE"
+      - name: End-to-end smoke test against the systemd service
+        run: |
+          KEY=$(sudo grep '^KINETRY_API_KEY=' /etc/kinetry/env | cut -d= -f2)
+          python3 docker/smoke.py --url http://127.0.0.1:8080 --key "$KEY" --expect-user kinetry --out smoke-out
+      - name: Service status and logs
+        if: always()
+        run: |
+          systemctl status kinetry --no-pager || true
+          sudo journalctl -u kinetry -n 80 --no-pager || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: install-smoke-${{ matrix.os }}
+          path: smoke-out/
+          if-no-files-found: ignore

@@ -1,0 +1,7 @@
+/* The 3D stage (design.effects.depth): one WebGL canvas behind every scene. Scenes on the page's own ground
+   let it show through; scenes set on the brand color keep their solid ground. */
+.depth { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* set pieces are softened toward the page color in the scene itself, so the brand's 3D logo keeps full color */
+#tf-depth { width: 100%; height: 100%; display: block; }
+.fx-dep-subtle .scene:not(.inv) .ground, .fx-dep-rich .scene:not(.inv) .ground { background: transparent; }
+.scene { z-index: 1; }

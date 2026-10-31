@@ -1,0 +1,11 @@
+.c-checklist .cx { align-items: center; gap: var(--g5); }
+.c-checklist .hd { flex: 0 0 40%; min-width: 0; }
+.c-checklist .list { flex: 1 1 0; min-width: 0; }
+.c-checklist .ck { display: flex; align-items: center; gap: var(--g3); padding: var(--g3) 0; border-bottom: var(--bw) solid var(--line); }
+.c-checklist .cb { position: relative; flex: none; width: calc(64px * var(--k)); height: calc(64px * var(--k)); border: 4px solid var(--ink); border-radius: calc(14px * var(--k)); }
+.c-checklist .cb svg { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); }
+.c-checklist.l-stack .cx, .fmt-9x16 .c-checklist .cx { flex-direction: column; align-items: stretch; gap: var(--g4); }
+.fmt-1x1 .c-checklist .cx { gap: var(--g3); }
+.fmt-1x1 .c-checklist.l-split .hd { flex-basis: 42%; }
+/* stacked in landscape and square: the 40% basis is a width beside the list, never a height above it */
+.fmt-16x9 .c-checklist.l-stack .hd, .fmt-1x1 .c-checklist.l-stack .hd { flex: none; }

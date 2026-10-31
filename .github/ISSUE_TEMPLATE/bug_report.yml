@@ -1,0 +1,32 @@
+name: Bug report
+description: Something didn't render, voice, fit or install the way it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected, and what you got instead.
+      placeholder: |
+        kinetry run lesson.md --brand brands/acme --out lesson.mp4
+        Expected ... but ...
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: kinetry doctor
+      description: Paste the output of `kinetry doctor`.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Plan or report
+      description: If you can share it, the plan JSON or the run's report.json (remove anything private first). A screenshot of the frame that looks wrong helps too.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "`python -c 'import kinetry; print(kinetry.__version__)'`, and your OS"

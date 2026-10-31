@@ -1,0 +1,7 @@
+{
+  "id": "fade",
+  "name": "Crossfade",
+  "kind": "overlap",
+  "duration": 0.55,
+  "description": "The next scene fades in over the last one."
+}

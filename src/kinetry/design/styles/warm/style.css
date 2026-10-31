@@ -1,0 +1,12 @@
+/* warm: paper dots, hand lettering, chunky outlined cards */
+.st-warm { background: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 9%, transparent) 1.5px, transparent 0) 0 0 / 36px 36px, var(--bg); }
+.st-warm .r-eyebrow, .st-warm .r-label { text-transform: none; letter-spacing: 0; font-weight: 700; line-height: 1.05; }
+.st-warm .r-eyebrow { color: var(--fill2); rotate: -2deg; display: inline-block; }
+.st-warm .card { border-color: var(--ink); }
+.st-warm .card:nth-of-type(odd) { rotate: -1deg; }
+.st-warm .card:nth-of-type(even) { rotate: 1deg; }
+.st-warm .badge { border-radius: 58% 42% 55% 45% / 47% 58% 42% 53%; box-shadow: 4px 5px 0 var(--ink); }
+.st-warm .pill { border: 3px solid var(--ink); background: var(--surface); color: var(--ink); }
+.st-warm .rule { height: calc(10px * var(--k)); border-radius: 99px; }
+.st-warm .chrome .wm { font-family: var(--f-accent); font-size: calc(64px * var(--k)); color: var(--accent); text-transform: none; letter-spacing: 0; font-weight: 700; }
+.st-warm .chrome .top { font-family: var(--f-body); font-weight: 800; }

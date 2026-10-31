@@ -1,0 +1,28 @@
+{# Adapted from the HyperFrames registry's decline-chart and data-chart (https://github.com/heygen-com/hyperframes, Apache-2.0). #}
+{% set pts = get('points') or [] %}{% set n = pts|length %}
+{% set vals = pts|map(attribute='value')|list %}
+{% set lo = [0, vals|min]|min %}{% set top = vals|max %}{% set hi_v = top + (top - lo) * 0.12 if top > lo else lo + 1 %}
+{% set hix = get('highlight') if get('highlight') is not none else n - 1 %}
+{% set u = get('unit') or '' %}{% set pre = u.strip() in ['$', '€', '£', '¥', '₹', 'US$', 'C$', 'A$'] %}
+{% macro X(i) %}{{ (4 + 92 * i / ([n - 1, 1]|max))|round(3) }}{% endmacro %}
+{% macro Y(v) %}{{ ((v - lo) / (hi_v - lo) * 100)|round(3) }}{% endmacro %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="chartwrap" dir="ltr">
+    <div class="plot">
+      <i class="grid"></i>
+      <svg class="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        {% set d %}{% for p in pts %}{{ 'M' if loop.first else 'L' }}{{ X(loop.index0) }} {{ 100 - Y(p['value'])|float }} {% endfor %}{% endset %}
+        {% if L == 'area' %}<path class="area" d="{{ d }}L{{ X(n - 1) }} 100 L{{ X(0) }} 100 Z" />{% endif %}
+        <path class="ln" d="{{ d }}" />
+      </svg>
+      {% for p in pts %}
+      <i class="pt p-{{ loop.index0 }}{% if loop.index0 == hix %} hi{% endif %}" style="left: {{ X(loop.index0) }}%; bottom: {{ Y(p['value']) }}%"></i>
+      {% if n <= 5 or loop.index0 == hix or loop.first %}<div class="pv pv-{{ loop.index0 }}{% if loop.index0 == hix %} hi{% endif %}" style="left: {{ X(loop.index0) }}%; bottom: {{ Y(p['value']) }}%">{{ u.strip() if pre else '' }}{{ p['value']|round(1)|string|replace('.0', '') }}{{ '' if pre else u }}</div>{% endif %}
+      {% endfor %}
+    </div>
+    <div class="xl">{% for p in pts %}<div class="xli" style="left: {{ X(loop.index0) }}%">{{ t('points.' ~ loop.index0 ~ '.label', cls='lab') }}</div>{% endfor %}</div>
+  </div>
+  {{ t('note', cls='note') }}
+</div>

@@ -1,0 +1,97 @@
+name: Render smoke test
+
+# Renders real videos from recorded LLM outputs and golden plans (no model calls,
+# no secrets), plus a gallery slice, and uploads them with QA frames. Slow (~15 min),
+# so it runs on demand, weekly, and on PRs that touch the renderer.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1"
+  pull_request:
+    paths:
+      - "src/kinetry/design/**"
+      - "src/kinetry/graph.py"
+      - "examples/plans/**"
+      - "src/kinetry/demos/**"
+      - "src/kinetry/fitcheck.py"
+      - "src/kinetry/timing.py"
+      - "src/kinetry/package.py"
+      - "src/kinetry/package_assets/**"
+      - "src/kinetry/transcript.py"
+      - "src/kinetry/netguard.py"
+      - "src/kinetry/localize.py"
+      - "examples/replay/localize-welcome/**"
+      - "tests/js/**"
+      - "src/kinetry/js/**"
+      - "src/kinetry/config.py"
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg espeak-ng
+      - run: pip install ".[kokoro]"
+      - run: kinetry setup
+      - run: kinetry doctor
+      - name: First-run demo (no keys, no model calls)
+        run: kinetry demo welcome --out out/demo-welcome.mp4 --quality draft
+      - name: Render example (replay)
+        run: |
+          kinetry run examples/sources/first-team-meeting.md --section 2 \
+            --brand tests/fixtures/fernhill-probe.json \
+            --replay examples/replay/run-the-room-fernhill \
+            --out out/run-the-room.mp4 --run-dir out/run
+      - name: LMS packages from the replay render, played against a mock LMS
+        run: |
+          kinetry package out/run --out out/run-the-room-scorm12.zip --quiz-file tests/fixtures/quiz-run-the-room.json
+          kinetry package out/run --out out/run-the-room-scorm2004.zip --standard scorm2004 --quiz-file tests/fixtures/quiz-run-the-room.json
+          kinetry package out/run --out out/run-the-room-web.zip --standard web --quiz off
+          export KINETRY_BROWSER_PATH="$(kinetry doctor | awk '/^chrome/ {print $2}')"
+          node tests/js/lms_harness.mjs out/run-the-room-scorm12.zip scorm12
+          node tests/js/lms_harness.mjs out/run-the-room-scorm2004.zip scorm2004
+      - name: The brand probe's browser can't reach internal hosts (checking proxy, real Chrome)
+        run: |
+          export KINETRY_BROWSER_PATH="$(kinetry doctor | awk '/^chrome/ {print $2}')"
+          node tests/js/public_proxy_test.mjs
+      - name: Localize the welcome demo (recorded translations, Chinese and Spanish, with web packages)
+        run: |
+          kinetry localize src/kinetry/demos/plans/welcome.json --to zh,es --brand src/kinetry/demos/brands/kinetry \
+            --replay examples/replay/localize-welcome --out-dir out/i18n --quality draft --package web --quiz off
+          test -s out/i18n/your-first-kinetry-video.zh.mp4 && test -s out/i18n/your-first-kinetry-video.es.zip
+      - name: Render golden plans (vertical + captions + music, dialogue with two voices)
+        run: |
+          ffmpeg -v error -f lavfi -i "sine=f=220:d=12" -f lavfi -i "sine=f=330:d=12" \
+            -filter_complex "[0][1]amix=inputs=2,volume=0.5[a]" -map "[a]" out/bed.mp3
+          kinetry run --plan examples/plans/cafe-first-shift.json --music out/bed.mp3 \
+            --out out/cafe-first-shift.mp4 --run-dir out/cafe
+          kinetry run --plan examples/plans/feedback-that-lands.json \
+            --out out/feedback-that-lands.mp4 --run-dir out/feedback
+      - name: Render with motion layers (camera, kinetic statement, ambient)
+        run: |
+          kinetry run --plan examples/plans/spot-the-phish-motion.json --out out/phish-motion.mp4 --run-dir out/motion
+      - name: Gallery with illustrations and the 3D stage (software WebGL)
+        run: kinetry gallery --out out/gallery-3d --styles warm --formats 16:9 --components title,illustration,big_stat --effects rich --depth subtle
+      - name: Gallery mirrored right to left (every scene type, Farsi page)
+        run: kinetry gallery --out out/gallery-rtl --styles editorial --formats 16:9 --lang fa
+      - name: Gallery slice
+        run: kinetry gallery --out out/gallery --styles editorial,warm --formats 9:16 --components title,dialogue,annotated_mock,steps_path,big_stat,statement --effects rich
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: render-smoke
+          path: |
+            out/*.mp4
+            out/*/qa/
+            out/*/report.json
+            out/gallery/

@@ -1,0 +1,22 @@
+.c-title .cx { display: flex; align-items: center; gap: var(--g5); }
+.c-title .tblock { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
+.c-title .hero-ic { order: 2; width: calc(380px * var(--k)); height: calc(380px * var(--k)); color: var(--fill); }
+.c-title .hero-ic svg { stroke-width: 1.5; }
+.c-title .kicker { margin-top: var(--g3); }
+.c-title .chips { display: flex; flex-wrap: wrap; gap: var(--g2); margin-top: var(--g4); }
+.c-title .chip { background: var(--surface); border: var(--bw) solid var(--line); color: var(--ink); }
+.c-title .chip .cn { width: calc(44px * var(--k)); height: calc(44px * var(--k)); border-radius: 50%; background: var(--fill); color: var(--on-fill);
+  display: grid; place-items: center; font-size: calc(24px * var(--k)); font-weight: 800; flex: none; }
+.c-title .chip .tx { font-size: calc(var(--fs-small) * 1.3 * var(--fit, 1)); font-weight: 600; color: var(--ink); }
+.c-title.l-center .cx { flex-direction: column; text-align: center; gap: var(--g4); }
+.c-title.l-center .hero-ic { order: 0; width: calc(260px * var(--k)); height: calc(260px * var(--k)); }
+.c-title.l-center .tblock { align-items: center; }
+.c-title.l-center .chips { justify-content: center; }
+.c-title.l-band .tblock { background: var(--fill); color: var(--on-fill); padding: var(--g4) var(--g5) var(--g5); border-radius: var(--r); }
+.c-title.l-band .tblock .r-eyebrow, .c-title.l-band .kicker { color: var(--on-fill); opacity: 0.88; }
+.c-title.l-band .hero-ic { color: var(--accent); }
+.fmt-9x16 .c-title .cx, .fmt-1x1 .c-title .cx { flex-direction: column; align-items: flex-start; gap: var(--g4); }
+.fmt-9x16 .c-title.l-center .cx, .fmt-1x1 .c-title.l-center .cx { align-items: center; }
+.fmt-9x16 .c-title .hero-ic { order: 0; width: calc(340px * var(--k)); height: calc(340px * var(--k)); }
+.fmt-1x1 .c-title .hero-ic { order: 0; width: calc(220px * var(--k)); height: calc(220px * var(--k)); }
+.fmt-9x16 .c-title.l-band .hero-ic, .fmt-1x1 .c-title.l-band .hero-ic { align-self: flex-start; }

@@ -1,0 +1,11 @@
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="path">
+    {% for s in get('steps') %}
+    <div class="pstop ps-{{ loop.index0 }}{% if loop.index0 % 2 %} alt{% endif %}"><span class="badge">{{ loop.index }}</span>
+      <div class="pt">{{ t('steps.' ~ loop.index0 ~ '.title') }}{{ t('steps.' ~ loop.index0 ~ '.text', cls='ptx') }}</div></div>
+    {% if not loop.last %}<svg class="conn cn-{{ loop.index0 }}{% if loop.index0 % 2 %} back{% endif %}" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M18 4 C 20 70, 80 30, 82 96" fill="none" stroke="var(--ink)" stroke-width="4" stroke-dasharray="3 12" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity="0.55"/></svg>{% endif %}
+    {% endfor %}
+  </div>
+</div>

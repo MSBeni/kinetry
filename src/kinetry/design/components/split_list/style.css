@@ -1,0 +1,13 @@
+.c-split_list .cx { align-items: center; gap: var(--g5); }
+.c-split_list .left { flex: 0 0 44%; min-width: 0; }
+.c-split_list .aside { margin-top: var(--g3); font-family: var(--f-quote); font-style: italic; }
+.c-split_list .tags { display: flex; flex-wrap: wrap; gap: var(--g2); margin-top: var(--g4); }
+.c-split_list .panel { flex: 1 1 0; min-width: 0; padding: var(--g4) var(--g4) var(--g3); }
+.c-split_list.l-stacked .panel { padding: 0; }
+.c-split_list .plabel { display: flex; align-items: center; gap: var(--g1); color: var(--muted); margin-bottom: var(--g2); }
+.c-split_list .pdot { width: calc(16px * var(--k)); height: calc(16px * var(--k)); border-radius: 50%; background: var(--fill2); flex: none; }
+.c-split_list .item { display: flex; align-items: center; gap: var(--g3); padding: var(--g2) 0; border-top: var(--bw) solid var(--line); }
+.c-split_list .item .num { font-family: var(--f-num); color: var(--accent2); font-size: calc(36px * var(--k)); flex: 0 0 auto; min-width: 1.6em; font-weight: 600; }
+.c-split_list.l-stacked .cx { flex-direction: column; align-items: stretch; gap: var(--g4); }
+.fmt-9x16 .c-split_list .cx, .fmt-1x1 .c-split_list .cx { align-items: stretch; gap: var(--g4); }
+.fmt-1x1 .c-split_list .tags { margin-top: var(--g2); }

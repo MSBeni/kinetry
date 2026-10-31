@@ -1,0 +1,28 @@
+[Unit]
+Description=Kinetry video service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kinetry
+Group=kinetry
+EnvironmentFile=/etc/kinetry/env
+WorkingDirectory=/var/lib/kinetry
+ExecStart=/opt/kinetry/venv/bin/kinetry serve --host ${KINETRY_BIND} --port ${KINETRY_PORT}
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+# Renders run Chrome and ffmpeg: give them room, but keep the service boxed in.
+LimitNOFILE=65536
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/kinetry /opt/kinetry/home
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target

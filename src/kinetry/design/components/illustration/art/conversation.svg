@@ -1,0 +1,12 @@
+<svg class="art" viewBox="0 0 400 300" aria-hidden="true">
+  <g class="a-pop">
+    <rect class="i-f" x="40" y="40" width="200" height="110" rx="34" /><path class="i-f" d="M86 146 l-14 40 l46 -40 z" />
+    <rect class="i-b a-grow-x" x="70" y="76" width="120" height="12" rx="6" /><rect class="i-b a-grow-x" x="70" y="102" width="86" height="12" rx="6" />
+  </g>
+  <g class="a-pop">
+    <rect class="i-a" x="168" y="130" width="192" height="104" rx="34" /><path class="i-a" d="M316 230 l18 38 l-50 -38 z" />
+    <circle class="i-b a-float" cx="226" cy="182" r="10" /><circle class="i-b a-float" cx="264" cy="182" r="10" /><circle class="i-b a-float" cx="302" cy="182" r="10" />
+  </g>
+  <path class="i-a a-pop a-spin" d="M330 54 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 l12 -5 z" />
+  <circle class="i-s a-pop" cx="60" cy="230" r="14" />
+</svg>

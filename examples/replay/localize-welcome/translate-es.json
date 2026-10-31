@@ -1,0 +1,140 @@
+{
+ "items": [
+  {
+   "id": "title",
+   "text": "Tu primer video con Kinetry"
+  },
+  {
+   "id": "chrome_left",
+   "text": "Primera prueba"
+  },
+  {
+   "id": "chrome_right",
+   "text": "kinetry.xyz"
+  },
+  {
+   "id": "s0.nav",
+   "text": "Hola"
+  },
+  {
+   "id": "s0.d.eyebrow",
+   "text": "Tu primer video con Kinetry"
+  },
+  {
+   "id": "s0.d.headline",
+   "text": "Hecho en tu equipo, ahora mismo"
+  },
+  {
+   "id": "s0.d.kicker",
+   "text": "Sin claves ni cuenta: un plan, una marca y una voz local gratuita."
+  },
+  {
+   "id": "s0.b0.say",
+   "text": "Este video se hizo en tu computadora, hace un minuto."
+  },
+  {
+   "id": "s0.b1.say",
+   "text": "Sin claves y sin cuenta. Solo un plan, una marca y una voz local gratuita."
+  },
+  {
+   "id": "s1.nav",
+   "text": "Qué pasó"
+  },
+  {
+   "id": "s1.d.eyebrow",
+   "text": "Entre bastidores"
+  },
+  {
+   "id": "s1.d.headline",
+   "text": "Lo que acaba de pasar"
+  },
+  {
+   "id": "s1.d.steps.0.title",
+   "text": "Cada frase tuvo su voz"
+  },
+  {
+   "id": "s1.d.steps.0.text",
+   "text": "Cada clip se midió, así que el ritmo sale del audio real."
+  },
+  {
+   "id": "s1.d.steps.1.title",
+   "text": "Cada texto se revisó"
+  },
+  {
+   "id": "s1.d.steps.1.text",
+   "text": "Si algo no cabe, la letra se reduce o un modelo lo acorta."
+  },
+  {
+   "id": "s1.d.steps.2.title",
+   "text": "Se generaron los fotogramas"
+  },
+  {
+   "id": "s1.d.steps.2.text",
+   "text": "El mismo plan y la misma voz dan siempre el mismo video."
+  },
+  {
+   "id": "s1.b0.say",
+   "text": "Esto es lo que acaba de pasar."
+  },
+  {
+   "id": "s1.b1.say",
+   "text": "Cada frase se grabó con su voz y se midió, así que cada elemento aparece justo cuando se dice."
+  },
+  {
+   "id": "s1.b2.say",
+   "text": "Cada texto se revisó para que quepa en pantalla."
+  },
+  {
+   "id": "s1.b3.say",
+   "text": "Después se generaron los fotogramas. El mismo plan siempre da el mismo video."
+  },
+  {
+   "id": "s2.nav",
+   "text": "Tu turno"
+  },
+  {
+   "id": "s2.d.eyebrow",
+   "text": "Siguiente"
+  },
+  {
+   "id": "s2.d.headline",
+   "text": "Ahora haz el tuyo"
+  },
+  {
+   "id": "s2.d.title",
+   "text": "terminal"
+  },
+  {
+   "id": "s2.d.note",
+   "text": "Para planificar desde tu propio contenido necesitas una clave de modelo, de cualquier proveedor."
+  },
+  {
+   "id": "s2.b0.say",
+   "text": "Para hacer el tuyo, lee tu marca desde tu sitio web y luego ejecútalo con una lección."
+  },
+  {
+   "id": "s2.b1.say",
+   "text": "Para planificar desde tu propio contenido necesitas una clave de modelo, del proveedor que prefieras."
+  },
+  {
+   "id": "s3.nav",
+   "text": "Documentación"
+  },
+  {
+   "id": "s3.d.pre",
+   "text": "Cuando quieras"
+  },
+  {
+   "id": "s3.d.headline",
+   "text": "Todo lo demás está en la documentación"
+  },
+  {
+   "id": "s3.d.meta",
+   "text": "kinetry.xyz/docs"
+  },
+  {
+   "id": "s3.b0.say",
+   "text": "Todo lo demás está en la documentación. ¡Que lo disfrutes!"
+  }
+ ]
+}

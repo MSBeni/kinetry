@@ -1,0 +1,8 @@
+.c-icon_grid .igrid { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: var(--g4) var(--g3); margin-top: var(--g4); }
+.c-icon_grid .ig { display: flex; flex-direction: column; gap: var(--g2); min-width: 0; }
+.c-icon_grid .igi { width: calc(110px * var(--k)); height: calc(110px * var(--k)); padding: calc(22px * var(--k)); border-radius: var(--r); background: var(--soft); color: var(--accent); }
+.c-icon_grid .igt { display: flex; flex-direction: column; gap: 6px; }
+.c-icon_grid.l-list .igrid { grid-template-columns: 1fr; gap: var(--g3); }
+.fmt-16x9 .c-icon_grid.l-list .igrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.c-icon_grid.l-list .ig { flex-direction: row; align-items: center; gap: var(--g3); }
+.c-icon_grid.l-list .igi { flex: none; }

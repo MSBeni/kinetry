@@ -1,0 +1,18 @@
+Kinetry
+Copyright 2026 The Kinetry Authors
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product includes work adapted from the HyperFrames registry
+(https://github.com/heygen-com/hyperframes), licensed under the Apache License,
+Version 2.0: the designs behind the code_snippet, chat_thread, line_chart and
+decision scene types, and the scribble transition. Each adapted file names its
+source.
+
+This product includes a small set of icon shapes from Lucide
+(https://lucide.dev), licensed under the ISC License, some of which derive from
+Feather (MIT License). See licenses/lucide-ISC.txt.
+
+Kinetry does not bundle GSAP, HyperFrames, Chromium, FFmpeg, Kokoro or any
+model weights; they are installed separately under their own licenses. See
+THIRD_PARTY.md.

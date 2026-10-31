@@ -1,0 +1,28 @@
+{
+  "id": "line_chart", "name": "Line chart",
+  "purpose": "A trend over time: a line draws through the values, with the point that matters called out.",
+  "use_when": ["3-8 values from the source in time order (months, years, weeks, sessions)", "something rising, falling or turning"],
+  "avoid_when": ["numbers not in the source: never invent data", "categories without an order (use bar_chart)", "a single number (use big_stat)"],
+  "tags": ["data", "number", "trend"],
+  "adapted_from": "decline-chart and data-chart (HyperFrames registry)",
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 56, "lines": 2, "role": "h2"},
+    "unit": {"type": "text", "max": 10, "optional": true, "desc": "Unit for values: a suffix like '%', 'h', ' min', or a currency symbol ('$', '€'), which goes in front"},
+    "points": {"type": "list", "min": 3, "max": 8, "of": {"type": "object", "fields": {
+      "label": {"type": "text", "max": 10, "lines": 1, "role": "small", "desc": "e.g. 'Jan', 'Q3', '2024', 'Wk 2'"},
+      "value": {"type": "number"}}}},
+    "highlight": {"type": "int", "min": 0, "max": 7, "optional": true, "desc": "Index of the point to call out (default: the last)"},
+    "note": {"type": "text", "max": 100, "lines": 2, "role": "small", "optional": true, "desc": "Source or caveat"}
+  },
+  "reveals": ["headline", "points", "note"],
+  "layouts": {"line": {"desc": "A line with a dot on each value"}, "area": {"desc": "The line with the area beneath it filled"}},
+  "example": {"eyebrow": "Since the new onboarding", "headline": "Questions to the help desk fell by half", "unit": "",
+              "points": [{"label": "Jan", "value": 120}, {"label": "Feb", "value": 112}, {"label": "Mar", "value": 95},
+                         {"label": "Apr", "value": 78}, {"label": "May", "value": 66}, {"label": "Jun", "value": 58}],
+              "note": "Help desk tickets from new staff, per month."},
+  "example_beats": [{"say": "Since the new onboarding started, questions to the help desk have fallen month after month.", "show": ["headline", "points"]},
+                    {"say": "By June they were down by half.", "show": ["note"]}],
+  "checks": [{"index": "highlight", "of": "points"}],
+  "focus": {"key": "points", "sel": ".plot"}
+}

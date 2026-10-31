@@ -1,0 +1,14 @@
+.c-agenda_timeline .tline { position: relative; display: flex; gap: var(--g3); margin-top: var(--g5); --dot: calc(84px * var(--k)); }
+.c-agenda_timeline .stop { flex: 1 1 0; min-width: 0; position: relative; z-index: 1; }
+.c-agenda_timeline .trk, .c-agenda_timeline .prog { position: absolute; left: 0; right: 0; top: calc(var(--dot) / 2 - 2px); height: 4px; background: var(--line); transform-origin: left center; }
+.c-agenda_timeline .prog { background: var(--fill); }
+.c-agenda_timeline .dot { width: var(--dot); height: var(--dot); border-radius: 50%; background: var(--surface); border: 4px solid var(--ink);
+  display: grid; place-items: center; font-family: var(--f-num); font-weight: 800; font-size: calc(34px * var(--k)); }
+.c-agenda_timeline .sb { margin-top: var(--g2); display: flex; flex-direction: column; gap: calc(10px * var(--k)); }
+.c-agenda_timeline .tm { color: var(--accent); }
+.c-agenda_timeline.l-vertical .tline { flex-direction: column; gap: var(--g3); --dot: calc(72px * var(--k)); }
+.c-agenda_timeline.l-vertical .stop { display: flex; gap: var(--g3); align-items: flex-start; }
+.c-agenda_timeline.l-vertical .dot { flex: none; }
+.c-agenda_timeline.l-vertical .sb { margin-top: 0; }
+.c-agenda_timeline.l-vertical .trk, .c-agenda_timeline.l-vertical .prog { inset-inline-start: calc(var(--dot) / 2 - 2px); inset-inline-end: auto; width: 4px; height: auto;
+  top: calc(var(--dot) / 2); bottom: calc(var(--dot) / 2); transform-origin: center top; }

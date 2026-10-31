@@ -1,0 +1,25 @@
+{
+  "id": "agenda_timeline", "name": "Agenda timeline",
+  "purpose": "What happens when: 2-5 stops along a line, each with a time and a short title.",
+  "use_when": ["a session agenda", "phases of a project or day", "a schedule"],
+  "avoid_when": ["instructions with detail per step (use numbered_steps)"],
+  "tags": ["sequence", "time"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 48, "lines": 2, "role": "h2"},
+    "stops": {"type": "list", "min": 2, "max": 5, "of": {"type": "object", "fields": {
+      "time": {"type": "text", "max": 16, "lines": 1, "role": "label", "optional": true},
+      "title": {"type": "text", "max": 26, "lines": 2, "role": "h3"},
+      "text": {"type": "text", "max": 70, "lines": 2, "role": "body", "optional": true}}}}
+  },
+  "reveals": ["headline", "stops.*"],
+  "layouts": {"horizontal": {"formats": ["16:9", "1:1"], "desc": "Stops along a horizontal line"}, "vertical": {"desc": "Stops down a vertical line"}},
+  "example": {"eyebrow": "The session", "headline": "Three moves, forty-five minutes",
+              "stops": [{"time": "0-15 min", "title": "Look back", "text": "One win from the past month, in detail."},
+                        {"time": "15-30 min", "title": "Look ahead", "text": "The one skill you want to grow next."},
+                        {"time": "30-45 min", "title": "Commit", "text": "A small experiment to try before you meet again."}]},
+  "example_beats": [{"say": "Here's how the forty-five minutes flow.", "show": ["headline"]},
+                    {"say": "First, look back at one win.", "show": ["stops.0"]},
+                    {"say": "Then name the skill you want to grow.", "show": ["stops.1"]},
+                    {"say": "Finally, commit to one small experiment.", "show": ["stops.2"]}]
+}

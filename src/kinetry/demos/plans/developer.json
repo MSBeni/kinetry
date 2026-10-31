@@ -1,0 +1,245 @@
+{
+ "version": 2,
+ "title": "Kinetry from your own code",
+ "chrome_left": "Developer guide",
+ "chrome_right": "kinetry.xyz",
+ "design": {
+  "style": "technical",
+  "format": "16:9",
+  "transition": "fade",
+  "effects": {
+   "camera": "subtle",
+   "kinetic": "subtle"
+  }
+ },
+ "scenes": [
+  {
+   "type": "title",
+   "layout": "hero",
+   "nav": "Kinetry",
+   "data": {
+    "eyebrow": "For developers",
+    "headline": "Video from your own code",
+    "kicker": "A lesson and a brand go in. A narrated video comes out."
+   },
+   "beats": [
+    {
+     "say": "Kinetry is a video engine you call from your own code.",
+     "show": [
+      "headline"
+     ]
+    },
+    {
+     "say": "Give it a lesson and a brand, and you get back a narrated video in that brand.",
+     "show": [
+      "kicker"
+     ],
+     "voice": "co"
+    }
+   ]
+  },
+  {
+   "type": "code_snippet",
+   "layout": "terminal",
+   "nav": "Install",
+   "data": {
+    "eyebrow": "Step one",
+    "headline": "Install it once",
+    "title": "terminal",
+    "code": [
+     "pip install \"kinetry[llms,kokoro]\"",
+     "kinetry setup",
+     "kinetry doctor"
+    ],
+    "highlight": 1,
+    "note": "Setup fetches the pinned renderer and browser."
+   },
+   "beats": [
+    {
+     "say": "Install the package, with the model providers and the free local voice.",
+     "show": [
+      "code"
+     ]
+    },
+    {
+     "say": "Then run setup. It fetches a pinned renderer and browser, so every render looks the same.",
+     "show": [
+      "note"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "code_snippet",
+   "layout": "editor",
+   "nav": "Python",
+   "data": {
+    "eyebrow": "Step two",
+    "headline": "Four calls in Python",
+    "title": "make_video.py",
+    "code": [
+     "from kinetry import Kinetry, load_source",
+     "tf = Kinetry(llm=\"anthropic:claude-sonnet-5-5\")",
+     "pack = tf.brand(\"https://example.com\")",
+     "src = load_source(\"lesson.md\", section=2)",
+     "plan = tf.plan(src, brand=pack)",
+     "tf.render(plan, brand=pack, out=\"lesson.mp4\")"
+    ],
+    "highlight": 4,
+    "note": "The plan is plain data: review or edit it before you render."
+   },
+   "beats": [
+    {
+     "say": "In Python, pick any model with your own key. Then read the brand from a website, and plan the video from your lesson.",
+     "show": [
+      "code"
+     ],
+     "voice": "co"
+    },
+    {
+     "say": "The plan is plain data, so you can review or edit it. Then render.",
+     "show": [
+      "note"
+     ],
+     "voice": "co"
+    }
+   ]
+  },
+  {
+   "type": "code_snippet",
+   "layout": "terminal",
+   "nav": "HTTP",
+   "data": {
+    "eyebrow": "Any language",
+    "headline": "Or call the service",
+    "title": "terminal",
+    "code": [
+     "kinetry serve",
+     "curl -X POST $KINETRY/v1/videos \\",
+     "  -H \"Authorization: Bearer $KEY\" \\",
+     "  -d '{\"plan\": {...}, \"brand_id\": \"acme\"}'",
+     "curl $KINETRY/v1/videos/job_42"
+    ],
+    "highlight": 1,
+    "note": "Poll the job, or get a signed callback when it's done."
+   },
+   "beats": [
+    {
+     "say": "From any other language, run it as a service, and post a plan to the videos endpoint.",
+     "show": [
+      "code"
+     ]
+    },
+    {
+     "say": "Then poll the job, or get a signed callback when the video is ready.",
+     "show": [
+      "note"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "icon_grid",
+   "layout": "grid",
+   "nav": "Everywhere",
+   "data": {
+    "eyebrow": "One engine",
+    "headline": "Wherever your code lives",
+    "items": [
+     {
+      "icon": "code",
+      "label": "Python library"
+     },
+     {
+      "icon": "server",
+      "label": "HTTP service"
+     },
+     {
+      "icon": "plug",
+      "label": "MCP server"
+     },
+     {
+      "icon": "workflow",
+      "label": "LangChain tools"
+     },
+     {
+      "icon": "container",
+      "label": "Docker image"
+     },
+     {
+      "icon": "terminal",
+      "label": "Command line"
+     }
+    ]
+   },
+   "beats": [
+    {
+     "say": "The same engine comes as a Python library, an HTTP service, and an MCP server for agents.",
+     "show": [
+      "headline",
+      "items.0",
+      "items.1",
+      "items.2"
+     ],
+     "voice": "co"
+    },
+    {
+     "say": "There are LangChain tools, a Docker image, and a command line too.",
+     "show": [
+      "items.3",
+      "items.4",
+      "items.5"
+     ],
+     "voice": "co"
+    }
+   ]
+  },
+  {
+   "type": "big_stat",
+   "layout": "giant",
+   "nav": "Cost",
+   "data": {
+    "eyebrow": "Per video",
+    "value": "$0.06",
+    "label": "to $0.11 in model calls for 90 seconds of video",
+    "sub": "With Claude Sonnet on Bedrock and the free local voice. It renders on your own servers."
+   },
+   "beats": [
+    {
+     "say": "A ninety-second video costs about six to eleven cents in model calls.",
+     "show": [
+      "value",
+      "label"
+     ]
+    },
+    {
+     "say": "That's with Claude Sonnet on Bedrock and the free local voice, rendered on your own servers.",
+     "show": [
+      "sub"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "closer",
+   "layout": "left",
+   "nav": "Start",
+   "data": {
+    "pre": "Your turn",
+    "headline": "Make your first video",
+    "meta": "Everything is in the docs: kinetry.xyz/docs"
+   },
+   "beats": [
+    {
+     "say": "Everything is in the docs. Make your first video today.",
+     "show": [
+      "pre",
+      "headline",
+      "meta"
+     ],
+     "voice": "co"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "pull_quote", "name": "Pull quote",
+  "purpose": "One line worth remembering, set large, with the key phrase highlighted as it's said.",
+  "use_when": ["the main insight of a section", "a principle or a memorable line from the source"],
+  "avoid_when": ["quotes attributed to real people unless the source has them"],
+  "tags": ["emphasis"],
+  "fields": {
+    "lead": {"type": "text", "max": 30, "lines": 1, "role": "eyebrow", "optional": true},
+    "quote": {"type": "text", "max": 150, "lines": 4, "role": "quote"},
+    "highlight": {"type": "text", "max": 60, "optional": true, "desc": "An exact phrase from the quote to highlight"},
+    "attribution": {"type": "text", "max": 50, "lines": 1, "role": "small", "optional": true}
+  },
+  "reveals": ["lead", "quote", {"key": "highlight", "requires": "highlight"}, "attribution"],
+  "inverse_layouts": ["panel"],
+  "layouts": {"panel": {"desc": "Full-bleed brand color"}, "plain": {"desc": "On the normal ground with oversized quote marks"}},
+  "example": {"lead": "Notice the pattern", "quote": "Growth starts by naming what already works, then doing more of it on purpose.",
+              "highlight": "what already works"},
+  "example_beats": [{"say": "Notice the pattern.", "show": ["lead"]},
+                    {"say": "Growth starts by naming what already works, then doing more of it on purpose.", "show": ["quote", "highlight"]}],
+  "focus": {"key": "quote", "sel": "blockquote"}
+}

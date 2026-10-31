@@ -1,0 +1,37 @@
+/* Adapted from the HyperFrames registry's code-typing and terminal-simulator (Apache-2.0). Code is always
+   left-to-right, and the window stays dark in every style, like a real editor. */
+.c-code_snippet .cx { display: flex; flex-direction: column; align-items: stretch; }
+.c-code_snippet .hd { margin-bottom: var(--g3); }
+.c-code_snippet .win { width: 100%; max-width: calc(1360px * var(--k)); align-self: center; background: #0d1117; color: #e6edf3;
+  border: 1px solid #263040; border-radius: calc(16px * var(--k)); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3); overflow: hidden;
+  --ink: #e6edf3; --muted: #8b949e; }
+.c-code_snippet .wbar { display: flex; align-items: center; gap: calc(10px * var(--k)); height: calc(54px * var(--k)); padding: 0 calc(22px * var(--k));
+  background: #161b22; border-bottom: 1px solid #263040; }
+.c-code_snippet .wbar > i { width: calc(14px * var(--k)); height: calc(14px * var(--k)); border-radius: 50%; background: #3b4452; flex: none; }
+.c-code_snippet .wbar > i:nth-child(1) { background: #ff5f57; }
+.c-code_snippet .wbar > i:nth-child(2) { background: #febc2e; }
+.c-code_snippet .wbar > i:nth-child(3) { background: #28c840; }
+.c-code_snippet .wt { margin-inline-start: var(--g2); color: #b4bfcc; font-family: var(--f-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-code_snippet .code { padding: calc(28px * var(--k)) 0; overflow: hidden; --cs: calc(30px * var(--k)); }
+.fmt-9x16 .c-code_snippet .code { --cs: 24px; }
+.fmt-9x16 .c-code_snippet .no { flex-basis: 2.4em; padding-inline-end: 0.8em; }
+.c-code_snippet .cl { position: relative; display: flex; align-items: baseline; padding-inline-end: calc(28px * var(--k)); }
+.c-code_snippet .cl::before { content: ""; position: absolute; inset: 0; background: color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: inset 4px 0 0 color-mix(in srgb, var(--accent) 70%, #fff); opacity: 0; }
+.c-code_snippet .cl.hi::before { opacity: var(--hi, 0); }
+.c-code_snippet .no { flex: 0 0 3.2em; padding-inline-end: 1.2em; text-align: right; color: #8b949e; font-family: var(--f-mono);
+  font-size: var(--cs); line-height: 1.55; position: relative; }
+.c-code_snippet .lw { position: relative; min-width: 0; }
+.c-code_snippet .ln { font-family: var(--f-mono); font-size: calc(var(--cs) * var(--fit, 1)); line-height: 1.55; color: #e6edf3; white-space: pre;
+  font-variant-ligatures: none; letter-spacing: 0; text-wrap: nowrap; }
+.c-code_snippet .cm .ln { color: #8b949e; font-style: italic; }
+.c-code_snippet .cw { position: absolute; inset: 0; pointer-events: none; }
+.c-code_snippet .cur { position: absolute; top: 12%; left: 0; width: calc(3px * var(--k)); height: 76%; opacity: 0;
+  background: color-mix(in srgb, var(--accent) 55%, #fff); }
+.c-code_snippet.l-terminal .win { background: #0b0d10; }
+.c-code_snippet.l-terminal .no { flex-basis: 1.4em; padding: 0; }
+.c-code_snippet.l-terminal .cl:not(.cmd) .ln { color: #b4bfcc; }
+.c-code_snippet.l-terminal .cmd .ln { color: #f0f6fc; }
+.c-code_snippet.l-terminal .cmd .ln::first-letter { color: #7ee787; }
+.c-code_snippet .note { margin-top: var(--g3); max-width: calc(1360px * var(--k)); align-self: center; width: 100%; padding-inline-start: var(--g2);
+  border-inline-start: calc(6px * var(--k)) solid var(--accent); color: var(--ink); }

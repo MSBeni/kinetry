@@ -1,0 +1,20 @@
+{
+  "id": "checklist", "name": "Checklist",
+  "purpose": "Things to have done or check, ticked off one by one as they're said.",
+  "use_when": ["before-you-leave lists", "pre-flight checks", "end-of-session wrap-ups"],
+  "avoid_when": ["a sequence where order matters (use numbered_steps)"],
+  "tags": ["action", "recap"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 48, "lines": 3, "role": "h2"},
+    "items": {"type": "list", "min": 2, "max": 5, "of": {"type": "text", "max": 48, "lines": 2, "role": "item"}}
+  },
+  "reveals": ["headline", "items.*"],
+  "layouts": {"split": {"formats": ["16:9", "1:1"], "desc": "Headline left, list right"}, "stack": {"desc": "Headline above the list"}},
+  "example": {"eyebrow": "Before you leave", "headline": "Three things to check",
+              "items": ["One skill to grow, named", "A two-week experiment, chosen", "Session 3, on both calendars"]},
+  "example_beats": [{"say": "Before you leave, check three things.", "show": ["headline"]},
+                    {"say": "You've named one skill to grow.", "show": ["items.0"]},
+                    {"say": "You've chosen a two-week experiment.", "show": ["items.1"]},
+                    {"say": "And session three is on both calendars.", "show": ["items.2"]}]
+}

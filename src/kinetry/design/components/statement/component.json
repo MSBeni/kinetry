@@ -1,0 +1,21 @@
+{
+  "id": "statement", "name": "Kinetic statement",
+  "purpose": "One sentence set huge, its words landing one by one as they're spoken, with the key words in the brand color.",
+  "use_when": ["a punchy claim or rule worth hearing word by word", "openers and turning points in short, energetic videos"],
+  "avoid_when": ["anything longer than one sentence", "lists or steps", "calm or sensitive topics"],
+  "tags": ["emphasis", "kinetic"],
+  "requires": "kinetic",
+  "fields": {
+    "lead": {"type": "text", "max": 30, "lines": 1, "role": "eyebrow", "optional": true},
+    "text": {"type": "text", "max": 80, "lines": 4, "role": "display", "desc": "The statement, as spoken (short words land best)"},
+    "emphasis": {"type": "text", "max": 30, "optional": true, "desc": "An exact phrase from text to set in the brand color"},
+    "sub": {"type": "text", "max": 100, "lines": 2, "role": "lead", "optional": true}
+  },
+  "reveals": ["lead", "text", "sub"],
+  "focus": {"key": "text", "sel": ".hlw"},
+  "layouts": {"stack": {"desc": "Left-aligned, words stacking line by line"}, "center": {"desc": "Centered, like a title card"}},
+  "example": {"lead": "One rule", "text": "If it feels urgent, slow down.", "emphasis": "slow down", "sub": "Urgency is the oldest trick in a phishing email."},
+  "example_beats": [{"say": "One rule.", "show": ["lead"]},
+                    {"say": "If it feels urgent, slow down.", "show": ["text"]},
+                    {"say": "Urgency is the oldest trick in a phishing email.", "show": ["sub"]}]
+}

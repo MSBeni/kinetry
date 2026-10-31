@@ -1,0 +1,22 @@
+{
+  "id": "question_cards", "name": "Question cards",
+  "purpose": "2-3 open questions to reflect on or discuss, each on its own card.",
+  "use_when": ["reflection prompts", "discussion questions for a session"],
+  "avoid_when": ["answers or facts"],
+  "tags": ["reflection"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 48, "lines": 2, "role": "h2"},
+    "cards": {"type": "list", "min": 2, "max": 3, "of": {"type": "object", "fields": {
+      "title": {"type": "text", "max": 18, "lines": 1, "role": "label"},
+      "question": {"type": "text", "max": 100, "lines": 4, "role": "h3"}}}}
+  },
+  "reveals": ["headline", "cards.*"],
+  "layouts": {"row": {"formats": ["16:9", "1:1"], "desc": "Cards side by side"}, "stack": {"desc": "Cards stacked, full width"}},
+  "example": {"eyebrow": "Reflect", "headline": "Before your next one-on-one",
+              "cards": [{"title": "Energy", "question": "What gave you energy this week, and what drained it?"},
+                        {"title": "Growth", "question": "Which skill do you want to practice next?"},
+                        {"title": "Support", "question": "What's one thing I could do to help?"}]},
+  "example_beats": [{"say": "Before your next one-on-one, think about three questions.", "show": ["headline"]},
+                    {"say": "What gave you energy, which skill you want to practice, and how I can help.", "show": ["cards.0", "cards.1", "cards.2"]}]
+}

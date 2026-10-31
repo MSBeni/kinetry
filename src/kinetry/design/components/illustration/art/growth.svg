@@ -1,0 +1,14 @@
+<svg class="art" viewBox="0 0 400 300" aria-hidden="true">
+  <path class="i-ln a-draw" d="M50 250 H360" />
+  <rect class="i-s a-grow" x="70" y="190" width="44" height="60" rx="6" />
+  <rect class="i-s a-grow" x="134" y="160" width="44" height="90" rx="6" />
+  <rect class="i-f a-grow" x="198" y="120" width="44" height="130" rx="6" />
+  <rect class="i-a a-grow" x="262" y="76" width="44" height="174" rx="6" />
+  <path class="i-ln thick a-draw" d="M70 170 L150 136 L214 98 L300 44" />
+  <path class="i-a a-pop" d="M286 30 l30 6 l-14 26 z" />
+  <g class="a-swing pivot-b">
+    <path class="i-ln a-draw" d="M346 250 v-56" />
+    <path class="i-f a-pop" d="M346 214 c-26 -2 -34 -22 -30 -36 c16 0 30 10 30 36 z" />
+    <path class="i-a a-pop" d="M346 200 c22 -4 30 -22 26 -34 c-14 2 -26 12 -26 34 z" />
+  </g>
+</svg>

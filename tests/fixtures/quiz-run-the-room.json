@@ -1,0 +1,18 @@
+{
+  "questions": [
+    {
+      "question": "What is your main job in the first meeting?",
+      "options": ["To present your plan", "Mostly to listen", "To set every deadline"],
+      "answer": 1,
+      "why": "Say why you called it, hand the floor over, then listen.",
+      "quote": "Your job in the first meeting is mostly to listen"
+    },
+    {
+      "question": "Agreement comes too fast. What do you ask?",
+      "options": ["Can we vote now?", "Who disagrees?", "What would make this fail?"],
+      "answer": 2,
+      "why": "Quick agreement can hide doubts; this question surfaces them.",
+      "quote": "Agreement that comes too fast. Ask, \"What would make this fail?\""
+    }
+  ]
+}

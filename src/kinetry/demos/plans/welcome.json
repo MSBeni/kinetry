@@ -1,0 +1,78 @@
+{
+ "version": 2,
+ "title": "Your first Kinetry video",
+ "chrome_left": "First run",
+ "chrome_right": "kinetry.xyz",
+ "design": {
+  "style": "classic",
+  "format": "16:9",
+  "transition": "fade",
+  "effects": {"camera": "subtle", "kinetic": "subtle"}
+ },
+ "scenes": [
+  {
+   "type": "title",
+   "layout": "hero",
+   "nav": "Hello",
+   "data": {
+    "eyebrow": "Your first Kinetry video",
+    "headline": "Made on your machine, just now",
+    "kicker": "No keys and no account: a plan, a brand and a free local voice."
+   },
+   "beats": [
+    {"say": "This video was made on your computer, a minute ago.", "show": ["headline"]},
+    {"say": "No keys, and no account. Just a plan, a brand, and a free local voice.", "show": ["kicker"], "voice": "co"}
+   ]
+  },
+  {
+   "type": "numbered_steps",
+   "layout": "rows",
+   "nav": "What happened",
+   "data": {
+    "eyebrow": "Behind the scenes",
+    "headline": "What just happened",
+    "steps": [
+     {"title": "Every line was voiced", "text": "Each clip was measured, so the timing comes from the real audio."},
+     {"title": "Every text was checked", "text": "Anything too long shrinks a step, or a model shortens it."},
+     {"title": "The frames were rendered", "text": "The same plan and voice give the same video, every time."}
+    ]
+   },
+   "beats": [
+    {"say": "Here's what just happened.", "show": ["headline"]},
+    {"say": "Every line was voiced, and measured, so each item appears exactly when it's said.", "show": ["steps.0"], "voice": "co"},
+    {"say": "Every piece of text was checked to fit the frame.", "show": ["steps.1"]},
+    {"say": "Then the frames were rendered. The same plan always gives the same video.", "show": ["steps.2"], "voice": "co"}
+   ]
+  },
+  {
+   "type": "code_snippet",
+   "layout": "terminal",
+   "nav": "Your turn",
+   "data": {
+    "eyebrow": "Next",
+    "headline": "Now make your own",
+    "title": "terminal",
+    "code": ["kinetry brand https://your-site.com --save brands/you", "kinetry run lesson.md --brand brands/you --out you.mp4"],
+    "highlight": 1,
+    "note": "Planning from your own content needs a model key: any provider."
+   },
+   "beats": [
+    {"say": "To make your own, read your brand from your website, then run it on a lesson.", "show": ["code"]},
+    {"say": "Planning from your own content needs a model key, from any provider you like.", "show": ["note"]}
+   ]
+  },
+  {
+   "type": "closer",
+   "layout": "left",
+   "nav": "Docs",
+   "data": {
+    "pre": "Ready when you are",
+    "headline": "Everything else is in the docs",
+    "meta": "kinetry.xyz/docs"
+   },
+   "beats": [
+    {"say": "Everything else is in the docs. Have fun.", "show": ["pre", "headline", "meta"], "voice": "co"}
+   ]
+  }
+ ]
+}

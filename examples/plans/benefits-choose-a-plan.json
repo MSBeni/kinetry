@@ -1,0 +1,183 @@
+{
+  "version": 2,
+  "title": "Choosing your health plan",
+  "chrome_left": "Meridian Health Co-op",
+  "chrome_right": "Open enrollment",
+  "design": {
+    "style": "corporate",
+    "format": "16:9"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Intro",
+      "data": {
+        "eyebrow": "Open enrollment",
+        "headline": "Choosing your health plan",
+        "kicker": "Two plans, one decision, by November 15.",
+        "chips": [
+          "Base plan",
+          "Plus plan"
+        ]
+      },
+      "beats": [
+        {
+          "say": "Open enrollment is here.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "You have two plans to choose from, and until November fifteenth to decide.",
+          "show": [
+            "kicker",
+            "chips.0",
+            "chips.1"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "comparison",
+      "nav": "Plans",
+      "data": {
+        "headline": "Base or Plus?",
+        "columns": [
+          {
+            "title": "Base plan",
+            "points": [
+              "Lower monthly cost",
+              "Higher deductible",
+              "Good if you rarely see a doctor"
+            ]
+          },
+          {
+            "title": "Plus plan",
+            "points": [
+              "Higher monthly cost",
+              "Lower deductible",
+              "Good for regular care or a family"
+            ],
+            "pick": true
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "The base plan costs less each month but has a higher deductible.",
+          "show": [
+            "headline",
+            "columns.0"
+          ]
+        },
+        {
+          "say": "The plus plan costs more each month, with a lower deductible. It suits regular care or a family.",
+          "show": [
+            "columns.1"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "bar_chart",
+      "nav": "Cost",
+      "data": {
+        "headline": "Monthly cost per person",
+        "unit": "$",
+        "bars": [
+          {
+            "label": "Base",
+            "value": 42
+          },
+          {
+            "label": "Plus",
+            "value": 96
+          }
+        ],
+        "highlight": 0,
+        "note": "Your employer covers the rest of the premium."
+      },
+      "beats": [
+        {
+          "say": "Per person, base costs forty two dollars a month, and plus costs ninety six.",
+          "show": [
+            "headline",
+            "bars"
+          ]
+        },
+        {
+          "say": "Your employer covers the rest.",
+          "show": [
+            "note"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "agenda_timeline",
+      "nav": "Dates",
+      "data": {
+        "headline": "Key dates",
+        "stops": [
+          {
+            "time": "Nov 1",
+            "title": "Enrollment opens"
+          },
+          {
+            "time": "Nov 15",
+            "title": "Last day to choose"
+          },
+          {
+            "time": "Jan 1",
+            "title": "Coverage starts"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Enrollment opens November first.",
+          "show": [
+            "headline",
+            "stops.0"
+          ]
+        },
+        {
+          "say": "The last day to choose is November fifteenth.",
+          "show": [
+            "stops.1"
+          ]
+        },
+        {
+          "say": "Your new coverage starts January first.",
+          "show": [
+            "stops.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Decide",
+      "data": {
+        "pre": "Next step",
+        "headline": "Pick your plan in the benefits portal",
+        "meta": "Questions? Benefits desk, weekdays 9 to 5."
+      },
+      "beats": [
+        {
+          "say": "Pick your plan in the benefits portal.",
+          "show": [
+            "pre",
+            "headline"
+          ]
+        },
+        {
+          "say": "Questions? The benefits desk is open weekdays, nine to five.",
+          "show": [
+            "meta"
+          ]
+        }
+      ]
+    }
+  ]
+}

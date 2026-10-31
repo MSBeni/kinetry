@@ -1,0 +1,9 @@
+.c-definition .trm { display: flex; align-items: baseline; gap: var(--g3); flex-wrap: wrap; }
+.c-definition .kind { font-family: var(--f-quote); font-style: italic; font-size: calc(var(--fs-lead) * var(--fit, 1)); }
+.c-definition .rule { margin: var(--g3) 0; }
+.c-definition .def { display: flex; flex-direction: column; gap: var(--g3); max-width: calc(1240px * var(--k)); }
+.c-definition .def .r-h3 { font-family: var(--f-body); font-weight: 500; letter-spacing: 0; }
+.c-definition .ex { font-style: italic; border-inline-start: calc(6px * var(--k)) solid var(--fill2); padding-inline-start: var(--g2); }
+.c-definition.l-card .def { max-width: none; padding: var(--g4); }
+.c-definition.l-card .rule { display: none; }
+.c-definition.l-card .trm { margin-bottom: var(--g3); }

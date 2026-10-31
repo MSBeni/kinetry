@@ -1,0 +1,11 @@
+{
+  "name": "Customer conversations (example)",
+  "model": "inworld-tts-2",
+  "characters": [
+    {"id": "coach", "label": "Coach", "voice": "inworld:Sarah", "tags": {"role": "narrator"}},
+    {"id": "skeptic_male", "label": "The Skeptic (male)", "voice": "inworld:Dennis", "tags": {"persona": "skeptic", "gender": "male"}},
+    {"id": "skeptic_female", "label": "The Skeptic (female)", "voice": "inworld:Ashley", "tags": {"persona": "skeptic", "gender": "female"}},
+    {"id": "newcomer_male", "label": "The Newcomer (male)", "voice": "inworld:inworld-tts-2-flash:Alex", "tags": {"persona": "newcomer", "gender": "male"}},
+    {"id": "newcomer_female", "label": "The Newcomer (female)", "voice": "kokoro:af_nova", "appearance": "any avatar name your avatar platform uses", "tags": {"persona": "newcomer", "gender": "female"}}
+  ]
+}

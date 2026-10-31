@@ -1,0 +1,6 @@
+.c-closer .cx { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.c-closer.l-left .cx { align-items: flex-start; text-align: start; }
+.c-closer .ci { width: calc(150px * var(--k)); height: calc(150px * var(--k)); margin-bottom: var(--g3); color: var(--fill); }
+.c-closer .rule { margin-top: var(--g4); }
+.c-closer.l-center .rule { transform-origin: center; }
+.c-closer .meta { margin-top: var(--g3); }

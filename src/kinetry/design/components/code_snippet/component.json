@@ -1,0 +1,30 @@
+{
+  "id": "code_snippet", "name": "Code",
+  "purpose": "A few lines of code or terminal commands typed out as they're explained, with one line pointed out.",
+  "use_when": ["the source shows code, a command, a formula or a config to copy", "a technical how-to: what to run and what it does"],
+  "avoid_when": ["code that isn't in the source: copy it exactly, never invent commands or output", "more than 10 lines (show the part that matters)"],
+  "tags": ["code", "technical", "terminal"],
+  "adapted_from": "code-typing and terminal-simulator (HyperFrames registry)",
+  "fonts": ["mono"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 56, "lines": 2, "role": "h2", "optional": true},
+    "title": {"type": "text", "max": 32, "lines": 1, "role": "small", "optional": true, "desc": "File name or window title, e.g. 'settings.yaml' or 'Terminal'"},
+    "code": {"type": "list", "min": 1, "max": 10, "of": {"type": "text", "max": 56, "lines": 1, "role": "body"},
+             "desc": "One line per item, copied exactly (indent with spaces). In the terminal layout start commands with '$ '; other lines are output"},
+    "highlight": {"type": "int", "min": 0, "max": 9, "optional": true, "desc": "Index of the line the note is about"},
+    "note": {"type": "text", "max": 90, "lines": 2, "role": "body", "optional": true, "desc": "What that line does"}
+  },
+  "reveals": ["code", "note"],
+  "layouts": {
+    "editor": {"desc": "A code editor window with line numbers"},
+    "terminal": {"desc": "A terminal: commands type out after the prompt, output lines follow"}
+  },
+  "example": {"eyebrow": "Try it", "headline": "Turn on two-step sign-in", "title": "Terminal",
+              "code": ["$ acme login --sso", "Signed in as theo@acme.example", "$ acme security mfa enable", "Scan the QR code with your app.", "Two-step sign-in is on."],
+              "highlight": 2, "note": "This one command turns it on for your account."},
+  "example_beats": [{"say": "Open a terminal, sign in, and turn on two-step sign-in.", "show": ["code"]},
+                    {"say": "That second command is the one that matters: it switches it on for your account.", "show": ["note"]}],
+  "checks": [{"index": "highlight", "of": "code"}],
+  "focus": {"key": "note", "sel": ".cl.hi"}
+}

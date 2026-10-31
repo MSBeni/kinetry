@@ -1,0 +1,146 @@
+{
+  "version": 2,
+  "title": "Your first shift at Harbor & Pine",
+  "chrome_left": "Harbor & Pine",
+  "chrome_right": "New starter",
+  "design": {
+    "style": "warm",
+    "format": "9:16",
+    "captions": true,
+    "pacing": "normal"
+  },
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Welcome",
+      "data": {
+        "eyebrow": "Day one",
+        "headline": "Your first shift, made simple",
+        "kicker": "Three habits that make every shift easier.",
+        "icon": "coffee"
+      },
+      "beats": [
+        {
+          "say": "Welcome to your first shift at Harbor and Pine.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "Here are three habits that make every shift easier.",
+          "show": [
+            "kicker",
+            "icon"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "steps_path",
+      "nav": "Habits",
+      "data": {
+        "headline": "Three habits",
+        "steps": [
+          {
+            "title": "Greet in five seconds",
+            "text": "Eye contact and a hello, even when busy."
+          },
+          {
+            "title": "Call the name",
+            "text": "Say it when the drink is ready."
+          },
+          {
+            "title": "Wipe as you go",
+            "text": "A clean bar is a fast bar."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "First, greet every guest within five seconds, even when the line is long.",
+          "show": [
+            "headline",
+            "steps.0"
+          ]
+        },
+        {
+          "say": "Second, call the guest's name when their drink is ready.",
+          "show": [
+            "steps.1"
+          ]
+        },
+        {
+          "say": "And third, wipe as you go. A clean bar is a fast bar.",
+          "show": [
+            "steps.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "instead_try",
+      "nav": "Words",
+      "data": {
+        "instead": "Next!",
+        "try": "Hi there, what can I get started for you?"
+      },
+      "beats": [
+        {
+          "say": "Small words matter. Instead of calling out next,",
+          "show": [
+            "instead",
+            "strike"
+          ]
+        },
+        {
+          "say": "try: hi there, what can I get started for you?",
+          "show": [
+            "try"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "sticky_tip",
+      "nav": "Tip",
+      "data": {
+        "label": "Pro tip",
+        "tip": "Stuck on an order? Ask your shift lead. Nobody expects you to know it all on day one.",
+        "icon": "lightbulb"
+      },
+      "beats": [
+        {
+          "say": "And if you get stuck on an order, ask your shift lead.",
+          "show": [
+            "tip"
+          ]
+        },
+        {
+          "say": "Nobody expects you to know it all on day one.",
+          "show": [
+            "icon"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Go",
+      "data": {
+        "pre": "You've got this",
+        "headline": "Find your shift lead and say hello",
+        "icon": "heart"
+      },
+      "beats": [
+        {
+          "say": "Now go find your shift lead and say hello. We're glad you're here.",
+          "show": [
+            "pre",
+            "headline",
+            "icon"
+          ]
+        }
+      ]
+    }
+  ]
+}

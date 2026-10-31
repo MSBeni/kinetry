@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "title": "Container check",
+  "chrome_left": "Kinetry",
+  "chrome_right": "Smoke test",
+  "design": {"style": "editorial", "format": "16:9", "captions": true},
+  "scenes": [
+    {
+      "type": "title",
+      "nav": "Intro",
+      "data": {"eyebrow": "Smoke test", "headline": "The container renders"},
+      "beats": [{"say": "This short video was rendered inside the Kinetry container.", "show": ["headline"]}]
+    },
+    {
+      "type": "checklist",
+      "nav": "Checks",
+      "data": {"headline": "What it proves", "items": ["Voice works", "Chrome works", "Video encodes"]},
+      "beats": [
+        {"say": "The local voice works,", "show": ["headline", "items.0"]},
+        {"say": "the browser renders the scenes,", "show": ["items.1"]},
+        {"say": "and the video encodes.", "show": ["items.2"]}
+      ]
+    },
+    {
+      "type": "closer",
+      "nav": "Done",
+      "data": {"headline": "Ready to deploy"},
+      "beats": [{"say": "Ready to deploy.", "show": ["headline"]}]
+    }
+  ]
+}

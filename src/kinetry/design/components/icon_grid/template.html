@@ -1,0 +1,9 @@
+{% set n = get('items')|length %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2') }}
+  <div class="igrid" style="--cols: {{ (3 if n in (3, 5, 6) else 2) if land else (3 if sq and n in (3, 6) else 2) }}">
+    {% for it in get('items') %}<div class="ig ig-{{ loop.index0 }}"><div class="igi ic">{{ icon(it['icon']) }}</div>
+      <div class="igt">{{ t('items.' ~ loop.index0 ~ '.label') }}{{ t('items.' ~ loop.index0 ~ '.text') }}</div></div>{% endfor %}
+  </div>
+</div>

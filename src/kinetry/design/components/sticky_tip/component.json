@@ -1,0 +1,18 @@
+{
+  "id": "sticky_tip", "name": "Tip",
+  "purpose": "A pro tip or reminder, slapped on like a sticky note (or set as a callout card).",
+  "use_when": ["one practical tip", "a reminder worth remembering"],
+  "avoid_when": ["the main point of the video (use pull_quote)"],
+  "tags": ["tip", "playful"],
+  "fields": {
+    "label": {"type": "text", "max": 20, "lines": 1, "role": "h3", "optional": true, "desc": "Defaults to 'Pro tip'"},
+    "tip": {"type": "text", "max": 110, "lines": 4, "role": "h3"},
+    "note": {"type": "text", "max": 70, "lines": 2, "role": "body", "optional": true},
+    "icon": {"type": "icon", "optional": true}
+  },
+  "reveals": ["tip", "note", "icon"],
+  "layouts": {"note": {"desc": "Yellow sticky note with tape"}, "card": {"desc": "Callout card with an icon"}},
+  "example": {"label": "Pro tip!", "tip": "Regulars love being remembered. Write their name on the cup.", "note": "Name on the cup, name out loud.", "icon": "pen-line"},
+  "example_beats": [{"say": "Pro tip: regulars love being remembered.", "show": ["tip"]}, {"say": "Write their name on the cup, and say it when you hand it over.", "show": ["note", "icon"]}],
+  "focus": {"key": "tip", "sel": ".tipbox"}
+}

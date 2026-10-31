@@ -1,0 +1,15 @@
+{# Adapted from the HyperFrames registry's code-typing and terminal-simulator (https://github.com/heygen-com/hyperframes, Apache-2.0). #}
+{% set code = get('code') or [] %}{% set hi = get('highlight') %}{% set term = L == 'terminal' %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2', cls='hd') }}
+  <div class="win" dir="ltr">
+    <div class="wbar"><i></i><i></i><i></i>{{ t('title', cls='wt') }}</div>
+    <div class="code box">
+      {% for ln in code %}{% set cmd = term and ln.lstrip().startswith('$') %}{% set cm = not term and (ln.lstrip().startswith('#') or ln.lstrip().startswith('//')) %}
+      <div class="cl cl-{{ loop.index0 }}{% if cmd %} cmd{% endif %}{% if cm %} cm{% endif %}{% if hi is not none and loop.index0 == hi %} hi{% endif %}"><span class="no">{% if not term %}{{ loop.index }}{% endif %}</span><span class="lw">{{ t('code.' ~ loop.index0, cls='ln') }}<i class="cw"><i class="cur"></i></i></span></div>
+      {% endfor %}
+    </div>
+  </div>
+  {{ t('note', cls='note') }}
+</div>

@@ -1,0 +1,23 @@
+{
+  "id": "icon_grid", "name": "Icon grid",
+  "purpose": "3-6 ideas, each with an icon that draws itself on and a short label.",
+  "use_when": ["features, benefits, values, tools", "anything concrete enough to have an icon"],
+  "avoid_when": ["steps in order", "abstract ideas no icon can show"],
+  "tags": ["grid", "concepts", "icons"],
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "headline": {"type": "text", "max": 48, "lines": 2, "role": "h2"},
+    "items": {"type": "list", "min": 3, "max": 6, "of": {"type": "object", "fields": {
+      "icon": {"type": "icon", "desc": "Lucide icon name or a plain word, e.g. 'calendar', 'shield-check', 'coffee'"},
+      "label": {"type": "text", "max": 26, "lines": 2, "role": "h3"},
+      "text": {"type": "text", "max": 70, "lines": 2, "role": "body", "optional": true}}}}
+  },
+  "reveals": ["headline", "items.*"],
+  "layouts": {"grid": {"desc": "Icons in a grid"}, "list": {"desc": "Icons down the left, text beside"}},
+  "example": {"eyebrow": "What you get", "headline": "Everything in one place",
+              "items": [{"icon": "calendar", "label": "Your schedule", "text": "Sessions, deadlines and reminders."},
+                        {"icon": "users", "label": "Your cohort", "text": "The people learning with you."},
+                        {"icon": "message-circle", "label": "Your mentor", "text": "A direct line, any time."}]},
+  "example_beats": [{"say": "Everything you need is in one place.", "show": ["headline"]},
+                    {"say": "Your schedule, your cohort, and your mentor.", "show": ["items.0", "items.1", "items.2"]}]
+}

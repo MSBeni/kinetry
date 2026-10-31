@@ -1,0 +1,8 @@
+<div class="cx">
+  <div class="tipbox box">
+    {% if L == 'note' %}<i class="tape"></i>{% endif %}
+    <div class="th">{% if has('icon') %}<span class="tic ic">{{ icon(d['icon']) }}</span>{% endif %}{% if has('label') %}{{ t('label', cls='tl') }}{% else %}<div class="tx r-h3 tl">Pro tip</div>{% endif %}</div>
+    {{ t('tip', cls='tt') }}
+  </div>
+  {{ t('note', cls='tn') }}
+</div>
