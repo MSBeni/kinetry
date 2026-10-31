@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0 (unreleased): first public release
+## 0.3.0 (2026-10-31): first public release
 
 - **Open source** under the Apache License 2.0. `NOTICE` names the adapted HyperFrames registry designs and the vendored Lucide shapes; `THIRD_PARTY.md` lists what's installed separately under its own license (GSAP, HyperFrames, Chromium, FFmpeg, Kokoro).
 - **`kinetry demo`**: a ready-made video on any machine with no keys, no account and no model calls (`welcome`, `developer`, `spanish`; `--list`, `--setup`). It names exactly what's missing when the toolchain isn't ready.
