@@ -1,6 +1,6 @@
 name: Release
 
-# Runs when a version tag (v0.3.0, ...) is pushed: builds the package, checks the tag matches the version,
+# Runs when a version tag (v0.3.0, ...) is pushed, or created by publishing a release on github.com: builds the package, checks the tag matches the version,
 # publishes to PyPI with trusted publishing (no token stored here), and makes a GitHub release.
 # One-time setup on pypi.org: add this repository and workflow (release.yml, environment "pypi") as a
 # trusted publisher for the "kinetry" project.
@@ -64,6 +64,13 @@ jobs:
           v="${GITHUB_REF_NAME#v}"
           awk -v v="$v" '$0 ~ "^## "v {f=1; next} /^## / && f {exit} f' CHANGELOG.md > notes.md
           test -s notes.md || echo "See CHANGELOG.md." > notes.md
-      - run: gh release create "$GITHUB_REF_NAME" dist/* --title "Kinetry $GITHUB_REF_NAME" --notes-file notes.md
+      - name: Create the release, or fill in one made on github.com
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/* --clobber
+            gh release edit "$GITHUB_REF_NAME" --title "Kinetry $GITHUB_REF_NAME" --notes-file notes.md
+          else
+            gh release create "$GITHUB_REF_NAME" dist/* --title "Kinetry $GITHUB_REF_NAME" --notes-file notes.md
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
