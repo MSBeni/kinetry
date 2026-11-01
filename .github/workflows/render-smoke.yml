@@ -86,7 +86,7 @@ jobs:
         run: kinetry gallery --out out/gallery-rtl --styles editorial --formats 16:9 --lang fa
       - name: Gallery slice
         run: kinetry gallery --out out/gallery --styles editorial,warm --formats 9:16 --components title,dialogue,annotated_mock,steps_path,big_stat,statement --effects rich
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: render-smoke

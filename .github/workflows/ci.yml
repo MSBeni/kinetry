@@ -46,7 +46,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install build && python -m build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
@@ -68,7 +68,7 @@ jobs:
       - run: docker image inspect kinetry:ci --format 'image size {{.Size}} bytes'
       - run: python3 docker/smoke.py --image kinetry:ci --out smoke-out
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: docker-smoke
           path: smoke-out/
