@@ -56,6 +56,12 @@ class Beat(BaseModel):
         description="Speaker role for this beat ('narrator' if empty). Dialogue lines use the speaker id, e.g. 'a'.",
     )
     caption: str | None = Field(None, description="On-screen caption if it should differ from the narration")
+    tone: str | None = Field(
+        None,
+        max_length=160,
+        description="How to say this beat, e.g. 'slower, quietly, with weight'. Only voices that take direction "
+        "(gemini, openai) use it; it is never spoken or shown.",
+    )
 
 
 class Scene(BaseModel):
@@ -144,7 +150,20 @@ class VideoPlan2(BaseModel):
     voices: dict[str, str] = Field(
         default_factory=dict, description="Speaker role -> voice spec, e.g. {'a': 'kokoro:am_michael'}"
     )
+    voice_styles: dict[str, str] = Field(
+        default_factory=dict,
+        description="Speaker role -> standing delivery direction for voices that take it (gemini, openai), "
+        "e.g. {'narrator': 'a calm, firm clinical psychologist'}",
+    )
     scenes: list[Scene] = Field(..., min_length=2, max_length=14)
+
+    @field_validator("voice_styles")
+    @classmethod
+    def _style_len(cls, v: dict[str, str]) -> dict[str, str]:
+        for role, text in v.items():
+            if not role.replace("_", "").isalnum() or len(text) > 600:
+                raise ValueError(f"bad voice style for '{role}' (role letters/digits, text up to 600 chars)")
+        return v
 
     @field_validator("voices")
     @classmethod

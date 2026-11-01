@@ -64,7 +64,10 @@ def voice_plan(plan, voice: CachedVoice | dict[str, CachedVoice], audio_dir: Pat
         for bi, beat in enumerate(scene.beats):
             role = getattr(beat, "voice", None) or "narrator"
             v = voices.get(role) or voices["narrator"]
-            row.append(v.synthesize(beat.say, audio_dir / f"s{si + 1}-b{bi + 1}.wav"))
+            styles = getattr(plan, "voice_styles", None) or {}
+            tone = " ".join(x for x in (styles.get(role), getattr(beat, "tone", None)) if x)
+            out = audio_dir / f"s{si + 1}-b{bi + 1}.wav"
+            row.append(v.synthesize(beat.say, out, tone=tone) if tone else v.synthesize(beat.say, out))
         clips.append(row)
     return clips
 

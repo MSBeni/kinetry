@@ -70,18 +70,25 @@ class CachedVoice:
         self.cache_dir = cache_dir
         cache_dir.mkdir(parents=True, exist_ok=True)
 
-    def synthesize(self, text: str, out_path: Path) -> Clip:
+    def synthesize(self, text: str, out_path: Path, tone: str | None = None) -> Clip:
+        """`tone` is a delivery note; only providers with `takes_direction` use it (others ignore it)."""
         inner = self.inner
-        key = _cache_key(
+        tone = tone if getattr(inner, "takes_direction", False) else None
+        parts: list = [
             inner.name,
             getattr(inner, "voice", None),
             getattr(inner, "model", None),
             getattr(inner, "speed", None),
             text,
-        )
-        cached = self.cache_dir / f"{key}.wav"
+        ]
+        if tone or getattr(inner, "style", None):  # keeps keys of undirected clips unchanged
+            parts += [getattr(inner, "style", None), tone]
+        cached = self.cache_dir / f"{_cache_key(*parts)}.wav"
         if not cached.exists():
-            self.inner.synthesize(text, cached)
+            if tone:
+                self.inner.synthesize(text, cached, tone=tone)
+            else:
+                self.inner.synthesize(text, cached)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_bytes(cached.read_bytes())
         return Clip(out_path, wav_duration(out_path))
@@ -331,6 +338,7 @@ class OpenAITTSProvider:
     onyx, sage, shimmer, verse... `instructions` steers delivery on gpt-4o-mini-tts."""
 
     name = "openai"
+    takes_direction = True
 
     def __init__(
         self,
@@ -349,10 +357,11 @@ class OpenAITTSProvider:
             raise ValueError("openai voice needs an API key (api_key= or OPENAI_API_KEY)")
         self.http = client or httpx.Client(base_url=base_url, headers={"Authorization": f"Bearer {key}"}, timeout=300)
 
-    def synthesize(self, text: str, out_path: Path) -> Clip:
+    def synthesize(self, text: str, out_path: Path, tone: str | None = None) -> Clip:
         body = {"model": self.model, "voice": self.voice, "input": text, "response_format": "wav", "speed": self.speed}
-        if self.instructions and not self.model.startswith("tts-1"):
-            body["instructions"] = self.instructions
+        instructions = " ".join(x for x in (self.instructions, tone) if x)
+        if instructions and not self.model.startswith("tts-1"):
+            body["instructions"] = instructions
         r = self.http.post("/audio/speech", json=body)
         if r.status_code >= 400:
             raise RuntimeError(f"OpenAI TTS {r.status_code}: {r.text[:300]}")
@@ -363,6 +372,185 @@ class OpenAITTSProvider:
             _pcm16_to_wav(r.content, out_path, 24000)
         _fix_streamed_wav(out_path)
         return Clip(out_path, wav_duration(out_path))
+
+
+def tighten_pcm16(pcm: bytes, rate: int, *, max_pause: float = 0.7, pad: float = 0.1, floor: float = 0.012) -> bytes:
+    """Trim silence at both ends (keeping `pad` seconds) and shorten pauses longer than `max_pause`.
+    Expressive voices take long dramatic pauses; the timeline adds its own gaps between beats."""
+    import numpy as np
+
+    a = np.frombuffer(pcm[: len(pcm) // 2 * 2], dtype="<i2")
+    if not len(a):
+        return pcm
+    win = max(1, rate // 100)  # 10 ms
+    n = len(a) // win
+    if n < 3:
+        return pcm
+    env = np.sqrt((a[: n * win].astype(np.float64).reshape(n, win) ** 2).mean(axis=1)) / 32768.0
+    loud = np.where(env > floor)[0]
+    if not len(loud):
+        return pcm
+    keep = int(pad * 100)
+    start, end = max(0, loud[0] - keep), min(n, loud[-1] + 1 + keep)
+    quiet = env < floor
+    out, i, cap = [], start, int(max_pause * 100)
+    while i < end:
+        j = i
+        while j < end and quiet[j]:
+            j += 1
+        if j > i:  # a pause of j - i windows
+            run = j - i
+            if run > cap:  # keep its two ends so the cut lands in silence
+                half = cap // 2
+                out.append(a[i * win : (i + half) * win])
+                out.append(a[(j - (cap - half)) * win : j * win])
+            else:
+                out.append(a[i * win : j * win])
+            i = j
+            continue
+        while j < end and not quiet[j]:
+            j += 1
+        out.append(a[i * win : j * win])
+        i = j
+    return np.concatenate(out).astype("<i2").tobytes()
+
+
+GEMINI_TTS_MODELS = (
+    "gemini-3.8-flash-tts",
+    "gemini-3.8-flash-lite-tts",
+    "gemini-3.1-flash-tts-preview",
+    "gemini-2.5-pro-preview-tts",
+    "gemini-2.5-flash-preview-tts",
+)
+# Google's prebuilt voices (each has a character, e.g. Charon informative, Kore firm, Gacrux mature)
+GEMINI_VOICES = (
+    "Zephyr Puck Charon Kore Fenrir Leda Orus Aoede Callirrhoe Autonoe Enceladus Iapetus Umbriel Algieba "
+    "Despina Erinome Algenib Rasalgethi Laomedeia Achernar Alnilam Schedar Gacrux Pulcherrima Achird "
+    "Zubenelgenubi Vindemiatrix Sadachbia Sadaltager Sulafat"
+).split()
+
+
+def parse_gemini(spec_voice: str) -> tuple[str, str]:
+    """'Charon' -> (default model, Charon); 'gemini-2.5-pro-preview-tts:Charon' -> (that model, Charon)."""
+    model, sep, voice = spec_voice.rpartition(":")
+    return (model if sep else GEMINI_TTS_MODELS[0]), voice
+
+
+class GeminiTTSProvider:
+    """Gemini speech generation (generateContent with an AUDIO response). Takes direction in plain words:
+    a standing `style` for the speaker plus a per-beat `tone`, e.g. 'slower, quietly, with weight'."""
+
+    name = "gemini"
+    takes_direction = True
+    RATE = 24000  # the API returns 16-bit mono PCM at 24 kHz
+
+    def __init__(
+        self,
+        voice: str = "Charon",
+        *,
+        model: str | None = None,
+        style: str | None = None,
+        api_key: str | None = None,
+        client=None,
+        retries: int = 3,
+        sleep=None,
+        max_pause: float | None = 0.7,
+    ):
+        self.voice, self.model, self.style = voice, model or GEMINI_TTS_MODELS[0], style
+        self.max_pause = max_pause
+        self.retries = retries
+        if client is None:
+            key = api_key or os.environ.get("KINETRY_GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY")
+            if not key:
+                raise ValueError("gemini voice needs an API key (api_key=, KINETRY_GOOGLE_API_KEY or GEMINI_API_KEY)")
+            from google import genai
+
+            client = genai.Client(api_key=key)
+        self.client = client
+        import time
+
+        self._sleep = sleep or time.sleep
+
+    def prompt(self, text: str, tone: str | None = None) -> str:
+        direction = " ".join(x for x in (self.style, tone) if x)
+        if not direction:
+            return text
+        return (
+            f"Read the transcript aloud. Delivery: {direction.rstrip('.')}. "
+            f"Speak only the transcript, nothing else.\n\nTranscript: {text}"
+        )
+
+    def interactions(self) -> bool:
+        """Gemini 3.8 speech reads any instructions in the text aloud: it takes direction as a
+        `speech_metadata` style annotation on the Interactions API instead."""
+        return self.model.startswith("gemini-3.8")
+
+    def _interact(self, text: str, tone: str | None) -> bytes:
+        import base64
+
+        style = "; ".join(x.strip().rstrip(".") for x in (self.style, tone) if x)
+        item: dict = {"type": "text", "text": text}
+        if style:
+            item["annotations"] = [{"type": "speech_metadata", "style": style}]
+        r = self.client.interactions.create(
+            model=self.model,
+            input=[item],
+            response_format={"type": "audio"},
+            generation_config={"speech_config": [{"voice": self.voice}]},
+        )
+        audio = getattr(r, "output_audio", None)
+        data = getattr(audio, "data", None) if audio is not None else None
+        if not data:
+            raise RuntimeError("Gemini TTS returned no audio")
+        return base64.b64decode(data) if isinstance(data, str) else data
+
+    def synthesize(self, text: str, out_path: Path, tone: str | None = None) -> Clip:
+        if self.interactions():
+            return self._retry(lambda: self._interact(text, tone), out_path)
+        from google.genai import types
+
+        cfg = types.GenerateContentConfig(
+            response_modalities=["AUDIO"],
+            speech_config=types.SpeechConfig(
+                voice_config=types.VoiceConfig(
+                    prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name=self.voice)
+                )
+            ),
+        )
+
+        def call() -> bytes:
+            r = self.client.models.generate_content(model=self.model, contents=self.prompt(text, tone), config=cfg)
+            pcm = b"".join(
+                p.inline_data.data
+                for c in (r.candidates or [])[:1]
+                for p in (c.content.parts if c.content else [])
+                if getattr(p, "inline_data", None) and p.inline_data.data
+            )
+            if not pcm:
+                raise RuntimeError("Gemini TTS returned no audio")
+            return pcm
+
+        return self._retry(call, out_path)
+
+    def _retry(self, call, out_path: Path) -> Clip:
+        last: Exception | None = None
+        for attempt in range(self.retries):
+            try:
+                pcm = call()
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                rate = self.RATE
+                if pcm.startswith(b"RIFF"):  # keep only the audio: Google appends a C2PA provenance chunk
+                    with wave.open(io.BytesIO(pcm), "rb") as w:
+                        rate, pcm = w.getframerate(), w.readframes(w.getnframes())
+                if self.max_pause:
+                    pcm = tighten_pcm16(pcm, rate, max_pause=self.max_pause)
+                _pcm16_to_wav(pcm, out_path, rate)
+                return Clip(out_path, wav_duration(out_path))
+            except Exception as e:  # transient 429/500s are common on preview models
+                last = e
+                if attempt < self.retries - 1:
+                    self._sleep(2.0 * (attempt + 1))
+        raise RuntimeError(f"Gemini TTS failed: {last}")
 
 
 def _fix_streamed_wav(path: Path) -> None:
@@ -510,14 +698,14 @@ def parse_inworld(spec_voice: str) -> tuple[str, str]:
     return (model if sep else "inworld-tts-2"), voice
 
 
-VOICE_PREFIXES = ("kokoro:", "voicestudio:", "openai:", "elevenlabs:", "inworld:")
+VOICE_PREFIXES = ("kokoro:", "voicestudio:", "openai:", "elevenlabs:", "inworld:", "gemini:")
 
 
 def make_voice(
     spec: str | VoiceProvider, settings: Settings, cache_dir: Path, *, api_key: str | None = None
 ) -> CachedVoice:
     """'kokoro:af_heart' | 'voicestudio:<profile_id>' | 'voicestudio:design=<description>' |
-    'openai:<voice>' | 'elevenlabs:<voice_id>', or any object with `name` and
+    'openai:<voice>' | 'elevenlabs:<voice_id>' | 'gemini:[<model>:]<voice>', or any object with `name` and
     `synthesize(text, out_path) -> Clip` (bring your own TTS). `api_key` is for the cloud voices
     (default: OPENAI_API_KEY / ELEVENLABS_API_KEY)."""
     if not isinstance(spec, str):
@@ -551,6 +739,11 @@ def build_voice(spec: str, settings: Settings, *, api_key: str | None = None) ->
         if not vid:
             raise ValueError("inworld voice needs a voice id: inworld:<voice_id> or inworld:<model>:<voice_id>")
         inner = InworldProvider(vid, model=model, api_key=api_key)
+    elif provider == "gemini":
+        model, vid = parse_gemini(voice)
+        if model not in GEMINI_TTS_MODELS:
+            raise ValueError(f"gemini model must be one of {', '.join(GEMINI_TTS_MODELS)}")
+        inner = GeminiTTSProvider(vid or "Charon", model=model, api_key=api_key)
     else:
         raise ValueError(f"unknown voice provider '{provider}' (use one of {', '.join(VOICE_PREFIXES)})")
     return inner

@@ -6,7 +6,8 @@
     "acting out a relatable moment (a person staring at a message, two people disagreeing)",
     "a short exchange where seeing the people helps",
     "showing how someone feels: worried, annoyed, relieved",
-    "rehearsing a hard moment: the same scene played twice, the old way and a better way"
+    "rehearsing a hard moment: the same scene played twice, the old way and a better way",
+    "a presenter or expert speaking straight to camera (presenter layout, beats voiced by 'a')"
   ],
   "avoid_when": [
     "lists, steps or numbers (use their scene types)",
@@ -432,6 +433,14 @@
     },
     "close": {
       "desc": "Tighter on the characters, bigger faces; best for one character",
+      "formats": [
+        "9:16",
+        "1:1",
+        "16:9"
+      ]
+    },
+    "presenter": {
+      "desc": "Talking head: one character fills the screen like a presenter speaking to camera, the set full-bleed behind, eyebrow and headline over the top. Best for one speaker whose voice is the narration (beats with voice 'a')",
       "formats": [
         "9:16",
         "1:1",

@@ -30,10 +30,10 @@ from .design.profile import BrandProfile
 from .llm import PROVIDERS, LLMConfig
 from .netguard import check_public_url
 from .sources import Source
-from .voice import INWORLD_MODELS, VOICE_PREFIXES, parse_inworld
+from .voice import GEMINI_TTS_MODELS, INWORLD_MODELS, VOICE_PREFIXES, parse_gemini, parse_inworld
 
 ALLOWED_VOICE_PREFIXES = VOICE_PREFIXES
-CLOUD_VOICES = ("openai:", "elevenlabs:", "inworld:")
+CLOUD_VOICES = ("openai:", "elevenlabs:", "inworld:", "gemini:")
 VOICE_ID = re.compile(r"[A-Za-z0-9_-]{1,64}")
 ROLE_ID = re.compile(r"[A-Za-z0-9_]{1,24}")
 __all__ = ["JobManager", "check_public_url", "check_voice", "check_llm", "check_design", "check_profile", "redact"]
@@ -57,6 +57,10 @@ def check_voice(voice: str | None, voice_api_key: str | None = None, mode: str |
             raise ValueError(f"inworld model must be one of {', '.join(INWORLD_MODELS)}")
         if not vid:
             raise ValueError("inworld voice needs a voice id: inworld:<voice_id> or inworld:<model>:<voice_id>")
+    if provider == "gemini":  # gemini:<voice> or gemini:<model>:<voice>
+        model, vid = parse_gemini(vid)
+        if model not in GEMINI_TTS_MODELS:
+            raise ValueError(f"gemini model must be one of {', '.join(GEMINI_TTS_MODELS)}")
     design_text = provider == "voicestudio" and vid.startswith("design=")
     if vid and not design_text and not VOICE_ID.fullmatch(vid):
         raise ValueError("voice ids may only contain letters, digits, '-' and '_'")

@@ -5,10 +5,10 @@
 {% set setting = get('setting') or 'plain' %}
 <div class="cx">
   {{ t('eyebrow', tag='span', cls='eyebrow') }}
-  {{ t('headline', tag='h2', cls='hl') }}
-  <div class="frame set-{{ setting }} n{{ ks|length }}">
+  {{ t('headline', tag='h2', cls='chl') }}
+  <div class="frame set-{{ setting }} n{{ ks|length }}"{% if L == 'presenter' %} data-layout-allow-overlap{% endif %}>
     {% if has('backdrop') %}<img class="set-img" src="{{ img('backdrop') }}" alt="" />{% else %}{{ set_bg(setting) }}{% endif %}
-    <div class="cast">
+    <div class="cast" data-layout-allow-overlap>
       {% for k in ks %}{% set p = sp.get(k) or {} %}
       <div class="who who-{{ k }}{{ ' imagined' if p.get('imagined') }}" data-mood="{{ p.get('mood') or 'neutral' }}">
         <div class="float">{% if p.get('imagined') %}<div class="halo"></div>{% endif %}{% if p.get('sprite') %}{% set S = sprites(p['sprite']) %}

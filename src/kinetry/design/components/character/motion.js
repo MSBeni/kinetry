@@ -13,7 +13,7 @@ TF.comp("character", (c) => {
 
   // ---- the set and the cast arrive
   T.fromTo(c.$(".frame"), { opacity: 0, y: 40, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, start + 0.05);
-  if (has(".hl")) c.M.head(c.$(".hl"), c.at("headline"));
+  if (has(".chl")) c.M.head(c.$(".chl"), c.at("headline"));
   const castAt = c.at("cast");
   keys.forEach((k, i) => {
     T.fromTo(c.$(".who-" + k), { opacity: 0, y: 180 }, { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.3)" }, castAt + i * 0.2);

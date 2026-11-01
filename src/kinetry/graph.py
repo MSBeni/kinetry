@@ -107,6 +107,10 @@ def role_voices(plan: VideoPlan2, job: dict, profile: BrandProfile) -> dict:
             defaults = {"a": "kokoro:am_adam", "b": "kokoro:bf_emma"}
     elif spec.startswith("openai:"):
         defaults = {"a": "openai:onyx", "b": "openai:nova"}
+    elif spec.startswith("gemini:"):  # same model as the narrator, a male and a female voice
+        model = spec.split(":", 1)[1].rpartition(":")[0]
+        pre = f"gemini:{model}:" if model else "gemini:"
+        defaults = {"a": f"{pre}Puck", "b": f"{pre}Kore"}
     elif spec.startswith("inworld:"):  # same model as the narrator, two other voices
         model = parse_inworld(spec.split(":", 1)[1])[0]
         pair = [v for v in ("Dennis", "Ashley", "Alex", "Sarah") if v != parse_inworld(spec.split(":", 1)[1])[1]]

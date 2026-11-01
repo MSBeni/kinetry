@@ -1,6 +1,6 @@
 /* Animated characters in a framed set. Shirts and sets take the brand palette; skin and hair come from the rig. */
 .c-character .cx { height: 100%; display: flex; flex-direction: column; gap: var(--g2); min-height: 0; }
-.c-character .hl { flex: none; }
+.c-character .chl { flex: none; }
 .c-character .frame { position: relative; flex: 1 1 auto; min-height: 0; border-radius: calc(36px * var(--k)); overflow: hidden;
   background: color-mix(in srgb, var(--fill2) 14%, var(--bg)); box-shadow: 0 calc(18px * var(--k)) calc(50px * var(--k)) color-mix(in srgb, var(--ink) 16%, transparent); }
 .fmt-16x9 .c-character .frame { flex: 1 1 auto; }
@@ -141,3 +141,18 @@
 .c-character .sprite .sp-mouth .v, .c-character .sprite .sp-blink img { opacity: 0; }
 .c-character .sprite { -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent); mask-image: linear-gradient(to bottom, #000 82%, transparent); }
 .c-character .set-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* presenter: a talking head that fills the screen; the set bleeds to the edges, text sits over a top fade */
+.c-character.l-presenter .cx { position: relative; }
+.c-character.l-presenter .frame { position: absolute; inset: calc(-1 * var(--pt)) calc(-1 * var(--px)) calc(-1 * var(--pb)); border-radius: 0; box-shadow: none; z-index: 0; }
+.c-character.l-presenter .frame::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 46%; z-index: 4; pointer-events: none;
+  background: linear-gradient(to bottom, var(--bg) 0%, color-mix(in srgb, var(--bg) 82%, transparent) 45%, transparent); }
+.c-character.l-presenter .eyebrow, .c-character.l-presenter .chl { position: relative; z-index: 2; }
+.c-character.l-presenter .eyebrow { align-self: flex-start; }
+.c-character.l-presenter .n1 .cast { height: 72%; bottom: 0; }
+.c-character.l-presenter .n1 .who { max-width: 100%; }
+/* a lower third: who is speaking */
+.c-character.l-presenter .tag { left: 8%; right: auto; bottom: 30%; transform: none; align-items: flex-start; border-radius: calc(14px * var(--k)); }
+.c-character.l-presenter .bubbles { top: auto; bottom: 30%; height: 22%; }
+.fmt-16x9 .c-character.l-presenter .n1 .cast { height: 88%; justify-content: flex-end; padding-right: 6%; }
+.c-character.l-presenter .sprite { -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 92%); mask-image: linear-gradient(to bottom, #000 68%, transparent 92%); }
