@@ -1,0 +1,479 @@
+{
+  "version": 2,
+  "title": "Replaying it won't fix it",
+  "chrome_left": "Mind habits",
+  "chrome_right": "Characters",
+  "design": {
+    "style": "bold",
+    "format": "9:16",
+    "pacing": "brisk",
+    "lang": "en",
+    "captions": true,
+    "effects": {
+      "level": "rich",
+      "characters": "rich"
+    }
+  },
+  "voices": {
+    "narrator": "kokoro:af_heart",
+    "a": "kokoro:am_michael",
+    "b": "kokoro:af_nova"
+  },
+  "scenes": [
+    {
+      "type": "statement",
+      "layout": "stack",
+      "nav": "Hook",
+      "data": {
+        "lead": "2 a.m. again",
+        "text": "Replaying it won't fix it.",
+        "emphasis": "won't fix it",
+        "sub": "Going over that conversation feels like processing. It isn't."
+      },
+      "beats": [
+        {
+          "say": "Two a.m. again.",
+          "show": [
+            "lead"
+          ]
+        },
+        {
+          "say": "Replaying it won't fix it.",
+          "show": [
+            "text"
+          ]
+        },
+        {
+          "say": "Going over that conversation for the hundredth time feels like processing. It isn't.",
+          "show": [
+            "sub"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "character",
+      "layout": "stage",
+      "nav": "One word",
+      "data": {
+        "eyebrow": "It starts small",
+        "setting": "night",
+        "speakers": {
+          "a": {
+            "name": "You",
+            "skin": "tan",
+            "hair": "short",
+            "hair_color": "black",
+            "top": "brand",
+            "prop": "phone",
+            "mood": "neutral"
+          }
+        },
+        "thoughts": [
+          {
+            "who": "a",
+            "text": "\"ok\"? Just ok?",
+            "mood": "worried"
+          },
+          {
+            "who": "a",
+            "text": "Did I say something wrong?",
+            "mood": "worried"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "It's late. Alex finally replied to your long, careful email about the draft.",
+          "show": [
+            "cast"
+          ]
+        },
+        {
+          "say": "Two letters. Okay.",
+          "show": [
+            "thoughts.0"
+          ]
+        },
+        {
+          "say": "And now you're lying awake, wondering what you did wrong.",
+          "show": [
+            "thoughts.1"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "definition",
+      "layout": "card",
+      "nav": "The name",
+      "data": {
+        "eyebrow": "There's a name for it",
+        "term": "Rumination",
+        "kind": "noun",
+        "definition": "Replaying the same upsetting moment over and over, without moving any closer to an answer.",
+        "example": "The \"why did I say that?\" loop at two in the morning."
+      },
+      "beats": [
+        {
+          "say": "There's a name for this. Rumination.",
+          "show": [
+            "term"
+          ]
+        },
+        {
+          "say": "Replaying the same upsetting moment over and over, without moving any closer to an answer.",
+          "show": [
+            "definition"
+          ]
+        },
+        {
+          "say": "And it follows you everywhere. Even into the shower.",
+          "show": [
+            "example"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "character",
+      "layout": "stage",
+      "nav": "Shower debate",
+      "data": {
+        "eyebrow": "The shower debate",
+        "setting": "shower",
+        "speakers": {
+          "a": {
+            "name": "You",
+            "skin": "tan",
+            "hair": "short",
+            "hair_color": "black",
+            "top": "brand",
+            "role": "In the shower",
+            "mood": "annoyed"
+          },
+          "b": {
+            "name": "Alex",
+            "skin": "fair",
+            "hair": "bun",
+            "hair_color": "auburn",
+            "top": "brand2",
+            "glasses": true,
+            "role": "In your head",
+            "imagined": true,
+            "mood": "neutral"
+          }
+        },
+        "lines": [
+          {
+            "who": "a",
+            "text": "And another thing. That Friday deadline was never realistic.",
+            "mood": "annoyed"
+          },
+          {
+            "who": "b",
+            "text": "Then why didn't you say that in the meeting?",
+            "mood": "thinking"
+          },
+          {
+            "who": "a",
+            "text": "Because I... okay. I should have.",
+            "mood": "worried"
+          },
+          {
+            "who": "b",
+            "text": "That meeting was three weeks ago.",
+            "mood": "calm"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "And another thing. That Friday deadline was never realistic.",
+          "show": [
+            "cast",
+            "lines.0"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "Then why didn't you say that in the meeting?",
+          "show": [
+            "lines.1"
+          ],
+          "voice": "b"
+        },
+        {
+          "say": "Because I... okay. I should have.",
+          "show": [
+            "lines.2"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "That meeting was three weeks ago.",
+          "show": [
+            "lines.3"
+          ],
+          "voice": "b"
+        }
+      ]
+    },
+    {
+      "type": "icon_grid",
+      "layout": "list",
+      "nav": "Your body",
+      "data": {
+        "eyebrow": "It's not just in your head",
+        "headline": "Your body relives it",
+        "items": [
+          {
+            "icon": "heart-pulse",
+            "label": "Heart rate",
+            "text": "Stays raised while you replay"
+          },
+          {
+            "icon": "gauge",
+            "label": "Blood pressure",
+            "text": "Climbs again with each rerun"
+          },
+          {
+            "icon": "flask-conical",
+            "label": "Cortisol",
+            "text": "The stress hormone keeps flowing"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "The argument is over. But studies of this kind of repetitive thinking link it to your body staying stressed.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "A higher heart rate.",
+          "show": [
+            "items.0"
+          ]
+        },
+        {
+          "say": "Higher blood pressure.",
+          "show": [
+            "items.1"
+          ]
+        },
+        {
+          "say": "More of the stress hormone cortisol. The moment is over, but your body keeps living it.",
+          "show": [
+            "items.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "pull_quote",
+      "layout": "panel",
+      "nav": "The scab",
+      "data": {
+        "lead": "Think of it like a scab",
+        "quote": "Every replay picks it off again. The wound never gets the chance to close.",
+        "highlight": "never gets the chance to close",
+        "attribution": "Unresolved in your head means open in your body."
+      },
+      "beats": [
+        {
+          "say": "Think of it like a scab.",
+          "show": [
+            "lead"
+          ]
+        },
+        {
+          "say": "Every replay picks it off again.",
+          "show": [
+            "quote"
+          ]
+        },
+        {
+          "say": "The wound never gets the chance to close.",
+          "show": [
+            "highlight"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "instead_try",
+      "layout": "stack",
+      "nav": "The swap",
+      "data": {
+        "eyebrow": "The swap",
+        "instead": "Why did I say that?",
+        "try": "How do I want to handle it next time?"
+      },
+      "beats": [
+        {
+          "say": "Here's the swap. Research on rumination finds that asking why keeps you stuck.",
+          "show": [
+            "instead"
+          ]
+        },
+        {
+          "say": "So drop the why.",
+          "show": [
+            "strike"
+          ]
+        },
+        {
+          "say": "Ask how instead. How do I want to handle it next time?",
+          "show": [
+            "try"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "numbered_steps",
+      "layout": "rows",
+      "nav": "The fix",
+      "data": {
+        "eyebrow": "The fix",
+        "headline": "Close the loop",
+        "steps": [
+          {
+            "title": "Name it",
+            "text": "Tell yourself: I'm replaying, not solving."
+          },
+          {
+            "title": "Find one concrete step",
+            "text": "Do it now, or write it down for tomorrow."
+          },
+          {
+            "title": "Move your attention",
+            "text": "A walk or any absorbing task breaks the loop."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Then close the loop in three steps.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "Name it. Tell yourself, I'm replaying, not solving.",
+          "show": [
+            "steps.0"
+          ]
+        },
+        {
+          "say": "Find one concrete step. Do it now, or write it down for tomorrow.",
+          "show": [
+            "steps.1"
+          ]
+        },
+        {
+          "say": "Then move your attention. A walk, or any task that absorbs you, breaks the loop.",
+          "show": [
+            "steps.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "character",
+      "layout": "stage",
+      "nav": "One step",
+      "data": {
+        "eyebrow": "Next morning: one concrete step",
+        "setting": "office",
+        "speakers": {
+          "a": {
+            "name": "You",
+            "skin": "tan",
+            "hair": "short",
+            "hair_color": "black",
+            "top": "brand",
+            "prop": "mug",
+            "mood": "calm"
+          },
+          "b": {
+            "name": "Alex",
+            "skin": "fair",
+            "hair": "bun",
+            "hair_color": "auburn",
+            "top": "brand2",
+            "glasses": true,
+            "mood": "neutral"
+          }
+        },
+        "lines": [
+          {
+            "who": "a",
+            "text": "Hey, quick one. Does Friday still work for the draft?",
+            "mood": "calm"
+          },
+          {
+            "who": "b",
+            "text": "Yes! Sorry, that ok was me typing on the run.",
+            "mood": "happy"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Here's that concrete step, the next morning.",
+          "show": [
+            "cast"
+          ]
+        },
+        {
+          "say": "Hey, quick one. Does Friday still work for the draft?",
+          "show": [
+            "lines.0"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "Yes! Sorry, that okay was me typing on the run.",
+          "show": [
+            "lines.1"
+          ],
+          "voice": "b"
+        },
+        {
+          "say": "One question did what a hundred replays couldn't.",
+          "show": []
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "layout": "center",
+      "nav": "Go",
+      "data": {
+        "pre": "Next time it starts",
+        "headline": "Ask how, not why.",
+        "meta": "And if the loop won't quit, talk it through with someone you trust.",
+        "icon": "message-circle"
+      },
+      "beats": [
+        {
+          "say": "So next time it starts, ask how, not why.",
+          "show": [
+            "pre",
+            "headline"
+          ]
+        },
+        {
+          "say": "And if the loop won't quit, talk it through with someone you trust.",
+          "show": [
+            "meta",
+            "icon"
+          ]
+        }
+      ]
+    }
+  ]
+}

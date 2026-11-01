@@ -81,6 +81,8 @@ class Effects(BaseModel):
       rich keeps their parts moving gently
     - depth: a 3D stage behind the scenes (Three.js): a camera that travels from scene to scene past the brand's
       own 3D models (where it has shared some), its logo mark and brand-colored shapes; rich adds more movement
+    - characters: enables the `character` scene type: animated people who blink, breathe, change expression and
+      move their mouths while their own lines are voiced (subtle and rich behave the same for now)
     """
 
     level: Level = "off"
@@ -89,13 +91,14 @@ class Effects(BaseModel):
     ambient: Level | None = None
     illustration: Level = "off"
     depth: Level = "off"
+    characters: Level = "off"
     # the brand's own 3D models on the stage (see kinetry.brand3d): "auto" lets the asset agent pick per scene,
     # "off" shows none, or {scene number (1 = first): model id} places them by hand
     depth_models: Literal["auto", "off"] | dict[str, str] = "auto"
 
     def resolved(self) -> dict[str, str]:
         out = {k: getattr(self, k) or self.level for k in ("camera", "kinetic", "ambient")}
-        return {**out, "illustration": self.illustration, "depth": self.depth}
+        return {**out, "illustration": self.illustration, "depth": self.depth, "characters": self.characters}
 
     def any(self) -> bool:
         return any(v != "off" for v in self.resolved().values())

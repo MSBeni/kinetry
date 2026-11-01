@@ -739,6 +739,7 @@ def write_project(ri: RenderInput, out_dir: Path, gsap_js: Path) -> Path:
                     f"fx-amb-{fx['ambient']}",
                     f"fx-ill-{fx['illustration']}",
                     f"fx-dep-{fx['depth']}",
+                    f"fx-chr-{fx['characters']}",
                 ]
                 if fx_on
                 else []

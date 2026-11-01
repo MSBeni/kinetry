@@ -1,0 +1,38 @@
+{# Simple flat sets behind (bg) and in front of (fg) the characters. viewBox 1000 x 1000, sliced to the frame. #}
+{% macro set_bg(s) %}
+<svg class="set-bg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  {% if s == 'night' %}
+  <rect class="n-wall" width="1000" height="1000" />
+  <g class="n-window"><rect class="n-frame" x="560" y="90" width="330" height="380" rx="18" /><rect class="n-sky" x="580" y="110" width="290" height="340" rx="10" />
+    <circle class="n-moon" cx="790" cy="190" r="44" /><circle class="n-sky" cx="810" cy="176" r="40" />
+    {% for x, y in [(630, 160), (700, 240), (650, 330), (820, 310), (740, 400)] %}<circle class="star" cx="{{ x }}" cy="{{ y }}" r="5" />{% endfor %}
+    <rect class="n-frame" x="720" y="110" width="10" height="340" /><rect class="n-frame" x="580" y="275" width="290" height="10" /></g>
+  <path class="n-curtain" d="M520 70 L600 70 C590 220 610 380 560 520 L520 520 Z" /><path class="n-curtain" d="M930 70 L850 70 C860 220 840 380 890 520 L930 520 Z" />
+  <rect class="n-head" x="40" y="560" width="920" height="300" rx="40" />
+  <circle class="n-glow" cx="170" cy="360" r="170" /><rect class="n-stand" x="162" y="400" width="16" height="170" rx="6" /><path class="n-shade" d="M110 410 L230 410 L205 330 L135 330 Z" />
+  {% elif s == 'shower' %}
+  <rect class="s-wall" width="1000" height="1000" />
+  {% for i in range(1, 10) %}<line class="s-grout" x1="{{ i * 111 }}" y1="0" x2="{{ i * 111 }}" y2="1000" /><line class="s-grout" x1="0" y1="{{ i * 111 }}" x2="1000" y2="{{ i * 111 }}" />{% endfor %}
+  <path class="s-pipe" d="M960 40 L960 120 L760 120 L760 150" /><path class="s-head" d="M700 150 L820 150 L800 190 L720 190 Z" />
+  <g class="water">{% for i in range(9) %}<line class="drop" x1="{{ 712 + i * 11 }}" y1="200" x2="{{ 704 + i * 12 }}" y2="260" />{% endfor %}</g>
+  {% for x, y, r in [(140, 240, 90), (300, 140, 70), (880, 420, 80), (520, 90, 60)] %}<circle class="steam-c" cx="{{ x }}" cy="{{ y }}" r="{{ r }}" />{% endfor %}
+  {% elif s == 'office' %}
+  <rect class="o-wall" width="1000" height="1000" />
+  <g><rect class="o-frame" x="90" y="110" width="420" height="330" rx="14" /><rect class="o-sky" x="106" y="126" width="388" height="298" rx="8" />
+    {% for x, w, h in [(130, 60, 150), (200, 80, 220), (290, 50, 120), (350, 90, 190), (450, 40, 140)] %}<rect class="o-city" x="{{ x }}" y="{{ 424 - h }}" width="{{ w }}" height="{{ h }}" />{% endfor %}</g>
+  <rect class="o-shelf" x="620" y="250" width="280" height="14" rx="7" /><rect class="o-book" x="650" y="180" width="30" height="70" rx="4" /><rect class="o-book b2" x="688" y="196" width="26" height="54" rx="4" /><circle class="o-plant" cx="840" cy="214" r="40" />
+  {% else %}
+  <rect class="p-wall" width="1000" height="1000" />
+  <circle class="p-blob" cx="200" cy="260" r="220" /><circle class="p-blob b2" cx="850" cy="160" r="160" />
+  <ellipse class="p-floor" cx="500" cy="1000" rx="620" ry="170" />
+  {% endif %}
+</svg>
+{% endmacro %}
+
+{% macro set_fg(s) %}
+{% if s == 'night' %}
+<svg class="set-fg" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true"><path class="n-blanket" d="M0 60 C160 10 300 70 470 40 C640 10 800 70 1000 30 L1000 200 L0 200 Z" /><path class="n-fold" d="M0 92 C180 46 320 104 480 76 C650 46 810 104 1000 66" /></svg>
+{% elif s == 'office' %}
+<svg class="set-fg" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true"><rect class="o-desk" x="0" y="70" width="1000" height="130" /><rect class="o-edge" x="0" y="62" width="1000" height="18" /></svg>
+{% endif %}
+{% endmacro %}

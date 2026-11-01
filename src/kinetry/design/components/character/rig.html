@@ -1,0 +1,57 @@
+{# One character, drawn as a flat SVG bust (viewBox 300 x 400) with named parts the motion script drives:
+   .breath (whole body), .head (tilts), .eye > .blink (expression squint, then blinks), .brow-l / .brow-r,
+   .mc (closed mouths: .m-flat, .m-smile, .m-frown), .m-open (the talking mouth), .cheek, and the prop.
+   Colors come from the brand tokens (shirt) and a fixed, inclusive skin and hair palette. #}
+{% macro rig(k, p) %}
+{% set SKIN = {'light': '#f6d9c6', 'fair': '#ebc29f', 'tan': '#d39b6c', 'olive': '#b68456', 'brown': '#8a5636', 'deep': '#5b3622'} %}
+{% set HAIR = {'black': '#211b1e', 'brown': '#5b3824', 'auburn': '#8c3a1c', 'blonde': '#d8af5b', 'gray': '#a9a5a6'} %}
+{% set skin = SKIN.get(p.get('skin') or ('tan' if k == 'a' else 'fair')) %}
+{% set hair = HAIR.get(p.get('hair_color') or ('black' if k == 'a' else 'brown')) %}
+{% set style = p.get('hair') or ('short' if k == 'a' else 'long') %}
+{% set prop = p.get('prop') or 'none' %}
+<svg class="rig" viewBox="0 0 300 400" aria-hidden="true" style="--skin:{{ skin }};--hair:{{ hair }}">
+  <g class="breath">
+    {% if style == 'long' %}<path class="hair" d="M80 150 C70 72 118 52 150 52 C184 52 232 72 222 150 C226 200 236 250 246 300 L54 300 C64 250 74 200 80 150 Z" />{% endif %}
+    {% if style == 'curly' %}<g class="hair">{% for cx, cy, r in [(88, 150, 24), (212, 150, 24), (82, 120, 24), (218, 120, 24)] %}<circle cx="{{ cx }}" cy="{{ cy }}" r="{{ r }}" />{% endfor %}</g>{% endif %}
+    <path class="top top-{{ p.get('top') or ('brand' if k == 'a' else 'brand2') }}" d="M34 400 C34 312 82 270 150 270 C218 270 266 312 266 400 Z" />
+    <rect class="skin" x="128" y="214" width="44" height="66" rx="18" />
+    <path class="neckline" d="M120 271 Q150 304 180 271 Z" />
+    <g class="head">
+      <ellipse class="skin" cx="83" cy="160" rx="12" ry="18" /><ellipse class="skin" cx="217" cy="160" rx="12" ry="18" />
+      <ellipse class="skin" cx="150" cy="150" rx="67" ry="79" />
+      {% if style == 'short' %}<path class="hair" d="M83 146 C80 84 116 60 152 60 C192 60 222 84 217 146 C208 116 188 102 162 104 C140 106 116 102 100 116 C92 124 86 134 83 146 Z" />
+      {% elif style == 'buzz' %}<path class="hair buzz" d="M86 128 C90 82 122 68 150 68 C180 68 210 82 214 128 C190 106 112 106 86 128 Z" />
+      {% elif style == 'long' %}<path class="hair" d="M82 150 C82 88 116 62 150 62 C186 62 218 88 218 150 C204 116 178 100 156 98 C150 120 112 118 82 150 Z" />
+      {% elif style == 'curly' %}<g class="hair">{% for cx, cy, r in [(96, 104, 26), (122, 80, 28), (152, 72, 28), (182, 80, 28), (206, 104, 26), (88, 132, 18), (214, 132, 18)] %}<circle cx="{{ cx }}" cy="{{ cy }}" r="{{ r }}" />{% endfor %}</g>
+      {% elif style == 'bun' %}<circle class="hair" cx="150" cy="50" r="27" /><path class="hair" d="M84 140 C84 88 116 68 150 68 C184 68 216 88 216 140 C198 110 104 110 84 140 Z" />{% endif %}
+      <circle class="cheek" cx="111" cy="186" r="12" /><circle class="cheek" cx="189" cy="186" r="12" />
+      <g class="gaze">
+        <g class="eye eye-l"><g class="blink"><ellipse class="ink" cx="124" cy="160" rx="7.5" ry="10" /><circle class="shine" cx="126.5" cy="156" r="2.4" /></g></g>
+        <g class="eye eye-r"><g class="blink"><ellipse class="ink" cx="176" cy="160" rx="7.5" ry="10" /><circle class="shine" cx="178.5" cy="156" r="2.4" /></g></g>
+      </g>
+      <rect class="brow brow-l ink" x="109" y="131" width="30" height="7" rx="3.5" />
+      <rect class="brow brow-r ink" x="161" y="131" width="30" height="7" rx="3.5" />
+      <path class="nose" d="M150 166 q-7 15 3 17" />
+      <g class="mouth">
+        <g class="mc"><path class="m m-flat" d="M136 206 L164 206" /><path class="m m-smile" d="M133 201 Q150 219 167 201" /><path class="m m-frown" d="M136 211 Q150 199 164 211" /></g>
+        <ellipse class="m-open" cx="150" cy="207" rx="13" ry="11" />
+      </g>
+      {% if p.get('glasses') %}<g class="glasses"><circle cx="124" cy="160" r="18" /><circle cx="176" cy="160" r="18" /><path d="M142 158 Q150 152 158 158" /></g>{% endif %}
+    </g>
+    {% if prop == 'phone' %}
+    <g class="prop phone">
+      <ellipse class="glow" cx="168" cy="190" rx="70" ry="62" />
+      <path class="arm top-{{ p.get('top') or ('brand' if k == 'a' else 'brand2') }}" d="M250 330 C262 300 246 280 222 282 L206 296 C222 300 230 312 222 336 Z" />
+      <rect class="device" x="178" y="236" width="50" height="84" rx="9" /><rect class="screen" x="184" y="244" width="38" height="64" rx="5" />
+      <ellipse class="skin" cx="214" cy="304" rx="17" ry="14" />
+    </g>
+    {% elif prop == 'mug' %}
+    <g class="prop mug">
+      <rect class="cup" x="92" y="276" width="50" height="56" rx="8" /><path class="handle" d="M92 288 q-18 2 -16 18 q2 14 16 14" />
+      <ellipse class="skin" cx="142" cy="312" rx="14" ry="11" />
+      <path class="steam" d="M108 266 q-8 -12 0 -24 q8 -12 0 -24" /><path class="steam" d="M126 266 q-8 -12 0 -24 q8 -12 0 -24" />
+    </g>
+    {% endif %}
+  </g>
+</svg>
+{% endmacro %}

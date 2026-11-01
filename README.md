@@ -78,7 +78,7 @@ flowchart TB
 
 The model decides *what to say*, *how the brand looks* and *which look fits*; everything after that is deterministic code. More in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-- **Hundreds of looks from one catalog**: 29 scene types with 59 layouts, in 7 styles and 3 formats: 1,106 scene renderings, plus 7 motion packs, 9 transitions and five opt-in motion layers (camera, kinetic type, ambient light, animated illustrations and a 3D stage). A creative director picks the look from the content, audience and brand; you can pin any of it. See [docs/CATALOG.md](docs/CATALOG.md).
+- **Hundreds of looks from one catalog**: 30 scene types with 61 layouts, in 7 styles and 3 formats: 1,148 scene renderings, plus 7 motion packs, 9 transitions and six opt-in motion layers (camera, kinetic type, ambient light, animated illustrations, a 3D stage and animated characters). A creative director picks the look from the content, audience and brand; you can pin any of it. See [docs/CATALOG.md](docs/CATALOG.md).
 - **Deterministic rendering** on [HyperFrames](https://github.com/heygen-com/hyperframes): same plan + brand + voice → same frames.
 - **Your model, your key**: Anthropic, OpenAI, Amazon Bedrock (any model), Google Gemini, Azure OpenAI, any OpenAI-compatible endpoint, or any LangChain chat model. Every model output is recorded, and runs can be replayed with no model calls.
 - **Embeddable**: Python library, CLI, HTTP job service, MCP server, LangChain tools, Docker image.
@@ -366,16 +366,18 @@ kinetry profile brands/acme --effects subtle                         # a brand's
 
 Ambient light is capped per style and ground so text over it keeps its WCAG contrast; on light grounds that keeps it gentle. Camera moves are small enough to keep content inside the safe area.
 
-Two heavier layers are only ever on when you name them (`--effects` doesn't touch them):
+Three heavier layers are only ever on when you name them (`--effects` doesn't touch them):
 
 | Layer | subtle | rich |
 |---|---|---|
 | illustration | enables the `illustration` scene type: eight original animated illustrations (idea, team, growth, security, checklist, conversation, time, goal) in the brand's colors, or your own Lottie file | parts keep moving gently (floating, swinging, a clock that runs); a Lottie loops for the scene |
 | depth | a 3D stage behind the scenes (Three.js) with a camera that glides from one scene to the next, past the brand's own 3D models (where it has shared some), its logo mark in 3D and abstract shapes in its colors | more movement, a slow camera sway |
+| characters (experimental) | enables the `character` scene type: one or two flat animated people in a simple set (plain, night, shower, office) who blink, breathe, change expression on cue (worried, annoyed, thinking, happy, calm, shocked) and move their mouths only while their own lines are voiced; speech bubbles for lines, thought bubbles for the narrator's beats; a person can be drawn as imagined, in someone else's head | the same, for now |
 
 ```bash
 kinetry run lesson.md --illustration rich --out lesson.mp4
 kinetry run lesson.md --depth subtle --out lesson.mp4
+kinetry run lesson.md --characters subtle --out lesson.mp4
 ```
 
 #### The brand's own 3D models

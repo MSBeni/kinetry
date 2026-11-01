@@ -1,0 +1,113 @@
+/* Animated characters in a framed set. Shirts and sets take the brand palette; skin and hair come from the rig. */
+.c-character .cx { height: 100%; display: flex; flex-direction: column; gap: var(--g2); min-height: 0; }
+.c-character .hl { flex: none; }
+.c-character .frame { position: relative; flex: 1 1 auto; min-height: 0; border-radius: calc(36px * var(--k)); overflow: hidden;
+  background: color-mix(in srgb, var(--fill2) 14%, var(--bg)); box-shadow: 0 calc(18px * var(--k)) calc(50px * var(--k)) color-mix(in srgb, var(--ink) 16%, transparent); }
+.fmt-16x9 .c-character .frame { flex: 1 1 auto; }
+.c-character .set-bg, .c-character .set-fg { position: absolute; left: 0; width: 100%; display: block; }
+.c-character .set-bg { top: 0; height: 100%; }
+.c-character .set-fg { bottom: 0; height: 15%; z-index: 3; }
+.c-character.l-close .set-fg { height: 12%; }
+
+/* the cast stands on the bottom edge of the frame */
+.c-character .cast { position: absolute; left: 0; right: 0; bottom: 0; height: 64%; display: flex; justify-content: space-evenly; align-items: flex-end; z-index: 2; }
+.c-character.l-close .cast { height: 78%; bottom: -8%; }
+.c-character .n1 .cast { height: 70%; }
+.c-character.l-close .n1 .cast { height: 92%; bottom: -14%; }
+.c-character .who { position: relative; height: 100%; aspect-ratio: 3 / 4; max-width: 50%; display: flex; flex-direction: column; justify-content: flex-end; }
+.c-character .n1 .who { max-width: 82%; }
+.c-character .float { position: relative; width: 100%; aspect-ratio: 3 / 4; }
+.c-character .rig { width: 100%; height: 100%; display: block; overflow: visible; }
+.c-character .tag { position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%); z-index: 4; display: flex; flex-direction: column; align-items: center;
+  padding: calc(8px * var(--k)) calc(20px * var(--k)); border-radius: 999px; background: var(--surface); box-shadow: 0 4px 14px color-mix(in srgb, var(--ink) 18%, transparent); white-space: nowrap; }
+.c-character .tag .r-h3 { font-size: calc(var(--fs-h3) * 0.62 * var(--fit, 1)); line-height: 1.1; color: var(--ink); }
+.c-character .tag .r-label { font-size: calc(var(--fs-label) * 0.8 * var(--fit, 1)); color: var(--muted); }
+.c-character.l-close .tag { bottom: 16%; }
+.c-character .set-night .tag, .c-character .set-office .tag { bottom: 21%; } /* clear of the blanket or desk */
+.c-character .set-office .set-fg { height: 11%; }
+
+/* rig parts */
+.c-character .rig .skin { fill: var(--skin); }
+.c-character .rig .hair { fill: var(--hair); }
+.c-character .rig .hair circle { fill: var(--hair); }
+.c-character .rig .buzz { opacity: 0.8; }
+.c-character .rig .ink { fill: #1d1a24; }
+.c-character .rig .shine { fill: #ffffff; }
+.c-character .rig .cheek { fill: #ff7a85; opacity: 0; }
+.c-character .rig .nose { fill: none; stroke: color-mix(in srgb, var(--skin) 60%, #3a2216); stroke-width: 4; stroke-linecap: round; }
+.c-character .rig .m { fill: none; stroke: #2a1a1c; stroke-width: 5.5; stroke-linecap: round; opacity: 0; }
+.c-character .rig .m-open { fill: #3b1620; opacity: 0; }
+.c-character .rig .neckline { fill: color-mix(in srgb, var(--skin) 82%, #3a2216); }
+.c-character .rig .top-brand { fill: var(--fill); }
+.c-character .rig .top-brand2 { fill: var(--fill2); }
+.c-character .rig .top-ink { fill: var(--ink); }
+.c-character .rig .top-neutral { fill: color-mix(in srgb, var(--ink) 18%, var(--surface)); }
+.c-character .rig .glasses { fill: none; stroke: #1d1a24; stroke-width: 4; }
+.c-character .rig .device { fill: #1d1a24; }
+.c-character .rig .screen { fill: #bfe3ff; }
+.c-character .rig .glow { fill: #bfe3ff; opacity: 0.2; filter: blur(16px); mix-blend-mode: screen; }
+.c-character .rig .arm { filter: brightness(0.86); }
+.c-character .rig .cup { fill: var(--surface); stroke: var(--line); stroke-width: 3; }
+.c-character .rig .handle { fill: none; stroke: var(--surface); stroke-width: 9; }
+.c-character .rig .steam { fill: none; stroke: color-mix(in srgb, var(--ink) 30%, transparent); stroke-width: 4; stroke-linecap: round; }
+
+/* a person in someone else's head: faded, cooler, floating in a soft cloud */
+.c-character .imagined .rig { opacity: 0.82; filter: saturate(0.55); }
+.c-character .imagined .halo { position: absolute; inset: 6% 0 18% 0; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--surface) 75%, transparent), transparent); }
+.c-character .imagined .tag { background: color-mix(in srgb, var(--surface) 70%, transparent); border: 2px dashed var(--line); box-shadow: none; }
+
+/* bubbles: one at a time, over the top of the set, pointing at whoever speaks or thinks */
+.c-character .bubbles { position: absolute; left: 5%; right: 5%; top: 5%; height: 33%; display: grid; z-index: 5; }
+.c-character.l-close .bubbles { height: 26%; }
+.c-character .bub { grid-area: 1 / 1; align-self: end; position: relative; max-width: 82%; width: fit-content; opacity: 0;
+  padding: calc(22px * var(--k)) calc(30px * var(--k)); background: var(--surface); color: var(--ink);
+  border-radius: calc(30px * var(--k)); box-shadow: 0 calc(10px * var(--k)) calc(30px * var(--k)) color-mix(in srgb, var(--ink) 18%, transparent); }
+.c-character .bub .r-lead { color: var(--ink); font-weight: 600; font-size: calc(var(--fs-lead) * 1.05 * var(--fit, 1)); line-height: 1.24; }
+.c-character .n2 .from-a { justify-self: start; }
+.c-character .n2 .from-b { justify-self: end; }
+.c-character .n1 .bub { justify-self: center; }
+.c-character .say .tail { position: absolute; bottom: calc(-22px * var(--k)); width: calc(44px * var(--k)); height: calc(26px * var(--k)); background: var(--surface);
+  clip-path: polygon(0 0, 100% 0, 30% 100%); }
+.c-character .n2 .say.from-a .tail { left: 22%; }
+.c-character .n2 .say.from-b .tail { right: 22%; clip-path: polygon(0 0, 100% 0, 70% 100%); }
+.c-character .n1 .say .tail { left: 46%; }
+.c-character .think { border-radius: 999px; padding: calc(26px * var(--k)) calc(40px * var(--k)); border: 3px solid color-mix(in srgb, var(--fill2) 50%, var(--line)); }
+.c-character .think .dot { position: absolute; border-radius: 50%; background: var(--surface); border: 3px solid color-mix(in srgb, var(--fill2) 50%, var(--line)); }
+.c-character .think .d1 { width: calc(34px * var(--k)); height: calc(34px * var(--k)); bottom: calc(-44px * var(--k)); left: 40%; }
+.c-character .think .d2 { width: calc(20px * var(--k)); height: calc(20px * var(--k)); bottom: calc(-78px * var(--k)); left: 44%; }
+.c-character .n2 .think.from-a .d1 { left: 22%; } .c-character .n2 .think.from-a .d2 { left: 26%; }
+.c-character .n2 .think.from-b .d1 { left: auto; right: 22%; } .c-character .n2 .think.from-b .d2 { left: auto; right: 26%; }
+
+/* sets */
+.c-character .p-wall { fill: color-mix(in srgb, var(--fill2) 16%, var(--bg)); }
+.c-character .p-blob { fill: color-mix(in srgb, var(--fill) 14%, transparent); }
+.c-character .p-blob.b2 { fill: color-mix(in srgb, var(--fill2) 22%, transparent); }
+.c-character .p-floor { fill: color-mix(in srgb, var(--ink) 8%, var(--bg)); }
+.c-character .n-wall { fill: color-mix(in srgb, var(--ink) 86%, var(--fill2)); }
+.c-character .n-frame { fill: color-mix(in srgb, var(--ink) 60%, var(--bg)); }
+.c-character .n-sky { fill: color-mix(in srgb, var(--ink) 92%, #000000); }
+.c-character .n-moon { fill: #fff3c4; }
+.c-character .star { fill: #fff3c4; }
+.c-character .n-curtain { fill: color-mix(in srgb, var(--fill2) 55%, var(--ink)); }
+.c-character .n-head { fill: color-mix(in srgb, var(--fill2) 30%, var(--ink)); }
+.c-character .n-glow { fill: #ffd98a; opacity: 0.16; filter: blur(40px); }
+.c-character .n-stand { fill: color-mix(in srgb, var(--ink) 70%, var(--bg)); }
+.c-character .n-shade { fill: #ffd98a; }
+.c-character .n-blanket { fill: color-mix(in srgb, var(--fill2) 70%, var(--surface)); }
+.c-character .n-fold { fill: none; stroke: color-mix(in srgb, var(--fill2) 40%, var(--ink)); stroke-width: 6; opacity: 0.35; }
+.c-character .s-wall { fill: #e8f2f6; }
+.c-character .s-grout { stroke: #c9dce4; stroke-width: 6; }
+.c-character .s-pipe { fill: none; stroke: #9aa7ad; stroke-width: 18; stroke-linecap: round; stroke-linejoin: round; }
+.c-character .s-head { fill: #9aa7ad; }
+.c-character .drop { stroke: #7fc3e6; stroke-width: 6; stroke-linecap: round; opacity: 0.7; }
+.c-character .steam-c { fill: #ffffff; opacity: 0.55; }
+.c-character .o-wall { fill: color-mix(in srgb, var(--fill2) 10%, var(--bg)); }
+.c-character .o-frame { fill: color-mix(in srgb, var(--ink) 20%, var(--surface)); }
+.c-character .o-sky { fill: #cfe8f7; }
+.c-character .o-city { fill: color-mix(in srgb, var(--fill2) 40%, #8aa4b8); }
+.c-character .o-shelf { fill: color-mix(in srgb, var(--ink) 30%, var(--surface)); }
+.c-character .o-book { fill: var(--fill); } .c-character .o-book.b2 { fill: var(--fill2); }
+.c-character .o-plant { fill: #5f9e6e; }
+.c-character .o-desk { fill: color-mix(in srgb, var(--ink) 25%, #c89b6a); }
+.c-character .o-edge { fill: color-mix(in srgb, var(--ink) 40%, #c89b6a); }

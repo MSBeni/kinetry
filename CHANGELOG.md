@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- **Animated characters** (experimental, `--characters` / `design.effects.characters`): a new `character` scene type with one or two flat SVG people in a simple set (`plain`, `night`, `shower`, `office`). They walk in, breathe and blink, look at each other, change expression on cue per line or thought (`neutral`, `happy`, `worried`, `annoyed`, `thinking`, `shocked`, `calm`), and their mouths move only during their own voiced lines (from the scene's speaker windows). Looks are set per speaker: skin tone, hair style and color, shirt in the brand's colors, glasses, a phone or mug; `imagined` draws a person as someone in the other's head. Speech bubbles for spoken lines, thought bubbles for narrated beats. Seek-safe like every other scene: absolute times, finite loops, mouth shapes and blink gaps from a fixed hash.
+
 ## 0.3.0 (2026-10-31): first public release
 
 - **Open source** under the Apache License 2.0. `NOTICE` names the adapted HyperFrames registry designs and the vendored Lucide shapes; `THIRD_PARTY.md` lists what's installed separately under its own license (GSAP, HyperFrames, Chromium, FFmpeg, Kokoro).

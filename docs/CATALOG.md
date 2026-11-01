@@ -2,7 +2,7 @@
 
 Generated from the manifests in `src/kinetry/design/` by `kinetry catalog --markdown`. Don't edit by hand; CI checks it's current.
 
-**29 scene types · 59 layouts · 7 styles · 7 motion packs · 9 transitions · 3 formats** → 1106 distinct scene renderings before brand colors, fonts and content.
+**30 scene types · 61 layouts · 7 styles · 7 motion packs · 9 transitions · 3 formats** → 1148 distinct scene renderings before brand colors, fonts and content.
 
 ## Styles
 
@@ -32,7 +32,7 @@ Generated from the manifests in `src/kinetry/design/` by `kinetry catalog --mark
 
 ## Motion layers (opt-in)
 
-Off by default, so a plain video looks exactly like the styles above. Set `design.effects.level` to `subtle` or `rich`, or each layer on its own (`camera`, `kinetic`, `ambient`). `illustration` and `depth` are heavier and only on when named.
+Off by default, so a plain video looks exactly like the styles above. Set `design.effects.level` to `subtle` or `rich`, or each layer on its own (`camera`, `kinetic`, `ambient`). `illustration`, `depth` and `characters` are heavier and only on when named.
 
 | Layer | subtle | rich |
 |---|---|---|
@@ -41,6 +41,7 @@ Off by default, so a plain video looks exactly like the styles above. Set `desig
 | `ambient` | soft pools of brand color drifting behind the scene (a moving spotlight in `technical`) | stronger light plus slow-rising particles |
 | `illustration` (by name only) | enables the `illustration` scene type: animated illustrations or the caller's Lottie | parts keep moving gently; a Lottie loops |
 | `depth` (by name only) | a Three.js stage behind the scenes: a camera that glides from scene to scene past the brand's own 3D models where a scene leaves room (when the brand has shared some), its logo mark in 3D on title and closing scenes, and abstract shapes in its colors | more movement, a slow camera sway |
+| `characters` (by name only) | enables the `character` scene type: one or two animated people in a simple set who blink, breathe, change expression on cue and move their mouths while their own lines are voiced; thought bubbles for what they think | the same (reserved for richer acting) |
 
 ## Scene types
 
@@ -332,6 +333,65 @@ A section break in a longer video: a big number and the next section's title.
   "number": "02",
   "title": "Look ahead",
   "sub": "Name the skill you want to grow next."
+}
+```
+
+</details>
+
+### `character` · Characters
+
+One or two animated characters in a simple set: they blink, breathe, change expression, and their mouths move while their lines are spoken. Thought bubbles carry what a character is thinking while the narrator talks.
+
+*Needs the `characters` motion layer; the planner offers it only when that's on.*
+
+**Use when:** acting out a relatable moment (a person staring at a message, two people disagreeing); a short exchange where seeing the people helps; showing how someone feels: worried, annoyed, relieved.
+**Avoid when:** lists, steps or numbers (use their scene types); more than two people; long speeches: keep each line short.
+
+| Field | Shape | Notes |
+|---|---|---|
+| `eyebrow` | `text<=40` |  |
+| `headline` | `text<=44` |  |
+| `setting` | `plain|night|shower|office` | The set behind the characters: plain (brand colors), night (bedroom, window, moon), shower (tiles and running water), office (desk and window) |
+| `speakers` | `{a: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray, top?: brand|brand2|ink|neutral, glasses?: bool, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}, b?: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray, top?: brand|brand2|ink|neutral, glasses?: bool, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}}` |  |
+| `lines` | `[0-5 × {who: a|b, text: text<=90, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm}]` | Spoken lines, each in its speaker's voice; the speaker's mouth moves while it plays |
+| `thoughts` | `[0-4 × {who: a|b, text: text<=60, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm}]` | Thought bubbles, revealed while the narrator speaks |
+
+**Reveal keys:** `headline`, `cast`, `lines.N`, `thoughts.N`
+
+| Layout | Formats | Description |
+|---|---|---|
+| `stage` | 9:16, 1:1, 16:9 | The set in a large rounded frame, characters standing in it, bubbles above their heads |
+| `close` | 9:16, 1:1, 16:9 | Tighter on the characters, bigger faces; best for one character |
+
+<details><summary>Example data</summary>
+
+```json
+{
+  "eyebrow": "It starts small",
+  "setting": "night",
+  "speakers": {
+    "a": {
+      "name": "You",
+      "skin": "tan",
+      "hair": "short",
+      "hair_color": "black",
+      "top": "brand",
+      "prop": "phone",
+      "mood": "neutral"
+    }
+  },
+  "thoughts": [
+    {
+      "who": "a",
+      "text": "\"ok\"? Just ok?",
+      "mood": "worried"
+    },
+    {
+      "who": "a",
+      "text": "Did I say something wrong?",
+      "mood": "worried"
+    }
+  ]
 }
 ```
 

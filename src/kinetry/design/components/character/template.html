@@ -1,0 +1,25 @@
+{% from 'character/rig.html' import rig %}
+{% from 'character/sets.html' import set_bg, set_fg %}
+{% set sp = get('speakers') or {} %}
+{% set ks = ['a', 'b'] if sp.get('b') else ['a'] %}
+{% set setting = get('setting') or 'plain' %}
+<div class="cx">
+  {{ t('eyebrow', tag='span', cls='eyebrow') }}
+  {{ t('headline', tag='h2', cls='hl') }}
+  <div class="frame set-{{ setting }} n{{ ks|length }}">
+    {{ set_bg(setting) }}
+    <div class="cast">
+      {% for k in ks %}{% set p = sp.get(k) or {} %}
+      <div class="who who-{{ k }}{{ ' imagined' if p.get('imagined') }}" data-mood="{{ p.get('mood') or 'neutral' }}">
+        <div class="float">{% if p.get('imagined') %}<div class="halo"></div>{% endif %}{{ rig(k, p) }}</div>
+        <div class="tag">{{ t('speakers.' ~ k ~ '.name') }}{{ t('speakers.' ~ k ~ '.role') }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {{ set_fg(setting) }}
+    <div class="bubbles">
+      {% for ln in get('lines') or [] %}<div class="bub box say from-{{ ln['who'] }} ln-{{ loop.index0 }}" data-who="{{ ln['who'] }}" data-mood="{{ ln.get('mood') or '' }}">{{ t('lines.' ~ loop.index0 ~ '.text') }}<i class="tail"></i></div>{% endfor %}
+      {% for th in get('thoughts') or [] %}<div class="bub box think from-{{ th['who'] }} th-{{ loop.index0 }}" data-who="{{ th['who'] }}" data-mood="{{ th.get('mood') or '' }}">{{ t('thoughts.' ~ loop.index0 ~ '.text') }}<i class="dot d1"></i><i class="dot d2"></i></div>{% endfor %}
+    </div>
+  </div>
+</div>

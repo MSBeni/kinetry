@@ -137,7 +137,8 @@ def test_every_component_renders(tmp_path, style, fmt):
     scenes = example_scenes(CAT, fmt)
     assert {s.type for s in scenes} >= {c for c, comp in CAT.components.items() if not comp.requires}
     for k in range(0, len(scenes), 14):  # every scene type and layout, in projects of up to 14 scenes
-        plan = VideoPlan2(title="t", design=Design(style=style, format=fmt), scenes=scenes[k : k + 14])
+        chunk = scenes[k : k + 14] if len(scenes) - k > 1 else scenes[k - 1 :]  # a plan needs 2+ scenes
+        plan = VideoPlan2(title="t", design=Design(style=style, format=fmt), scenes=chunk)
         (tmp_path / str(k)).mkdir()
         html = _project(tmp_path / str(k), plan)
         for i, sc in enumerate(plan.scenes):
@@ -146,6 +147,49 @@ def test_every_component_renders(tmp_path, style, fmt):
         assert f"st-{style}" in html and f"fmt-{fmt.replace(':', 'x')}" in html
         assert "{{" not in html and "None" not in re.sub(r"<script.*?</script>", "", html, flags=re.S)
         assert "TF.run(" in html
+
+
+def test_character_scene_validates_and_renders(tmp_path):
+    shower = {
+        "type": "character",
+        "layout": "stage",
+        "data": {
+            "setting": "shower",
+            "speakers": {
+                "a": {"name": "You", "skin": "tan", "hair": "short", "mood": "annoyed"},
+                "b": {"name": "Alex", "role": "In your head", "hair": "bun", "glasses": True, "imagined": True},
+            },
+            "lines": [
+                {"who": "a", "text": "That deadline was never realistic.", "mood": "annoyed"},
+                {"who": "b", "text": "Then why didn't you say so?", "mood": "thinking"},
+            ],
+            "thoughts": [{"who": "a", "text": "Why didn't I?", "mood": "worried"}],
+        },
+        "beats": [
+            {"say": "That deadline was never realistic.", "show": ["cast", "lines.0"], "voice": "a"},
+            {"say": "Then why didn't you say so?", "show": ["lines.1"], "voice": "b"},
+            {"say": "And you can't stop asking yourself why.", "show": ["thoughts.0"]},
+        ],
+    }
+    raw = {
+        "version": 2,
+        "title": "t",
+        "design": {"format": "9:16", "effects": {"characters": "subtle"}},
+        "scenes": [
+            {"type": "title", "data": {"headline": "Replaying"}, "beats": [{"say": "Hi.", "show": ["headline"]}]},
+            shower,
+        ],
+    }
+    plan = load_plan(raw)
+    assert CAT.validate_plan(plan) == []
+    # a spoken line must be voiced by its own speaker; thoughts go with the narrator
+    bad = json.loads(json.dumps(raw))
+    bad["scenes"][1]["beats"][1]["voice"] = "a"
+    assert any("lines.1" in e for e in CAT.validate_plan(load_plan(bad)))
+    html = _project(tmp_path, pick_layouts(plan, CAT))
+    assert "c-character" in html and "who-b imagined" in html and "fx-chr-subtle" in html
+    assert 'class="bub box say from-b ln-1"' in html and 'class="bub box think from-a th-0"' in html
+    assert '"speak": [["a"' in html  # the speaker windows that drive the mouths
 
 
 def test_adapted_scene_types_are_credited():

@@ -182,6 +182,11 @@ def _main(argv: list[str] | None = None) -> int:
         g.add_argument("--illustration", choices=lv, help="animated illustration scenes (not set by --effects)")
         g.add_argument("--depth", choices=lv, help="a 3D stage behind the scenes, Three.js (not set by --effects)")
         g.add_argument(
+            "--characters",
+            choices=lv,
+            help="animated character scenes: blink, expressions, lip-sync (not set by --effects)",
+        )
+        g.add_argument(
             "--depth-models",
             choices=["auto", "off"],
             help="the brand's own 3D models on the 3D stage (default auto: the asset agent picks per scene)",
@@ -636,6 +641,7 @@ def _main(argv: list[str] | None = None) -> int:
                 ("ambient", "ambient"),
                 ("illustration", "illustration"),
                 ("depth", "depth"),
+                ("characters", "characters"),
                 ("depth_models", "depth_models"),
             )
             if getattr(args, k1, None)
