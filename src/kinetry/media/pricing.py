@@ -20,7 +20,15 @@ IMAGE = {
 }
 
 # model family -> {(resolution, with_audio): USD per second}
+# gemini-omni-1.1-flash (Gemini API, Interactions API) bills video output tokens ($17.50 / 1M); per second from a
+# third-party breakdown (eesel.ai, Aug 2026), unverified on Google's page: 360p ~$0.034, 720p ~$0.101, 1080p ~$0.152
 VIDEO = {
+    "gemini-omni-1.1-flash": {
+        ("360p", True): 0.034,
+        ("720p", True): 0.101,
+        ("1080p", True): 0.152,
+        ("4k", True): 0.304,
+    },
     "veo-3.1": {("720p", True): 0.40, ("1080p", True): 0.40, ("720p", False): 0.20, ("1080p", False): 0.20},
     "veo-3.1-fast": {("720p", True): 0.10, ("1080p", True): 0.12, ("720p", False): 0.08, ("1080p", False): 0.10},
     "veo-3.1-lite": {("720p", True): 0.05, ("1080p", True): 0.08, ("720p", False): 0.03, ("1080p", False): 0.05},

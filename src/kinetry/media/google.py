@@ -19,8 +19,11 @@ from .base import Budget, MediaCache, MediaError, MediaResult
 from .pricing import estimate_image, estimate_video
 
 DEFAULT_IMAGE_MODEL = "gemini-2.5-flash-image"
-DEFAULT_VIDEO_MODEL = "veo-3.1-fast-generate-001"
+DEFAULT_VIDEO_MODEL = "veo-3.1-fast-generate-001"  # Vertex AI
+DEFAULT_API_VIDEO_MODEL = "gemini-omni-1.1-flash"  # the Gemini API retired Veo for Omni (Interactions API)
 VEO_SECONDS = (4, 6, 8)
+OMNI_SECONDS = range(3, 11)
+OMNI_USD_PER_TOKEN = 17.50 / 1_000_000  # video output; for the actual cost recorded from usage
 
 
 def _sniff(data: bytes) -> tuple[str, str]:
@@ -134,8 +137,13 @@ class GoogleMedia:
     ) -> MediaResult:
         from google.genai import types
 
-        model = model or self.video_model
-        if seconds not in VEO_SECONDS:
+        model = model or (
+            self.video_model if self.vertex or self.video_model != DEFAULT_VIDEO_MODEL else DEFAULT_API_VIDEO_MODEL
+        )
+        omni = model.startswith("gemini-omni")
+        if omni and seconds not in OMNI_SECONDS:
+            raise MediaError(f"Gemini Omni makes clips of 3 to 10 seconds, not {seconds}")
+        if not omni and seconds not in VEO_SECONDS:
             raise MediaError(f"Veo makes clips of {VEO_SECONDS} seconds, not {seconds}")
         req = {
             "kind": "video",
@@ -150,16 +158,33 @@ class GoogleMedia:
         hit = self.cache.get(key)
         if hit:
             return MediaResult(hit[0], "video/mp4", 0.0, True, hit[1])
-        usd = estimate_video(model, seconds, resolution, audio)
+        # The Gemini API doesn't take generate_audio (Veo 3 adds sound there anyway): price it with audio
+        priced_audio = audio if self.vertex else True
+        usd = estimate_video(model, seconds, resolution, priced_audio)
         self.budget.charge(f"{seconds}s video ({model}, {resolution})", usd)
+        if omni:
+            try:
+                data, actual = self._omni(model, prompt, image, seconds, aspect, resolution)
+            except Exception:
+                self.budget.refund(usd or 0.0)
+                raise
+            meta = {
+                "provider": self.name,
+                "model": model,
+                "request": req,
+                "mime": "video/mp4",
+                "usd": usd,
+                "usd_from_usage": actual,
+            }
+            return MediaResult(self.cache.put(key, data, "mp4", meta), "video/mp4", usd or 0.0, False, meta)
         try:
             cfg = types.GenerateVideosConfig(
                 number_of_videos=1,
                 duration_seconds=seconds,
                 aspect_ratio=aspect,
                 resolution=resolution,
-                generate_audio=audio,
                 negative_prompt=negative,
+                **({"generate_audio": audio} if self.vertex else {}),
             )
             img = types.Image(image_bytes=image, mime_type=_sniff(image)[0]) if image else None
             cl = self.client()
@@ -190,6 +215,47 @@ class GoogleMedia:
             raise
         meta = {"provider": self.name, "model": model, "request": req, "mime": "video/mp4", "usd": usd}
         return MediaResult(self.cache.put(key, data, "mp4", meta), "video/mp4", usd or 0.0, False, meta)
+
+    def _omni(self, model, prompt, image, seconds, aspect, resolution) -> tuple[bytes, float | None]:
+        """Gemini Omni through the Interactions API: a background interaction, polled until it's done."""
+        import base64
+
+        cl = self.client()
+        parts = []
+        if image:
+            parts.append({"type": "image", "data": base64.b64encode(image).decode(), "mime_type": _sniff(image)[0]})
+        parts.append({"type": "text", "text": prompt})
+        it = cl.interactions.create(
+            model=model,
+            input=parts,
+            response_modalities=["video"],
+            response_format={
+                "type": "video",
+                "aspect_ratio": aspect,
+                "resolution": resolution,
+                "duration": f"{seconds}s",
+                "delivery": "inline",
+            },
+            generation_config={"video_config": {"task": "image_to_video" if image else "text_to_video"}},
+            background=True,
+        )
+        waited = 0.0
+        state = lambda i: str(i.status).lower().rsplit(".", 1)[-1]  # noqa: E731
+        while state(it) in ("in_progress", "queued", "pending", "running"):
+            if waited >= self.timeout:
+                raise MediaError(f"{model} didn't finish within {self.timeout:.0f}s (interaction {it.id})")
+            self._sleep(self.poll_every)
+            waited += self.poll_every
+            it = cl.interactions.get(id=it.id)
+        if state(it) != "completed" or it.output_video is None or not it.output_video.data:
+            raise MediaError(f"{model} returned no video (status {it.status}): {it.errors}")
+        d = it.output_video.data
+        data = base64.b64decode(d) if isinstance(d, str) else bytes(d)
+        out_tokens = None
+        for m in (getattr(it.usage, "output_tokens_by_modality", None) or []) if it.usage else []:
+            if str(m.modality).lower().endswith("video"):
+                out_tokens = m.tokens
+        return data, (round(out_tokens * OMNI_USD_PER_TOKEN, 4) if out_tokens else None)
 
 
 def make_google(cache_dir: Path, cap: float | None = None, **kw) -> GoogleMedia:

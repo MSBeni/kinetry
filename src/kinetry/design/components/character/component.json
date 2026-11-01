@@ -47,6 +47,11 @@
       "optional": true,
       "desc": "The set behind the characters: plain (brand colors), night (bedroom, window, moon), shower (tiles and running water), office (desk and window)"
     },
+    "backdrop": {
+      "type": "image",
+      "optional": true,
+      "desc": "An image to use as the set instead of a drawn one (e.g. made by `kinetry media image`)"
+    },
     "speakers": {
       "type": "object",
       "fields": {

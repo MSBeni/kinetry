@@ -386,7 +386,7 @@ With your own Google account, Kinetry can add generated art to a video. Nothing 
 
 ```bash
 pip install "kinetry[media]"
-export KINETRY_GOOGLE_API_KEY=...        # Gemini API (AI Studio), or:
+export KINETRY_GOOGLE_API_KEY=...        # Gemini API (AI Studio key), or:
 export KINETRY_GOOGLE_PROJECT=my-project # Vertex AI, with GOOGLE_APPLICATION_CREDENTIALS
 kinetry media estimate --cast --clip-seconds 8          # what it would cost, at list prices
 kinetry media cast me.jpg --out cast/me --consent       # a character pack from a photo of yourself
@@ -394,7 +394,9 @@ kinetry media clip "a dim bedroom at 2 a.m., phone glowing" --out clips/night.mp
 ```
 
 - **Character packs** (`kinetry media cast`): one photo becomes a styled cartoon of that person, plus expressions, the eight mouth shapes the lip-sync uses, and a blink, each generated as an edit of the same base. The variants are aligned to the base and the mouth and eyes are cut out as small patches, so the face doesn't jitter while it talks. Use the folder as a speaker's `"sprite"` in a `character` scene. Only for a photo of the person asking (`--consent`, recorded in the pack).
-- **Video clips** (`kinetry media clip`, Veo): a 4, 6 or 8 second clip for the new `clip` scene type (`--clips`), full-frame with text over it or in a rounded frame.
+- **Fictional characters** (`kinetry media cast --describe "..." --style-ref cast/me/base.png`): no photo, an original person described in words, drawn in the style of another pack so a cast matches.
+- **Generated sets**: a `character` scene's `"backdrop"` takes any image (for example one from `kinetry media image`) instead of a drawn set.
+- **Video clips** (`kinetry media clip`): a short clip for the new `clip` scene type (`--clips`), full-frame with text over it or in a rounded frame. On Vertex AI it uses Veo (4, 6 or 8 seconds); with a Gemini API key it uses Gemini Omni (3 to 10 seconds) through the Interactions API, since the Gemini API retired its Veo models.
 
 #### The brand's own 3D models
 

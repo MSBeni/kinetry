@@ -7,7 +7,7 @@
   {{ t('eyebrow', tag='span', cls='eyebrow') }}
   {{ t('headline', tag='h2', cls='hl') }}
   <div class="frame set-{{ setting }} n{{ ks|length }}">
-    {{ set_bg(setting) }}
+    {% if has('backdrop') %}<img class="set-img" src="{{ img('backdrop') }}" alt="" />{% else %}{{ set_bg(setting) }}{% endif %}
     <div class="cast">
       {% for k in ks %}{% set p = sp.get(k) or {} %}
       <div class="who who-{{ k }}{{ ' imagined' if p.get('imagined') }}" data-mood="{{ p.get('mood') or 'neutral' }}">
@@ -21,7 +21,7 @@
       </div>
       {% endfor %}
     </div>
-    {{ set_fg(setting) }}
+    {% if not has('backdrop') %}{{ set_fg(setting) }}{% endif %}
     <div class="bubbles">
       {% for ln in get('lines') or [] %}<div class="bub box say from-{{ ln['who'] }} ln-{{ loop.index0 }}" data-who="{{ ln['who'] }}" data-mood="{{ ln.get('mood') or '' }}" data-gesture="{{ ln.get('gesture') or '' }}">{{ t('lines.' ~ loop.index0 ~ '.text') }}<i class="tail"></i></div>{% endfor %}
       {% for th in get('thoughts') or [] %}<div class="bub box think from-{{ th['who'] }} th-{{ loop.index0 }}" data-who="{{ th['who'] }}" data-mood="{{ th.get('mood') or '' }}">{{ t('thoughts.' ~ loop.index0 ~ '.text') }}<i class="dot d1"></i><i class="dot d2"></i></div>{% endfor %}

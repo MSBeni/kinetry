@@ -213,3 +213,52 @@ def test_local_media_refused_for_public_only(tmp_path):
 
 def test_paths(tmp_path):
     assert Path(CAT.root / "components" / "clip" / "example.mp4").stat().st_size < 50_000
+
+
+def test_gemini_omni_video_through_interactions(tmp_path):
+    import base64
+
+    calls = []
+
+    class FakeInteractions:
+        def __init__(self):
+            self.n = 0
+
+        def create(self, **kw):
+            calls.append(kw)
+            return NS(id="it-1", status="in_progress", output_video=None, usage=None, errors=None)
+
+        def get(self, id):
+            self.n += 1
+            if self.n < 2:
+                return NS(id=id, status="in_progress", output_video=None, usage=None, errors=None)
+            usage = NS(output_tokens_by_modality=[NS(modality="video", tokens=46336)])
+            vid = NS(data=base64.b64encode(b"\x00\x00\x00\x18ftypmp42omni").decode(), mime_type=None)
+            return NS(id=id, status="completed", output_video=vid, usage=usage, errors=None)
+
+    client = NS(interactions=FakeInteractions())
+    g = GoogleMedia(cache=MediaCache(tmp_path), budget=Budget(2), client=client, api_key="k", sleep=lambda s: None)
+    r = g.video("a quiet bedroom", image=face(), seconds=8)
+    assert r.path.read_bytes().endswith(b"omni") and r.cost == 0.808 and r.meta["usd_from_usage"] == 0.8109
+    kw = calls[0]
+    assert kw["model"] == "gemini-omni-1.1-flash" and kw["response_modalities"] == ["video"]
+    assert (
+        kw["response_format"]["duration"] == "8s"
+        and kw["generation_config"]["video_config"]["task"] == "image_to_video"
+    )
+    with pytest.raises(MediaError, match="3 to 10"):
+        g.video("x", seconds=12)
+
+
+def test_described_cast_and_recut(tmp_path):
+    variants = [face()] + [face(dx=1)] * 13
+    g = GoogleMedia(cache=MediaCache(tmp_path / "c"), budget=Budget(5), client=FakeClient(variants), project="p")
+    with pytest.raises(MediaError, match="description"):
+        build_cast(None, tmp_path / "x", g)
+    pack = build_cast(None, tmp_path / "jordan", g, description="a team lead", style_ref=face())
+    assert pack["source"] == "described" and set(pack["mouth"]["shapes"]) == set("ABCDEFG")
+    # re-cutting from the same base costs nothing: every variant comes from the cache
+    g2 = GoogleMedia(cache=MediaCache(tmp_path / "c"), budget=Budget(0.01), client=FakeClient(), project="p")
+    raw = sorted((tmp_path / "c").glob("*.png"), key=lambda p: p.stat().st_mtime)[0].read_bytes()
+    build_cast(None, tmp_path / "again", g2, base=raw)
+    assert g2.budget.spent == 0

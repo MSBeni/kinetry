@@ -383,7 +383,9 @@ def _main(argv: list[str] | None = None) -> int:
         m.add_argument("--project", help="Google Cloud project (Vertex AI); or KINETRY_GOOGLE_PROJECT")
         m.add_argument("--location", help="Vertex AI region (default us-central1)")
         m.add_argument("--image-model", help="default gemini-2.5-flash-image")
-        m.add_argument("--video-model", help="default veo-3.1-fast-generate-001")
+        m.add_argument(
+            "--video-model", help="default veo-3.1-fast-generate-001 (Vertex), gemini-omni-1.1-flash (API key)"
+        )
         m.add_argument("--cap", type=float, default=5.0, help="refuse to spend more than this many USD (default 5)")
         if name == "estimate":
             m.add_argument("--images", type=int, default=0)
@@ -398,16 +400,20 @@ def _main(argv: list[str] | None = None) -> int:
             m.add_argument("--ref", action="append", default=[], help="reference image (repeatable)")
         if name == "clip":
             m.add_argument("--image", help="start the clip from this image")
-            m.add_argument("--seconds", type=int, default=8, choices=[4, 6, 8])
+            m.add_argument("--seconds", type=int, default=8, help="Veo: 4, 6 or 8; Gemini Omni: 3 to 10")
             m.add_argument("--resolution", default="720p", choices=["720p", "1080p"])
             m.add_argument("--audio", action="store_true", help="let the model add sound (costs more)")
             m.add_argument("--negative", help="what to avoid")
         if name == "cast":
-            m.add_argument("photo")
+            m.add_argument("photo", nargs="?", help="a photo of yourself (with --consent)")
             m.add_argument("--out", required=True, help="folder for the pack")
             m.add_argument(
                 "--consent", action="store_true", help="this is a photo of me, and I want a character made from it"
             )
+            m.add_argument(
+                "--describe", help="no photo: an original fictional character, e.g. 'a team lead in her 40s'"
+            )
+            m.add_argument("--style-ref", help="draw it in the style of this image (e.g. another pack's base.png)")
 
     vl = sub.add_parser("voices", help="list voices a provider offers (kokoro, inworld)")
     vl.add_argument("provider", choices=["kokoro", "inworld"])
@@ -1111,7 +1117,14 @@ def _media(a, settings) -> int:
     else:
         from .media.cast import build_cast
 
-        pack = build_cast(Path(a.photo).read_bytes(), Path(a.out), g, consent=a.consent)
+        pack = build_cast(
+            Path(a.photo).read_bytes() if a.photo else None,
+            Path(a.out),
+            g,
+            consent=a.consent,
+            description=a.describe,
+            style_ref=Path(a.style_ref).read_bytes() if a.style_ref else None,
+        )
         print(
             f"character pack: {a.out} ({len(pack['moods'])} expressions, {len(pack['mouth']['shapes'])} mouth shapes)"
         )

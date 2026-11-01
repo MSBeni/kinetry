@@ -140,3 +140,4 @@
 .c-character .sprite .sp-patch img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .c-character .sprite .sp-mouth .v, .c-character .sprite .sp-blink img { opacity: 0; }
 .c-character .sprite { -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent); mask-image: linear-gradient(to bottom, #000 82%, transparent); }
+.c-character .set-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }

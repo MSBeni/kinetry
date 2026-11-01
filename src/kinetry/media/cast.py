@@ -108,8 +108,9 @@ def change_box(base, variants, region, thresh: float = 28.0, pad: float = 0.04):
     return (max(0, x0 + lo_x - px), max(0, y0 + lo_y - py), min(w, x0 + hi_x + px), min(h, y0 + hi_y + py))
 
 
-def patch(img, box, feather: float = 0.22):
-    """Crop `box` from `img` with an elliptical, feathered alpha so it blends into the face under it."""
+def patch(img, box, feather: float = 0.22, mask=None):
+    """Crop `box` from `img` with an elliptical, feathered alpha so it blends into the face under it; with a
+    silhouette `mask`, nothing outside the character is kept (no background around the cheeks)."""
     import numpy as np
     from PIL import Image
 
@@ -118,28 +119,51 @@ def patch(img, box, feather: float = 0.22):
     yy, xx = np.mgrid[0:h, 0:w]
     r = np.sqrt(((xx - w / 2) / (w / 2)) ** 2 + ((yy - h / 2) / (h / 2)) ** 2)
     alpha = np.clip((1.0 - r) / feather, 0, 1)
+    if mask is not None:
+        alpha = alpha * (np.asarray(mask.crop(box), dtype=np.float32) / 255.0)
     crop.putalpha(Image.fromarray((alpha * 255).astype("uint8")))
     return crop
 
 
-def cutout(im, thresh: int = 34):
-    """Make the plain background transparent: flood-fill from the frame's edges (so light colors inside the
-    character stay), then soften the edge by a pixel."""
+def silhouette(im, thresh: int = 48, loose: int = 90):
+    """Alpha mask of the character: the plain background is flood-filled from border points that match its
+    color (estimated from the top edge), so a shirt running off the bottom of the frame stays, and so do light
+    colors inside the outline. The edge is softened by about a pixel."""
+    import numpy as np
     from PIL import Image, ImageDraw, ImageFilter
 
     rgb = im.convert("RGB")
+    a = np.asarray(rgb, dtype=np.int16)
+    h, w = a.shape[:2]
+    bg = np.median(a[0:4].reshape(-1, 3), axis=0)
     probe = rgb.copy()
     key = (255, 0, 255)
-    w, h = probe.size
-    for x, y in [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1), (w // 2, 0), (0, h // 3), (w - 1, h // 3)]:
-        if probe.getpixel((x, y)) != key:
+    border = (
+        [(x, 0) for x in range(0, w, 12)] + [(0, y) for y in range(0, h, 12)] + [(w - 1, y) for y in range(0, h, 12)]
+    )
+    for x, y in border:
+        px = probe.getpixel((x, y))
+        if px != key and np.abs(np.array(px) - bg).max() < thresh:
             ImageDraw.floodfill(probe, (x, y), key, thresh=thresh)
-    import numpy as np
+    # Generated "plain" backgrounds carry soft smudges and vignettes. The character always has a dark outline,
+    # so a second, looser fill from the cleared area takes those too without crossing into the character.
+    edge = [(x, y) for x, y in border if probe.getpixel((x, y)) == key]
+    probe2 = rgb.copy()
+    cleared = np.asarray(probe) == np.array(key)
+    for x, y in edge[:: max(1, len(edge) // 40)]:
+        if probe2.getpixel((x, y)) != key:
+            ImageDraw.floodfill(probe2, (x, y), key, thresh=loose)
+    cleared2 = (np.asarray(probe2) == np.array(key)).all(axis=2)
+    probe = Image.fromarray(
+        np.where((cleared.all(axis=2) | cleared2)[..., None], np.array(key, dtype=np.uint8), np.asarray(rgb))
+    )
+    out = (np.asarray(probe) == np.array(key)).all(axis=2)
+    return Image.fromarray(np.where(out, 0, 255).astype("uint8")).filter(ImageFilter.GaussianBlur(1.2))
 
-    bg = (np.asarray(probe) == np.array(key)).all(axis=2)
-    alpha = Image.fromarray(np.where(bg, 0, 255).astype("uint8")).filter(ImageFilter.GaussianBlur(1.2))
-    out = rgb.convert("RGBA")
-    out.putalpha(alpha)
+
+def with_alpha(im, mask):
+    out = im.convert("RGBA")
+    out.putalpha(mask)
     return out
 
 
@@ -149,21 +173,61 @@ def _png(im) -> bytes:
     return buf.getvalue()
 
 
-def build_cast(photo: bytes, out_dir: Path, media, *, consent: bool, style: str = STYLE, moods=None) -> dict:
-    """Generate a character pack into out_dir; returns pack.json's content."""
-    if not consent:
+DESCRIBED_PROMPT = (
+    "Create {style}: an original, fictional person ({description}). Head and shoulders, facing the camera, "
+    "centered in the frame, relaxed neutral expression, mouth closed, eyes open, looking at the viewer. Plain "
+    "solid light background (#efece6), no props, no text.{ref}"
+)
+
+
+def build_cast(
+    photo: bytes | None,
+    out_dir: Path,
+    media,
+    *,
+    consent: bool = False,
+    description: str | None = None,
+    style_ref: bytes | None = None,
+    style: str = STYLE,
+    moods=None,
+    base: bytes | None = None,
+) -> dict:
+    """Generate a character pack into out_dir; returns pack.json's content.
+
+    From a photo (`consent=True` required: the person in it asked for it), or, with no photo, an original
+    fictional character from a `description`, optionally drawn in the style of another pack's base image."""
+    if photo is not None and not consent:
         raise MediaError(
             "A character pack is only made from a photo of the person who asked for it. "
             "Confirm that with consent=True (CLI: --consent)."
         )
+    if photo is None and not description and base is None:
+        raise MediaError("give a photo (with consent) or a description of a fictional character")
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     cost = 0.0
-    r = media.image(BASE_PROMPT.format(style=style), refs=[photo], aspect="3:4")
-    cost += r.cost
-    base_bytes = r.path.read_bytes()
+    if base is not None:  # re-cut an existing base (its variants come from the cache when they exist)
+        r = None
+    elif photo is not None:
+        r = media.image(BASE_PROMPT.format(style=style), refs=[photo], aspect="3:4")
+    else:
+        ref = (
+            " Match the art style of the reference image exactly (line weight, shading, colors, framing, background),"
+            " but draw a completely different person."
+            if style_ref
+            else ""
+        )
+        r = media.image(
+            DESCRIBED_PROMPT.format(style=style, description=description, ref=ref),
+            refs=[style_ref] if style_ref else [],
+            aspect="3:4",
+        )
+    if r is not None:
+        cost += r.cost
+    base_bytes = r.path.read_bytes() if r is not None else base
     base = _img(base_bytes)
-    (out_dir / "base.png").write_bytes(_png(cutout(base)))
+    mask = silhouette(base)  # one outline for every expression: they're edits of the same picture
+    (out_dir / "base.png").write_bytes(_png(with_alpha(base, mask)))
 
     def variant(what: str):
         nonlocal cost
@@ -181,7 +245,7 @@ def build_cast(photo: bytes, out_dir: Path, media, *, consent: bool, style: str 
     }
     for m in moods or list(MOODS):
         im, shift = variant(MOODS[m])
-        (out_dir / f"mood-{m}.png").write_bytes(_png(cutout(im)))
+        (out_dir / f"mood-{m}.png").write_bytes(_png(with_alpha(im, mask)))
         pack["moods"][m], pack["shifts"][f"mood-{m}"] = f"mood-{m}.png", shift
 
     mouths = {}
@@ -190,17 +254,18 @@ def build_cast(photo: bytes, out_dir: Path, media, *, consent: bool, style: str 
     mbox = change_box(base, list(mouths.values()), region=(0.25, 0.42, 0.75, 0.80))
     pack["mouth"] = {"box": _frac(mbox, base.size), "shapes": {}}
     for v, im in mouths.items():
-        (out_dir / f"mouth-{v}.png").write_bytes(_png(patch(im, mbox)))
+        (out_dir / f"mouth-{v}.png").write_bytes(_png(patch(im, mbox, mask=mask)))
         pack["mouth"]["shapes"][v] = f"mouth-{v}.png"
 
     blink, pack["shifts"]["blink"] = variant(BLINK)
     bbox = change_box(base, [blink], region=(0.2, 0.2, 0.8, 0.55))
-    (out_dir / "blink.png").write_bytes(_png(patch(blink, bbox, feather=0.3)))
+    (out_dir / "blink.png").write_bytes(_png(patch(blink, bbox, feather=0.3, mask=mask)))
     pack["blink"] = {"box": _frac(bbox, base.size), "file": "blink.png"}
 
     pack.update(
         {
             "consent": True,
+            "source": "photo" if photo is not None else "described",
             "model": getattr(media, "image_model", ""),
             "usd": round(cost, 4),
             "background": "#{:02x}{:02x}{:02x}".format(*base.getpixel((4, 4))),
