@@ -1,0 +1,24 @@
+{
+  "id": "clip", "name": "Video clip",
+  "purpose": "A short generated or supplied video playing full-frame or in a frame, with an optional headline and caption over it.",
+  "use_when": ["a moment that is better seen than drawn: a place, an action, a mood", "a cinematic opener or a scene between explainer scenes"],
+  "avoid_when": ["lists, steps or numbers", "anything that needs exact on-screen text inside the footage"],
+  "tags": ["media", "footage", "cinematic"],
+  "requires": "clips",
+  "fields": {
+    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
+    "video": {"type": "text", "max": 300, "desc": "Path of an mp4/webm clip, e.g. one made by `kinetry media clip`"},
+    "headline": {"type": "text", "max": 48, "lines": 2, "role": "h2", "optional": true},
+    "caption": {"type": "text", "max": 110, "lines": 2, "role": "lead", "optional": true},
+    "fit": {"type": "enum", "values": ["cover", "contain"], "optional": true, "desc": "cover fills the frame (default)"}
+  },
+  "reveals": ["video", "headline", "caption"],
+  "layouts": {
+    "full": {"desc": "The clip fills the whole frame; text sits on a dark fade at the bottom", "formats": ["9:16", "1:1", "16:9"]},
+    "framed": {"desc": "The clip in a large rounded frame, text above it", "formats": ["9:16", "1:1", "16:9"]}
+  },
+  "example": {"eyebrow": "2:07 a.m.", "video": "catalog:clip/example.mp4", "headline": "Still awake", "caption": "Replaying the same conversation, again."},
+  "example_beats": [{"say": "It's two in the morning, and you're still awake.", "show": ["video", "headline"]},
+                    {"say": "Replaying the same conversation, again.", "show": ["caption"]}],
+  "focus": {"key": "video", "sel": ".vwrap"}
+}

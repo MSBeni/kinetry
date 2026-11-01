@@ -371,6 +371,44 @@ def _main(argv: list[str] | None = None) -> int:
     cv.add_argument("voice", nargs="+", help="voice specs, e.g. openai:coral elevenlabs:<voice_id> inworld:Ashley")
     cv.add_argument("--out", default="voice-check")
 
+    md = sub.add_parser("media", help="generated images, video clips and character packs (your own Google account)")
+    msub = md.add_subparsers(dest="media_cmd", required=True)
+    for name, hlp in (
+        ("estimate", "price a batch before generating anything"),
+        ("image", "one generated image"),
+        ("clip", "one generated video clip (Veo)"),
+        ("cast", "a character pack from a photo of yourself"),
+    ):
+        m = msub.add_parser(name, help=hlp)
+        m.add_argument("--project", help="Google Cloud project (Vertex AI); or KINETRY_GOOGLE_PROJECT")
+        m.add_argument("--location", help="Vertex AI region (default us-central1)")
+        m.add_argument("--image-model", help="default gemini-2.5-flash-image")
+        m.add_argument("--video-model", help="default veo-3.1-fast-generate-001")
+        m.add_argument("--cap", type=float, default=5.0, help="refuse to spend more than this many USD (default 5)")
+        if name == "estimate":
+            m.add_argument("--images", type=int, default=0)
+            m.add_argument("--clip-seconds", type=int, nargs="*", default=[])
+            m.add_argument("--cast", action="store_true", help="add one character pack (14 images)")
+            m.add_argument("--resolution", default="720p", choices=["720p", "1080p"])
+        if name in ("image", "clip"):
+            m.add_argument("prompt")
+            m.add_argument("--out", required=True)
+            m.add_argument("--aspect", default="9:16")
+        if name == "image":
+            m.add_argument("--ref", action="append", default=[], help="reference image (repeatable)")
+        if name == "clip":
+            m.add_argument("--image", help="start the clip from this image")
+            m.add_argument("--seconds", type=int, default=8, choices=[4, 6, 8])
+            m.add_argument("--resolution", default="720p", choices=["720p", "1080p"])
+            m.add_argument("--audio", action="store_true", help="let the model add sound (costs more)")
+            m.add_argument("--negative", help="what to avoid")
+        if name == "cast":
+            m.add_argument("photo")
+            m.add_argument("--out", required=True, help="folder for the pack")
+            m.add_argument(
+                "--consent", action="store_true", help="this is a photo of me, and I want a character made from it"
+            )
+
     vl = sub.add_parser("voices", help="list voices a provider offers (kokoro, inworld)")
     vl.add_argument("provider", choices=["kokoro", "inworld"])
     vl.add_argument("--lang", help="ISO 639-1 language filter, e.g. en (inworld)")
@@ -602,6 +640,9 @@ def _main(argv: list[str] | None = None) -> int:
             look = f"  [{ch.appearance}]" if ch.appearance else ""
             print(f"{ch.id:28} {cast.spec(ch.id):40}{look}{mark}")
         return 0 if not found or all(found.values()) else 3
+    if a.cmd == "media":
+        return _media(a, settings)
+
     if a.cmd == "voices":
         if a.provider == "inworld":
             from .voice import INWORLD_MODELS, InworldProvider
@@ -642,6 +683,7 @@ def _main(argv: list[str] | None = None) -> int:
                 ("illustration", "illustration"),
                 ("depth", "depth"),
                 ("characters", "characters"),
+                ("clips", "clips"),
                 ("depth_models", "depth_models"),
             )
             if getattr(args, k1, None)
@@ -1017,3 +1059,62 @@ def _assets3d(a, ap, settings) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+def _media(a, settings) -> int:
+    from pathlib import Path
+
+    from .media import estimate_image, estimate_video
+    from .media.google import DEFAULT_IMAGE_MODEL, DEFAULT_VIDEO_MODEL, make_google
+
+    im_model = a.image_model or DEFAULT_IMAGE_MODEL
+    vid_model = a.video_model or DEFAULT_VIDEO_MODEL
+    if a.media_cmd == "estimate":
+        from .media.cast import MOODS, MOUTHS
+
+        n = a.images + (2 + len(MOODS) + len(MOUTHS) if a.cast else 0)
+        img = estimate_image(im_model, n) if n else 0.0
+        vids = [estimate_video(vid_model, s, a.resolution) for s in a.clip_seconds]
+        if img is None or any(v is None for v in vids):
+            print("no list price known for one of these models; pass --image-model/--video-model")
+            return 1
+        total = (img or 0) + sum(vids)
+        print(f"{n} image(s) on {im_model}: ${img:.2f}")
+        for s, v in zip(a.clip_seconds, vids, strict=True):
+            print(f"{s}s clip on {vid_model} ({a.resolution}, no audio): ${v:.2f}")
+        print(f"total about ${total:.2f} (list prices; see kinetry.media.pricing)")
+        return 0
+    g = make_google(
+        settings.home / "media",
+        cap=a.cap,
+        project=a.project,
+        location=a.location,
+        image_model=im_model,
+        video_model=vid_model,
+    )
+    if a.media_cmd == "image":
+        r = g.image(a.prompt, refs=[Path(p).read_bytes() for p in a.ref], aspect=a.aspect)
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.out).write_bytes(r.path.read_bytes())
+    elif a.media_cmd == "clip":
+        r = g.video(
+            a.prompt,
+            image=Path(a.image).read_bytes() if a.image else None,
+            seconds=a.seconds,
+            aspect=a.aspect,
+            resolution=a.resolution,
+            audio=a.audio,
+            negative=a.negative,
+        )
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.out).write_bytes(r.path.read_bytes())
+    else:
+        from .media.cast import build_cast
+
+        pack = build_cast(Path(a.photo).read_bytes(), Path(a.out), g, consent=a.consent)
+        print(
+            f"character pack: {a.out} ({len(pack['moods'])} expressions, {len(pack['mouth']['shapes'])} mouth shapes)"
+        )
+        print(f'use it as "sprite": "{a.out}" on a character scene speaker')
+    print(f"spent about ${g.budget.spent:.2f} of the ${a.cap:.2f} cap" + ("" if g.budget.spent else " (from cache)"))
+    return 0

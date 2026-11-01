@@ -46,8 +46,9 @@ docs = ["pypdf>=5", "fonttools>=4.50", "python-docx>=1.1", "python-pptx>=1.0", "
 service = ["fastapi>=0.115", "uvicorn[standard]>=0.30", "python-multipart>=0.0.9"]
 mcp = ["mcp>=1.2"]
 brand3d = ["potracer>=0.0.4"]  # cutting a logo's symbol out of a logo image, for the 3D stage
-all = ["kinetry[llms,kokoro,service,mcp,docs,s3,brand3d]"]
-dev = ["kinetry[llms,service,mcp,docs,brand3d]", "pytest>=8", "ruff>=0.6", "build>=1.2"]
+media = ["google-genai>=1.30", "pillow>=10", "numpy>=1.26"]  # generated images, Veo clips, character packs
+all = ["kinetry[llms,kokoro,service,mcp,docs,s3,brand3d,media]"]
+dev = ["kinetry[llms,service,mcp,docs,brand3d,media]", "pytest>=8", "ruff>=0.6", "build>=1.2"]
 
 [project.urls]
 Homepage = "https://kinetry.xyz"

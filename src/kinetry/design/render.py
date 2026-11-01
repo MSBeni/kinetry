@@ -359,6 +359,63 @@ class SceneContext:
     def get(self, path: str):
         return _get(self.d, path)
 
+    def _local(self, ref: str) -> Path:
+        """A caller's local media file (a generated clip, a character pack); refused when only public URLs are."""
+        if getattr(self.images, "public_only", True):
+            raise ValueError(f"{ref[:80]}: local media files aren't allowed here")
+        p = Path(ref)
+        base = getattr(self.images, "base_dir", None)
+        if not p.is_absolute() and base:
+            p = Path(base) / p
+        return p
+
+    def _copy(self, p: Path, prefix: str) -> str:
+        import hashlib
+
+        data = p.read_bytes()
+        name = f"{prefix}-{hashlib.sha256(data).hexdigest()[:16]}{p.suffix.lower()}"
+        dest = self.images.out_dir / name
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if not dest.exists():
+            dest.write_bytes(data)
+        return f"assets/{name}"
+
+    def media(self, path: str) -> str:
+        """Project-relative src of a video field (a generated clip): copied into the project's assets."""
+        ref = _get(self.d, path)
+        if not ref:
+            return ""
+        ref = str(ref).strip()
+        if ref.startswith("catalog:"):  # a bundled sample clip
+            rel = ref.split(":", 1)[1]
+            if not re.fullmatch(r"[a-z_]+/[a-z0-9_-]+\.(mp4|webm)", rel):
+                raise ValueError(f"{ref}: not a bundled sample")
+            p = self.comp.dir.parent / rel
+        else:
+            p = self._local(ref)
+        if p.suffix.lower() not in (".mp4", ".webm", ".mov") or not p.is_file():
+            raise ValueError(f"video file not found (mp4, webm or mov): {ref}")
+        return self._copy(p, "vid")
+
+    def sprites(self, ref: str) -> dict:
+        """A character pack (kinetry.media.cast) copied into the project: srcs, mouth and blink boxes in %."""
+        from ..media.cast import load_pack
+
+        d = self._local(str(ref))
+        pack = load_pack(d)
+        src = lambda f: self._copy(d / f, "spr")  # noqa: E731
+        pct = lambda b: [round(v * 100, 3) for v in b]  # noqa: E731
+        return {
+            "w": pack["size"][0],
+            "h": pack["size"][1],
+            "moods": {k: src(f) for k, f in pack["moods"].items()},
+            "mouth": {
+                "box": pct(pack["mouth"]["box"]),
+                "shapes": {k: src(f) for k, f in pack["mouth"]["shapes"].items()},
+            },
+            "blink": {"box": pct(pack["blink"]["box"]), "src": src(pack["blink"]["file"])},
+        }
+
     def has(self, path: str) -> bool:
         return _get(self.d, path) not in (None, "", [], {})
 
@@ -477,6 +534,7 @@ def write_project(ri: RenderInput, out_dir: Path, gsap_js: Path) -> Path:
     n_sc = len(plan.scenes)
     inverse_types = set(style.tokens.get("inverse_scenes", []))
     scenes_html, spec_scenes, used = [], [], []
+    hoisted_html: list[str] = []  # parts a scene moves to the top level (media clips can't nest in a timed scene)
     lotties: dict[str, str] = {}
     # without a resolver only bundled samples and public https images resolve (no local files)
     images = (ri.images or ImageResolver(public_only=True)).bind(out_dir / "assets")
@@ -501,10 +559,19 @@ def write_project(ri: RenderInput, out_dir: Path, gsap_js: Path) -> Path:
             num=ctx.num,
             img=ctx.img,
             lottie=ctx.lottie,
+            media=ctx.media,
+            sprites=ctx.sprites,
+            t0=ts.start,
+            dur=round(ts.duration, 3),
             i=si,
             style=style.id,
         )
         lotties.update(ctx.lotties)
+        if "<!--hoist-->" in body:
+            head, _, rest = body.partition("<!--hoist-->")
+            inner, _, tail = rest.partition("<!--/hoist-->")
+            body = head + tail
+            hoisted_html.append(f'<div class="hoisted c-{comp.id} l-{layout}" id="h{si + 1}">{inner}</div>')
         # a component with inverse layouts decides per layout; otherwise the style decides per scene type
         inv = layout in comp.inverse_layouts if comp.inverse_layouts else sc.type in inverse_types
         overlap = trans.duration if trans.kind == "overlap" and si < n_sc - 1 else 0.0
@@ -741,6 +808,7 @@ def write_project(ri: RenderInput, out_dir: Path, gsap_js: Path) -> Path:
                     f"fx-ill-{fx['illustration']}",
                     f"fx-dep-{fx['depth']}",
                     f"fx-chr-{fx['characters']}",
+                    f"fx-clp-{fx['clips']}",
                 ]
                 if fx_on
                 else []
@@ -763,6 +831,7 @@ def write_project(ri: RenderInput, out_dir: Path, gsap_js: Path) -> Path:
 <div id="root" class="{root_cls}" data-composition-id="main" data-start="0" data-duration="{total}" data-width="{W}" data-height="{H}">
 {depth_html}
 {chr(10).join(scenes_html)}
+{chr(10).join(hoisted_html)}
 <div class="clip chrome" data-start="0" data-duration="{total}" data-track-index="40">{_chrome(style.chrome, plan, ri.brand, logo_src, n_sc)}</div>
 {f'<div class="clip caps" data-start="0" data-duration="{total}" data-track-index="41">{"".join(caps_html)}</div>' if caps_html else ""}
 {f'<div class="clip trs" data-start="0" data-duration="{total}" data-track-index="42">{"".join(overlays)}</div>' if overlays else ""}

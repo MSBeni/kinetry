@@ -45,7 +45,21 @@ TF.comp("character", (c) => {
   ];
   const ORIGIN = { ".head": "50% 92%", ".eye": "50% 50%", ".brow-l": "50% 50%", ".brow-r": "50% 50%" };
   const state = {};
+  const sprite = (k) => has(".who-" + k + " .sprite");
+  // a generated character pack: the expression is a whole picture, crossfaded (the nearest one it has)
+  const spriteMood = (k, name) => (has(".who-" + k + " .sp-" + name) ? name : { shocked: "worried" }[name] && has(".who-" + k + " .sp-worried") ? "worried" : "neutral");
   const mood = (k, name, at) => {
+    if (sprite(k)) {
+      const next = spriteMood(k, name), prev = state[k];
+      if (!prev) {
+        TF.q(c.$(".who-" + k + " .sp-mood")).forEach((el) => T.fromTo(el, { opacity: el.classList.contains("sp-" + next) ? 1 : 0 }, { opacity: el.classList.contains("sp-" + next) ? 1 : 0, duration: 0.01 }, start));
+      } else if (prev !== next) {
+        T.fromTo(S(k, ".sp-" + next), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.inOut", immediateRender: false }, at);
+        T.fromTo(S(k, ".sp-" + prev), { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power1.inOut", immediateRender: false }, at + 0.05);
+      }
+      state[k] = next;
+      return;
+    }
     const next = params(k, name), prev = state[k];
     parts(next).forEach(([sel, to], i) => {
       const o = ORIGIN[sel] ? { transformOrigin: ORIGIN[sel] } : {};
@@ -79,9 +93,15 @@ TF.comp("character", (c) => {
   c.speak.forEach(([role, a, b], si) => {
     if (!has(".who-" + role)) return;
     const closed = S(role, ".mc");
-    T.fromTo(closed, { opacity: 1 }, { opacity: 0, duration: 0.05, immediateRender: false }, a);
-    T.fromTo(closed, { opacity: 0 }, { opacity: 1, duration: 0.08, immediateRender: false }, b + 0.05);
-    const mine = (cues[role] || []).filter(([t]) => t >= a - 0.05 && t <= b + 0.3);
+    if (has(".who-" + role + " .mc")) {
+      T.fromTo(closed, { opacity: 1 }, { opacity: 0, duration: 0.05, immediateRender: false }, a);
+      T.fromTo(closed, { opacity: 0 }, { opacity: 1, duration: 0.08, immediateRender: false }, b + 0.05);
+    }
+    let mine = (cues[role] || []).filter(([t]) => t >= a - 0.05 && t <= b + 0.3);
+    if (!mine.length && sprite(role)) {  // no analysed audio (a preview): cycle open shapes on a fixed hash
+      mine = [];
+      for (let t = a, i = 0; t < b - 0.08; i++) { mine.push([t, "ACBDBCEB"[Math.floor(hash(i, si + 2) * 8)]]); t += 0.09 + 0.06 * hash(i, si + 4); }
+    }
     if (mine.length) {
       mine.forEach(([t, v], i) => {
         const el = S(role, ".v-" + (v === "X" ? "A" : v));
@@ -102,10 +122,11 @@ TF.comp("character", (c) => {
       T.fromTo(open, { opacity: 1, scaleY: prev }, { opacity: 0, scaleY: 0.2, duration: 0.08, immediateRender: false }, b);
     }
     const nod = Math.max(1, Math.floor((b - a) / 0.8));
-    T.fromTo(S(role, ".breath"), { y: 0 }, { y: -5, duration: 0.4, yoyo: true, repeat: nod * 2 - 1, ease: "sine.inOut", immediateRender: false }, a);
+    T.fromTo(S(role, sprite(role) ? ".sprite" : ".breath"), { y: 0 }, { y: sprite(role) ? -6 : -5, duration: 0.4, yoyo: true, repeat: nod * 2 - 1, ease: "sine.inOut", immediateRender: false }, a);
     // the other person listens: two slow nods
     keys.filter((k) => k !== role).forEach((k) => {
-      if (b - a > 1.6) T.fromTo(S(k, ".head"), { y: 0 }, { y: 5, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, a + 0.6);
+      if (b - a > 1.6 && !sprite(k)) T.fromTo(S(k, ".head"), { y: 0 }, { y: 5, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, a + 0.6);
+      if (b - a > 1.6 && sprite(k)) T.fromTo(S(k, ".sprite"), { rotation: 0, transformOrigin: "50% 100%" }, { rotation: 1.2, duration: 0.45, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, a + 0.6);
     });
   });
 
@@ -135,7 +156,7 @@ TF.comp("character", (c) => {
       if (reps >= 1) T.fromTo(sel, { rotation: to.rotation }, { rotation: to.rotation + amp, duration: per / 2, yoyo: true, repeat: reps * 2 - 1, ease: "sine.inOut", immediateRender: false }, a + 0.3);
       T.fromTo(sel, { ...to }, { ...REST, duration: 0.45, ease: "power2.in", immediateRender: false }, b + 0.1);
     });
-    if (e.gesture === "shrug") {
+    if (e.gesture === "shrug" && has(".who-" + e.who + " .torso")) {
       T.fromTo(S(e.who, ".torso"), { y: 0 }, { y: -8, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, a);
       T.fromTo(S(e.who, ".head"), { y: 0 }, { y: -6, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, a);
     }
@@ -144,13 +165,19 @@ TF.comp("character", (c) => {
   // ---- life: blinks, breathing, a floating figure in someone's head, a buzzing phone
   keys.forEach((k, ki) => {
     let t = start + 1.1 + ki * 0.9, n = 0;
+    const sp = sprite(k);
     while (t < end - 0.4) {
-      T.fromTo(S(k, ".blink"), { scaleY: 1, transformOrigin: "50% 50%" }, { scaleY: 0.08, duration: 0.07, ease: "power1.in", immediateRender: false }, t);
-      T.fromTo(S(k, ".blink"), { scaleY: 0.08 }, { scaleY: 1, duration: 0.1, ease: "power1.out", immediateRender: false }, t + 0.07);
+      if (sp) {
+        T.fromTo(S(k, ".sp-blink img"), { opacity: 0 }, { opacity: 1, duration: 0.04, immediateRender: false }, t);
+        T.fromTo(S(k, ".sp-blink img"), { opacity: 1 }, { opacity: 0, duration: 0.05, immediateRender: false }, t + 0.13);
+      } else {
+        T.fromTo(S(k, ".blink"), { scaleY: 1, transformOrigin: "50% 50%" }, { scaleY: 0.08, duration: 0.07, ease: "power1.in", immediateRender: false }, t);
+        T.fromTo(S(k, ".blink"), { scaleY: 0.08 }, { scaleY: 1, duration: 0.1, ease: "power1.out", immediateRender: false }, t + 0.07);
+      }
       t += 2.4 + 2.2 * hash(n++, ki + 11);
     }
     const span = end - start - 1.2, per = 3.4, reps = Math.floor(span / per);
-    if (reps >= 1) T.fromTo(S(k, ".rig"), { scaleY: 1, transformOrigin: "50% 100%" }, { scaleY: 1.012, duration: per / 2, yoyo: true, repeat: reps * 2 - 1, ease: "sine.inOut", immediateRender: false }, start + 1);
+    if (reps >= 1) T.fromTo(S(k, sp ? ".sprite" : ".rig"), { scaleY: 1, transformOrigin: "50% 100%" }, { scaleY: 1.012, duration: per / 2, yoyo: true, repeat: reps * 2 - 1, ease: "sine.inOut", immediateRender: false }, start + 1);
     if (has(".who-" + k + ".imagined")) {
       const fr = Math.floor(span / 3);
       if (fr >= 1) T.fromTo(c.$(".who-" + k + " .float"), { y: 0, rotation: -1.5 }, { y: -18, rotation: 1.5, duration: 1.5, yoyo: true, repeat: fr * 2 - 1, ease: "sine.inOut", immediateRender: false }, start + 1);

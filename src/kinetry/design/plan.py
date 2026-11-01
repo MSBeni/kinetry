@@ -83,6 +83,7 @@ class Effects(BaseModel):
       own 3D models (where it has shared some), its logo mark and brand-colored shapes; rich adds more movement
     - characters: enables the `character` scene type: animated people who blink, breathe, change expression and
       move their mouths while their own lines are voiced (subtle and rich behave the same for now)
+    - clips: enables the `clip` scene type: a generated or supplied video clip (see kinetry.media)
     """
 
     level: Level = "off"
@@ -92,13 +93,20 @@ class Effects(BaseModel):
     illustration: Level = "off"
     depth: Level = "off"
     characters: Level = "off"
+    clips: Level = "off"
     # the brand's own 3D models on the stage (see kinetry.brand3d): "auto" lets the asset agent pick per scene,
     # "off" shows none, or {scene number (1 = first): model id} places them by hand
     depth_models: Literal["auto", "off"] | dict[str, str] = "auto"
 
     def resolved(self) -> dict[str, str]:
         out = {k: getattr(self, k) or self.level for k in ("camera", "kinetic", "ambient")}
-        return {**out, "illustration": self.illustration, "depth": self.depth, "characters": self.characters}
+        return {
+            **out,
+            "illustration": self.illustration,
+            "depth": self.depth,
+            "characters": self.characters,
+            "clips": self.clips,
+        }
 
     def any(self) -> bool:
         return any(v != "off" for v in self.resolved().values())

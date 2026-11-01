@@ -1,0 +1,9 @@
+{# The <video> is a HyperFrames media clip, and a media clip can't sit inside a timed scene, so it is hoisted:
+   everything between the hoist markers is moved by the renderer to the top level of the page (in
+   <div class="hoisted" id="h{n}">), above the scenes and below the chrome and captions. Its wrapper is faded
+   in and out with the scene; in the framed layout the motion script lays it over the .vslot placeholder. #}
+<div class="cx">
+  {% if L == 'framed' %}{{ t('eyebrow', tag='span', cls='eyebrow') }}{{ t('headline', tag='h2', cls='hl') }}<div class="vslot" data-layout-allow-overlap></div>{{ t('caption', cls='ccap') }}{% endif %}
+</div>
+<!--hoist--><div class="vlayer fit-{{ get('fit') or 'cover' }}"><video id="clip-{{ i + 1 }}" src="{{ media('video') }}" data-start="{{ t0 }}" data-duration="{{ dur }}" data-track-index="{{ 50 + i }}" muted playsinline preload="auto"></video></div>
+{% if L == 'full' %}<div class="over">{{ t('eyebrow', tag='span', cls='eyebrow') }}{{ t('headline', tag='h2', cls='hl') }}{{ t('caption', cls='ccap') }}</div>{% endif %}<!--/hoist-->

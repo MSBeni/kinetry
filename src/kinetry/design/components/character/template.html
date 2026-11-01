@@ -11,7 +11,12 @@
     <div class="cast">
       {% for k in ks %}{% set p = sp.get(k) or {} %}
       <div class="who who-{{ k }}{{ ' imagined' if p.get('imagined') }}" data-mood="{{ p.get('mood') or 'neutral' }}">
-        <div class="float">{% if p.get('imagined') %}<div class="halo"></div>{% endif %}{{ rig(k, p) }}</div>
+        <div class="float">{% if p.get('imagined') %}<div class="halo"></div>{% endif %}{% if p.get('sprite') %}{% set S = sprites(p['sprite']) %}
+          <div class="sprite" style="aspect-ratio:{{ S.w }} / {{ S.h }}">
+            {% for m, src in S.moods.items() %}<img class="sp-mood sp-{{ m }}" src="{{ src }}" alt="" />{% endfor %}
+            <div class="sp-patch sp-mouth" style="left:{{ S.mouth.box[0] }}%;top:{{ S.mouth.box[1] }}%;width:{{ S.mouth.box[2] }}%;height:{{ S.mouth.box[3] }}%">{% for v, src in S.mouth.shapes.items() %}<img class="v v-{{ v }}" src="{{ src }}" alt="" />{% endfor %}</div>
+            <div class="sp-patch sp-blink" style="left:{{ S.blink.box[0] }}%;top:{{ S.blink.box[1] }}%;width:{{ S.blink.box[2] }}%;height:{{ S.blink.box[3] }}%"><img src="{{ S.blink.src }}" alt="" /></div>
+          </div>{% else %}{{ rig(k, p) }}{% endif %}</div>
         <div class="tag">{{ t('speakers.' ~ k ~ '.name') }}{{ t('speakers.' ~ k ~ '.role') }}</div>
       </div>
       {% endfor %}

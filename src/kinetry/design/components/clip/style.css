@@ -1,0 +1,18 @@
+/* A video clip. The clip and (in the full layout) its text live in a hoisted layer at the top level of the
+   page (see template.html); the scene itself keeps the ground, and in the framed layout the headline, caption
+   and a placeholder slot the video is laid over. */
+.c-clip .cx { height: 100%; display: flex; flex-direction: column; gap: var(--g2); min-height: 0; }
+.c-clip .vslot { flex: 1 1 auto; min-height: 0; border-radius: calc(36px * var(--k)); background: color-mix(in srgb, var(--ink) 12%, var(--bg)); }
+.hoisted.c-clip { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.hoisted.c-clip .vlayer { position: absolute; inset: 0; overflow: hidden; background: #000; }
+.hoisted.c-clip .vlayer video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.hoisted.c-clip .vlayer.fit-contain video { object-fit: contain; }
+.hoisted.c-clip.l-framed .vlayer { border-radius: calc(36px * var(--k));
+  box-shadow: 0 calc(18px * var(--k)) calc(50px * var(--k)) color-mix(in srgb, var(--ink) 18%, transparent); }
+.hoisted.c-clip.l-full .vlayer::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, rgba(0, 0, 0, 0.75)); }
+.hoisted.c-clip .over { position: absolute; left: var(--px); right: var(--px); bottom: var(--pb); display: flex; flex-direction: column; gap: var(--g2); }
+.hoisted.c-clip .over .r-h2, .hoisted.c-clip .over .r-lead { color: #ffffff; }
+.hoisted.c-clip .over .eyebrow { align-self: flex-start; }
+/* the chrome (labels, scene counter) stays readable: the top of a full-frame clip fades into the page ground */
+.hoisted.c-clip.l-full .vlayer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: calc(var(--pt) + var(--g3)); z-index: 1;
+  background: linear-gradient(to bottom, var(--bg) 55%, transparent); }

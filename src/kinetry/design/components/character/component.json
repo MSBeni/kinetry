@@ -173,6 +173,12 @@
               "type": "bool",
               "optional": true,
               "desc": "Drawn as a figure in the other person's head (faded, floating)"
+            },
+            "sprite": {
+              "type": "text",
+              "max": 200,
+              "optional": true,
+              "desc": "A character pack folder made from a photo by `kinetry media cast` (generated art; replaces the drawn look)"
             }
           }
         },
@@ -297,6 +303,12 @@
             "imagined": {
               "type": "bool",
               "optional": true
+            },
+            "sprite": {
+              "type": "text",
+              "max": 200,
+              "optional": true,
+              "desc": "A character pack folder made from a photo by `kinetry media cast` (generated art; replaces the drawn look)"
             }
           }
         }

@@ -2,7 +2,7 @@
 
 Generated from the manifests in `src/kinetry/design/` by `kinetry catalog --markdown`. Don't edit by hand; CI checks it's current.
 
-**30 scene types · 61 layouts · 7 styles · 7 motion packs · 9 transitions · 3 formats** → 1148 distinct scene renderings before brand colors, fonts and content.
+**31 scene types · 63 layouts · 7 styles · 7 motion packs · 9 transitions · 3 formats** → 1190 distinct scene renderings before brand colors, fonts and content.
 
 ## Styles
 
@@ -32,7 +32,7 @@ Generated from the manifests in `src/kinetry/design/` by `kinetry catalog --mark
 
 ## Motion layers (opt-in)
 
-Off by default, so a plain video looks exactly like the styles above. Set `design.effects.level` to `subtle` or `rich`, or each layer on its own (`camera`, `kinetic`, `ambient`). `illustration`, `depth` and `characters` are heavier and only on when named.
+Off by default, so a plain video looks exactly like the styles above. Set `design.effects.level` to `subtle` or `rich`, or each layer on its own (`camera`, `kinetic`, `ambient`). `illustration`, `depth`, `characters` and `clips` are heavier and only on when named.
 
 | Layer | subtle | rich |
 |---|---|---|
@@ -42,6 +42,7 @@ Off by default, so a plain video looks exactly like the styles above. Set `desig
 | `illustration` (by name only) | enables the `illustration` scene type: animated illustrations or the caller's Lottie | parts keep moving gently; a Lottie loops |
 | `depth` (by name only) | a Three.js stage behind the scenes: a camera that glides from scene to scene past the brand's own 3D models where a scene leaves room (when the brand has shared some), its logo mark in 3D on title and closing scenes, and abstract shapes in its colors | more movement, a slow camera sway |
 | `characters` (by name only) | enables the `character` scene type: one or two animated people in a simple set who blink, breathe, change expression on cue and move their mouths while their own lines are voiced; thought bubbles for what they think | the same (reserved for richer acting) |
+| `clips` (by name only) | enables the `clip` scene type: a generated or supplied video clip, full-frame or framed, with a headline and caption (see `kinetry media`) | the same |
 
 ## Scene types
 
@@ -352,7 +353,7 @@ One or two animated characters in a simple set: they blink, breathe, gesture, ch
 | `eyebrow` | `text<=40` |  |
 | `headline` | `text<=44` |  |
 | `setting` | `plain|night|shower|office` | The set behind the characters: plain (brand colors), night (bedroom, window, moon), shower (tiles and running water), office (desk and window) |
-| `speakers` | `{a: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|swept|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray|salt, top?: brand|brand2|ink|neutral|olive|navy|white|gray, collar?: bool, glasses?: bool, frames?: thin|bold, beard?: none|stubble|full, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}, b?: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|swept|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray|salt, top?: brand|brand2|ink|neutral|olive|navy|white|gray, collar?: bool, glasses?: bool, frames?: thin|bold, beard?: none|stubble|full, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}}` |  |
+| `speakers` | `{a: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|swept|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray|salt, top?: brand|brand2|ink|neutral|olive|navy|white|gray, collar?: bool, glasses?: bool, frames?: thin|bold, beard?: none|stubble|full, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool, sprite?: text<=200}, b?: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|swept|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray|salt, top?: brand|brand2|ink|neutral|olive|navy|white|gray, collar?: bool, glasses?: bool, frames?: thin|bold, beard?: none|stubble|full, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool, sprite?: text<=200}}` |  |
 | `lines` | `[0-5 × {who: a|b, text: text<=90, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, gesture?: none|explain|shrug|chest|wave}]` | Spoken lines, each in its speaker's voice; the speaker's mouth moves while it plays |
 | `thoughts` | `[0-4 × {who: a|b, text: text<=60, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm}]` | Thought bubbles, revealed while the narrator speaks |
 
@@ -482,6 +483,43 @@ Things to have done or check, ticked off one by one as they're said.
     "A two-week experiment, chosen",
     "Session 3, on both calendars"
   ]
+}
+```
+
+</details>
+
+### `clip` · Video clip
+
+A short generated or supplied video playing full-frame or in a frame, with an optional headline and caption over it.
+
+*Needs the `clips` motion layer; the planner offers it only when that's on.*
+
+**Use when:** a moment that is better seen than drawn: a place, an action, a mood; a cinematic opener or a scene between explainer scenes.
+**Avoid when:** lists, steps or numbers; anything that needs exact on-screen text inside the footage.
+
+| Field | Shape | Notes |
+|---|---|---|
+| `eyebrow` | `text<=40` |  |
+| `video` | `text<=300` | Path of an mp4/webm clip, e.g. one made by `kinetry media clip` |
+| `headline` | `text<=48` |  |
+| `caption` | `text<=110` |  |
+| `fit` | `cover|contain` | cover fills the frame (default) |
+
+**Reveal keys:** `video`, `headline`, `caption`
+
+| Layout | Formats | Description |
+|---|---|---|
+| `full` | 9:16, 1:1, 16:9 | The clip fills the whole frame; text sits on a dark fade at the bottom |
+| `framed` | 9:16, 1:1, 16:9 | The clip in a large rounded frame, text above it |
+
+<details><summary>Example data</summary>
+
+```json
+{
+  "eyebrow": "2:07 a.m.",
+  "video": "catalog:clip/example.mp4",
+  "headline": "Still awake",
+  "caption": "Replaying the same conversation, again."
 }
 ```
 

@@ -46,6 +46,7 @@ def test_effects_resolve_per_layer():
             "illustration": "off",  # the heavier layers are only ever on by name
             "depth": "off",
             "characters": "off",
+            "clips": "off",
         }
         and e.any()
     )

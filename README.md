@@ -380,6 +380,22 @@ kinetry run lesson.md --depth subtle --out lesson.mp4
 kinetry run lesson.md --characters subtle --out lesson.mp4
 ```
 
+#### Generated media (experimental)
+
+With your own Google account, Kinetry can add generated art to a video. Nothing is generated unless you ask, every call is priced first, a per-run cap (`--cap`, USD) refuses anything over it, and results are cached so the same request is only paid for once.
+
+```bash
+pip install "kinetry[media]"
+export KINETRY_GOOGLE_API_KEY=...        # Gemini API (AI Studio), or:
+export KINETRY_GOOGLE_PROJECT=my-project # Vertex AI, with GOOGLE_APPLICATION_CREDENTIALS
+kinetry media estimate --cast --clip-seconds 8          # what it would cost, at list prices
+kinetry media cast me.jpg --out cast/me --consent       # a character pack from a photo of yourself
+kinetry media clip "a dim bedroom at 2 a.m., phone glowing" --out clips/night.mp4 --seconds 8
+```
+
+- **Character packs** (`kinetry media cast`): one photo becomes a styled cartoon of that person, plus expressions, the eight mouth shapes the lip-sync uses, and a blink, each generated as an edit of the same base. The variants are aligned to the base and the mouth and eyes are cut out as small patches, so the face doesn't jitter while it talks. Use the folder as a speaker's `"sprite"` in a `character` scene. Only for a photo of the person asking (`--consent`, recorded in the pack).
+- **Video clips** (`kinetry media clip`, Veo): a 4, 6 or 8 second clip for the new `clip` scene type (`--clips`), full-frame with text over it or in a rounded frame.
+
 #### The brand's own 3D models
 
 Nothing on the 3D stage is drawn for a particular business. What stands there comes from the brand:

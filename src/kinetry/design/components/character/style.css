@@ -130,3 +130,13 @@
 .c-character .o-plant { fill: #5f9e6e; }
 .c-character .o-desk { fill: color-mix(in srgb, var(--ink) 25%, #c89b6a); }
 .c-character .o-edge { fill: color-mix(in srgb, var(--ink) 40%, #c89b6a); }
+
+/* a generated character pack (kinetry.media.cast): full pictures per expression, mouth and blink patches */
+.c-character .sprite { position: relative; width: 100%; height: auto; max-height: 100%; margin: auto auto 0; }
+.c-character .float:has(.sprite) { aspect-ratio: auto; display: flex; align-items: flex-end; height: 100%; }
+.c-character .sprite .sp-mood { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
+.c-character .sprite .sp-neutral { opacity: 1; }
+.c-character .sprite .sp-patch { position: absolute; }
+.c-character .sprite .sp-patch img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.c-character .sprite .sp-mouth .v, .c-character .sprite .sp-blink img { opacity: 0; }
+.c-character .sprite { -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent); mask-image: linear-gradient(to bottom, #000 82%, transparent); }

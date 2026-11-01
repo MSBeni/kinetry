@@ -344,8 +344,8 @@ class Catalog:
             "## Motion layers (opt-in)",
             "",
             "Off by default, so a plain video looks exactly like the styles above. Set `design.effects.level` to "
-            "`subtle` or `rich`, or each layer on its own (`camera`, `kinetic`, `ambient`). `illustration`, `depth` "
-            "and `characters` are heavier and only on when named.",
+            "`subtle` or `rich`, or each layer on its own (`camera`, `kinetic`, `ambient`). `illustration`, `depth`, "
+            "`characters` and `clips` are heavier and only on when named.",
             "",
             "| Layer | subtle | rich |",
             "|---|---|---|",
@@ -364,6 +364,8 @@ class Catalog:
             "| `characters` (by name only) | enables the `character` scene type: one or two animated people in a "
             "simple set who blink, breathe, change expression on cue and move their mouths while their own lines "
             "are voiced; thought bubbles for what they think | the same (reserved for richer acting) |",
+            "| `clips` (by name only) | enables the `clip` scene type: a generated or supplied video clip, full-frame "
+            "or framed, with a headline and caption (see `kinetry media`) | the same |",
             "",
             "## Scene types",
             "",
