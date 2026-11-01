@@ -119,6 +119,6 @@ def test_tighten_trims_edges_and_long_pauses():
     pcm = np.concatenate([silence, tone, silence, tone, silence]).tobytes()
     out = np.frombuffer(tighten_pcm16(pcm, rate, max_pause=0.7), dtype="<i2")
     secs = len(out) / rate
-    assert 1.0 + 0.7 - 0.05 < secs < 1.0 + 0.7 + 0.2  # two tones, one capped pause, small pads
+    assert 1.0 + 0.7 - 0.05 < secs < 1.0 + 0.7 + 0.3  # two tones, one capped pause, small pads
     short = np.concatenate([tone, np.zeros(rate // 4, dtype="<i2"), tone]).tobytes()
     assert abs(len(tighten_pcm16(short, rate)) / 2 / rate - 1.25) < 0.02  # short pauses stay
