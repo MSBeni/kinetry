@@ -42,11 +42,30 @@
 .c-character .rig .top-brand2 { fill: var(--fill2); }
 .c-character .rig .top-ink { fill: var(--ink); }
 .c-character .rig .top-neutral { fill: color-mix(in srgb, var(--ink) 18%, var(--surface)); }
+.c-character .rig .top-olive { fill: #4b5a44; }
+.c-character .rig .top-navy { fill: #24314f; }
+.c-character .rig .top-white { fill: #f3f1ec; }
+.c-character .rig .top-gray { fill: #8a8f96; }
 .c-character .rig .glasses { fill: none; stroke: #1d1a24; stroke-width: 4; }
 .c-character .rig .device { fill: #1d1a24; }
 .c-character .rig .screen { fill: #bfe3ff; }
 .c-character .rig .glow { fill: #bfe3ff; opacity: 0.2; filter: blur(16px); mix-blend-mode: screen; }
-.c-character .rig .arm { filter: brightness(0.86); }
+.c-character .rig .arm-p { filter: brightness(0.86); }
+.c-character .rig .vis .v { opacity: 0; }
+.c-character .rig .hole { fill: #3b1620; }
+.c-character .rig .teeth { fill: #ffffff; }
+.c-character .rig .tongue { fill: #d9606e; }
+.c-character .rig .lips { fill: none; stroke: #2a1a1c; stroke-width: 6; stroke-linecap: round; }
+.c-character .rig .ring { fill: none; stroke: color-mix(in srgb, var(--skin) 50%, #6b2a2a); stroke-width: 4; }
+.c-character .rig .beard path { fill: var(--hair); }
+.c-character .rig .beard.stubble path { opacity: 0.22; }
+.c-character .rig .beard.stubble .stache { opacity: 0.42; }
+.c-character .rig .beard.full path { opacity: 0.92; }
+.c-character .rig .strands path { fill: none; stroke: #b3aeae; stroke-width: 3; stroke-linecap: round; opacity: 0.5; }
+.c-character .rig .glasses.bold { stroke: #4a2f1d; stroke-width: 7; }
+.c-character .rig .shade { filter: brightness(0.82); }
+.c-character .rig .placket { stroke: color-mix(in srgb, #000000 30%, transparent); stroke-width: 3; }
+.c-character .rig .button { fill: color-mix(in srgb, #000000 35%, transparent); }
 .c-character .rig .cup { fill: var(--surface); stroke: var(--line); stroke-width: 3; }
 .c-character .rig .handle { fill: none; stroke: var(--surface); stroke-width: 9; }
 .c-character .rig .steam { fill: none; stroke: color-mix(in srgb, var(--ink) 30%, transparent); stroke-width: 4; stroke-linecap: round; }

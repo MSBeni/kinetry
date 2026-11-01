@@ -340,11 +340,11 @@ A section break in a longer video: a big number and the next section's title.
 
 ### `character` · Characters
 
-One or two animated characters in a simple set: they blink, breathe, change expression, and their mouths move while their lines are spoken. Thought bubbles carry what a character is thinking while the narrator talks.
+One or two animated characters in a simple set: they blink, breathe, gesture, change expression, and their mouths take the shape of each sound while their own lines are spoken. Thought bubbles carry what a character is thinking while the narrator talks.
 
 *Needs the `characters` motion layer; the planner offers it only when that's on.*
 
-**Use when:** acting out a relatable moment (a person staring at a message, two people disagreeing); a short exchange where seeing the people helps; showing how someone feels: worried, annoyed, relieved.
+**Use when:** acting out a relatable moment (a person staring at a message, two people disagreeing); a short exchange where seeing the people helps; showing how someone feels: worried, annoyed, relieved; rehearsing a hard moment: the same scene played twice, the old way and a better way.
 **Avoid when:** lists, steps or numbers (use their scene types); more than two people; long speeches: keep each line short.
 
 | Field | Shape | Notes |
@@ -352,8 +352,8 @@ One or two animated characters in a simple set: they blink, breathe, change expr
 | `eyebrow` | `text<=40` |  |
 | `headline` | `text<=44` |  |
 | `setting` | `plain|night|shower|office` | The set behind the characters: plain (brand colors), night (bedroom, window, moon), shower (tiles and running water), office (desk and window) |
-| `speakers` | `{a: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray, top?: brand|brand2|ink|neutral, glasses?: bool, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}, b?: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray, top?: brand|brand2|ink|neutral, glasses?: bool, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}}` |  |
-| `lines` | `[0-5 × {who: a|b, text: text<=90, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm}]` | Spoken lines, each in its speaker's voice; the speaker's mouth moves while it plays |
+| `speakers` | `{a: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|swept|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray|salt, top?: brand|brand2|ink|neutral|olive|navy|white|gray, collar?: bool, glasses?: bool, frames?: thin|bold, beard?: none|stubble|full, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}, b?: {name: text<=22, role?: text<=22, skin?: light|fair|tan|olive|brown|deep, hair?: short|swept|long|curly|bun|buzz, hair_color?: black|brown|auburn|blonde|gray|salt, top?: brand|brand2|ink|neutral|olive|navy|white|gray, collar?: bool, glasses?: bool, frames?: thin|bold, beard?: none|stubble|full, prop?: none|phone|mug, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, imagined?: bool}}` |  |
+| `lines` | `[0-5 × {who: a|b, text: text<=90, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm, gesture?: none|explain|shrug|chest|wave}]` | Spoken lines, each in its speaker's voice; the speaker's mouth moves while it plays |
 | `thoughts` | `[0-4 × {who: a|b, text: text<=60, mood?: neutral|happy|worried|annoyed|thinking|shocked|calm}]` | Thought bubbles, revealed while the narrator speaks |
 
 **Reveal keys:** `headline`, `cast`, `lines.N`, `thoughts.N`

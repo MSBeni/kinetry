@@ -62,7 +62,7 @@ TF.comp("character", (c) => {
     const m = el.className.match(/\b(ln|th)-(\d+)\b/);
     if (!m) return;
     const key = (m[1] === "ln" ? "lines." : "thoughts.") + m[2];
-    events.push({ sel: c.$("." + m[1] + "-" + m[2]), at: c.at(key), who: el.dataset.who, mood: el.dataset.mood });
+    events.push({ sel: c.$("." + m[1] + "-" + m[2]), at: c.at(key), who: el.dataset.who, mood: el.dataset.mood, gesture: el.dataset.gesture || "" });
   });
   events.sort((x, y) => x.at - y.at);
   events.forEach((e, i) => {
@@ -73,23 +73,72 @@ TF.comp("character", (c) => {
     if (e.mood && state[e.who]) mood(e.who, e.mood, e.at - 0.1);
   });
 
-  // ---- talking: open mouth only while this speaker's own audio plays, shapes from a fixed hash
+  // ---- talking. With analysed audio (c.sc.mouth), the mouth takes the shape of each sound (kinetry.visemes);
+  // otherwise it opens and closes on a fixed hash. Either way only inside the speaker's own audio windows.
+  const cues = (c.sc && c.sc.mouth) || {};
   c.speak.forEach(([role, a, b], si) => {
     if (!has(".who-" + role)) return;
-    const open = S(role, ".m-open"), closed = S(role, ".mc");
+    const closed = S(role, ".mc");
     T.fromTo(closed, { opacity: 1 }, { opacity: 0, duration: 0.05, immediateRender: false }, a);
-    T.fromTo(open, { opacity: 0, scaleY: 0.2, transformOrigin: "50% 30%" }, { opacity: 1, scaleY: 0.5, duration: 0.06, immediateRender: false }, a);
-    let t = a + 0.06, prev = 0.5, i = 0;
-    while (t < b - 0.08) {
-      const d = 0.08 + 0.07 * hash(i, si + 1);
-      const nxt = hash(i + 7, si + 3) < 0.18 ? 0.12 : 0.3 + 0.7 * hash(i + 3, si + 5);
-      T.fromTo(open, { scaleY: prev }, { scaleY: nxt, duration: d, ease: "sine.inOut", immediateRender: false }, t);
-      prev = nxt; t += d; i++;
+    T.fromTo(closed, { opacity: 0 }, { opacity: 1, duration: 0.08, immediateRender: false }, b + 0.05);
+    const mine = (cues[role] || []).filter(([t]) => t >= a - 0.05 && t <= b + 0.3);
+    if (mine.length) {
+      mine.forEach(([t, v], i) => {
+        const el = S(role, ".v-" + (v === "X" ? "A" : v));
+        const until = i + 1 < mine.length ? mine[i + 1][0] : b + 0.05;
+        T.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.02, immediateRender: false }, t);
+        T.fromTo(el, { opacity: 1 }, { opacity: 0, duration: 0.02, immediateRender: false }, Math.max(t + 0.03, until));
+      });
+    } else {
+      const open = S(role, ".m-open");
+      T.fromTo(open, { opacity: 0, scaleY: 0.2, transformOrigin: "50% 30%" }, { opacity: 1, scaleY: 0.5, duration: 0.06, immediateRender: false }, a);
+      let t = a + 0.06, prev = 0.5, i = 0;
+      while (t < b - 0.08) {
+        const d = 0.08 + 0.07 * hash(i, si + 1);
+        const nxt = hash(i + 7, si + 3) < 0.18 ? 0.12 : 0.3 + 0.7 * hash(i + 3, si + 5);
+        T.fromTo(open, { scaleY: prev }, { scaleY: nxt, duration: d, ease: "sine.inOut", immediateRender: false }, t);
+        prev = nxt; t += d; i++;
+      }
+      T.fromTo(open, { opacity: 1, scaleY: prev }, { opacity: 0, scaleY: 0.2, duration: 0.08, immediateRender: false }, b);
     }
-    T.fromTo(open, { opacity: 1, scaleY: prev }, { opacity: 0, scaleY: 0.2, duration: 0.08, immediateRender: false }, b);
-    T.fromTo(closed, { opacity: 0 }, { opacity: 1, duration: 0.08, immediateRender: false }, b);
     const nod = Math.max(1, Math.floor((b - a) / 0.8));
     T.fromTo(S(role, ".breath"), { y: 0 }, { y: -5, duration: 0.4, yoyo: true, repeat: nod * 2 - 1, ease: "sine.inOut", immediateRender: false }, a);
+    // the other person listens: two slow nods
+    keys.filter((k) => k !== role).forEach((k) => {
+      if (b - a > 1.6) T.fromTo(S(k, ".head"), { y: 0 }, { y: 5, duration: 0.35, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, a + 0.6);
+    });
+  });
+
+  // ---- gestures: a forearm and hand rise into frame for the line, then drop away
+  const ARM = { "arm-r": "230 452", "arm-l": "70 452" };
+  const REST = { y: 190, rotation: 0 };
+  const POSE = {
+    explain: { "arm-r": { y: 26, rotation: -14 } },
+    chest: { "arm-r": { y: 34, rotation: -44 } },
+    wave: { "arm-r": { y: -6, rotation: 8 } },
+    shrug: { "arm-r": { y: 56, rotation: 22 }, "arm-l": { y: 56, rotation: -22 } },
+  };
+  keys.forEach((k) => Object.keys(ARM).forEach((arm) => {
+    if (has(".who-" + k + " ." + arm)) T.fromTo(S(k, "." + arm), { ...REST, svgOrigin: ARM[arm] }, { ...REST, duration: 0.01 }, start);
+  }));
+  events.forEach((e) => {
+    const pose = POSE[e.gesture];
+    if (!pose || !has(".who-" + e.who)) return;
+    const win = c.speak.find(([r, a]) => r === e.who && Math.abs(a - e.at) < 0.6);
+    const a = win ? win[1] : e.at, b = win ? win[2] : e.at + 1.5;
+    Object.entries(pose).forEach(([arm, to]) => {
+      if (!has(".who-" + e.who + " ." + arm)) return;
+      const sel = S(e.who, "." + arm);
+      T.fromTo(sel, { ...REST, svgOrigin: ARM[arm] }, { ...to, duration: 0.4, ease: "back.out(1.4)", immediateRender: false }, a - 0.15);
+      const amp = e.gesture === "wave" ? 14 : 5, per = e.gesture === "wave" ? 0.36 : 0.8;
+      const reps = Math.floor((b - a - 0.4) / per);
+      if (reps >= 1) T.fromTo(sel, { rotation: to.rotation }, { rotation: to.rotation + amp, duration: per / 2, yoyo: true, repeat: reps * 2 - 1, ease: "sine.inOut", immediateRender: false }, a + 0.3);
+      T.fromTo(sel, { ...to }, { ...REST, duration: 0.45, ease: "power2.in", immediateRender: false }, b + 0.1);
+    });
+    if (e.gesture === "shrug") {
+      T.fromTo(S(e.who, ".torso"), { y: 0 }, { y: -8, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, a);
+      T.fromTo(S(e.who, ".head"), { y: 0 }, { y: -6, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, a);
+    }
   });
 
   // ---- life: blinks, breathing, a floating figure in someone's head, a buzzing phone

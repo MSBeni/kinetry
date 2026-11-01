@@ -156,11 +156,21 @@ def test_character_scene_validates_and_renders(tmp_path):
         "data": {
             "setting": "shower",
             "speakers": {
-                "a": {"name": "You", "skin": "tan", "hair": "short", "mood": "annoyed"},
+                "a": {
+                    "name": "You",
+                    "hair": "swept",
+                    "hair_color": "salt",
+                    "top": "olive",
+                    "collar": True,
+                    "glasses": True,
+                    "frames": "bold",
+                    "beard": "stubble",
+                    "mood": "annoyed",
+                },
                 "b": {"name": "Alex", "role": "In your head", "hair": "bun", "glasses": True, "imagined": True},
             },
             "lines": [
-                {"who": "a", "text": "That deadline was never realistic.", "mood": "annoyed"},
+                {"who": "a", "text": "That deadline was never realistic.", "mood": "annoyed", "gesture": "shrug"},
                 {"who": "b", "text": "Then why didn't you say so?", "mood": "thinking"},
             ],
             "thoughts": [{"who": "a", "text": "Why didn't I?", "mood": "worried"}],
@@ -190,6 +200,8 @@ def test_character_scene_validates_and_renders(tmp_path):
     assert "c-character" in html and "who-b imagined" in html and "fx-chr-subtle" in html
     assert 'class="bub box say from-b ln-1"' in html and 'class="bub box think from-a th-0"' in html
     assert '"speak": [["a"' in html  # the speaker windows that drive the mouths
+    assert 'data-gesture="shrug"' in html and 'class="glasses bold"' in html and "beard stubble" in html
+    assert '"mouth": {}' in html  # previews have no audio: the mouth falls back to opening and closing
 
 
 def test_adapted_scene_types_are_credited():

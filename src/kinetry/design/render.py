@@ -541,6 +541,7 @@ def write_project(ri: RenderInput, out_dir: Path, gsap_js: Path) -> Path:
                 "eyebrow": bool(sc.data.get("eyebrow")),
                 "n": {k: len(v) for k, v in sc.data.items() if isinstance(v, list)},
                 "speak": [[b.voice, b.start, round(b.start + b.duration, 3)] for b in ts.beats if b.voice in speakers],
+                **({"mouth": _mouths(ts, speakers)} if comp.lipsync else {}),
                 "data": _js_data(comp, sc.data),
             }
         )
@@ -796,6 +797,24 @@ TF.run({_script_json(spec)});
         )
     )
     return out_dir / "index.html"
+
+
+def _mouths(ts, speakers: dict) -> dict[str, list]:
+    """Mouth shapes per speaker, at absolute times, from each of their voiced lines (previews have no audio)."""
+    try:
+        from ..visemes import mouth_cues
+    except ImportError:  # numpy/soundfile come with the local voice extra; without them, the simple mouth
+        return {}
+
+    out: dict[str, list] = {}
+    for b in ts.beats:
+        if b.voice in speakers and b.audio and Path(b.audio).exists():
+            try:
+                cues = mouth_cues(Path(b.audio), b.say)
+            except ImportError:
+                return {}
+            out.setdefault(b.voice, []).extend([round(b.start + t, 3), v] for t, v in cues)
+    return out
 
 
 def _js_data(comp: Component, data: dict) -> dict:

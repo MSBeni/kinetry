@@ -1,0 +1,377 @@
+{
+  "version": 2,
+  "title": "Rehearse it, don't replay it",
+  "chrome_left": "Habits",
+  "chrome_right": "Practice",
+  "design": {
+    "style": "bold",
+    "format": "9:16",
+    "pacing": "brisk",
+    "lang": "en",
+    "captions": true,
+    "effects": {
+      "level": "rich",
+      "characters": "rich"
+    }
+  },
+  "voices": {
+    "narrator": "kokoro:af_heart",
+    "a": "kokoro:am_michael",
+    "b": "kokoro:af_sarah"
+  },
+  "scenes": [
+    {
+      "type": "statement",
+      "layout": "stack",
+      "nav": "Hook",
+      "data": {
+        "lead": "Try this instead",
+        "text": "Rehearse it. Don't replay it.",
+        "emphasis": "Rehearse it.",
+        "sub": "Same scene. A different you."
+      },
+      "beats": [
+        {
+          "say": "Try this instead.",
+          "show": [
+            "lead"
+          ]
+        },
+        {
+          "say": "Rehearse it. Don't replay it.",
+          "show": [
+            "text"
+          ]
+        },
+        {
+          "say": "Same scene. This time, a different you.",
+          "show": [
+            "sub"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "character",
+      "layout": "stage",
+      "nav": "Take 1",
+      "data": {
+        "eyebrow": "Take 1: what happened",
+        "setting": "office",
+        "speakers": {
+          "a": {
+            "name": "Riley",
+            "role": "You",
+            "skin": "olive",
+            "hair": "swept",
+            "hair_color": "brown",
+            "top": "brand",
+            "collar": true,
+            "glasses": true,
+            "frames": "bold",
+            "beard": "stubble",
+            "mood": "neutral"
+          },
+          "b": {
+            "name": "Jordan",
+            "role": "Team lead",
+            "skin": "brown",
+            "hair": "curly",
+            "hair_color": "black",
+            "top": "navy",
+            "mood": "neutral"
+          }
+        },
+        "lines": [
+          {
+            "who": "b",
+            "text": "So we're good for Friday?",
+            "mood": "neutral",
+            "gesture": "explain"
+          },
+          {
+            "who": "a",
+            "text": "Uh... yeah. Sure. Friday's fine.",
+            "mood": "worried",
+            "gesture": "shrug"
+          }
+        ],
+        "thoughts": [
+          {
+            "who": "a",
+            "text": "It's not fine.",
+            "mood": "worried"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Here's the moment. Your lead asks about the deadline.",
+          "show": [
+            "cast"
+          ]
+        },
+        {
+          "say": "So we're good for Friday?",
+          "show": [
+            "lines.0"
+          ],
+          "voice": "b"
+        },
+        {
+          "say": "Uh... yeah. Sure. Friday's fine.",
+          "show": [
+            "lines.1"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "And there it is. The line you'll replay at two a.m.",
+          "show": [
+            "thoughts.0"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "definition",
+      "layout": "card",
+      "nav": "The fix",
+      "data": {
+        "eyebrow": "There's a name for the fix",
+        "term": "Rehearsal",
+        "kind": "noun",
+        "definition": "Practicing a hard moment out loud, the way you want it to go, so the new response is ready next time.",
+        "example": "Actors use it. Athletes use it. Therapists use it too."
+      },
+      "beats": [
+        {
+          "say": "There's a better use for that replay. Rehearsal.",
+          "show": [
+            "term"
+          ]
+        },
+        {
+          "say": "Practicing a hard moment out loud, the way you want it to go, so the new response is ready next time.",
+          "show": [
+            "definition"
+          ]
+        },
+        {
+          "say": "Actors use it. Athletes use it. Therapists use it too.",
+          "show": [
+            "example"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "character",
+      "layout": "stage",
+      "nav": "Take 2",
+      "data": {
+        "eyebrow": "Take 2: same scene, new you",
+        "setting": "office",
+        "speakers": {
+          "a": {
+            "name": "Riley",
+            "role": "You",
+            "skin": "olive",
+            "hair": "swept",
+            "hair_color": "brown",
+            "top": "brand",
+            "collar": true,
+            "glasses": true,
+            "frames": "bold",
+            "beard": "stubble",
+            "mood": "calm"
+          },
+          "b": {
+            "name": "Jordan",
+            "role": "Team lead",
+            "skin": "brown",
+            "hair": "curly",
+            "hair_color": "black",
+            "top": "navy",
+            "mood": "neutral"
+          }
+        },
+        "lines": [
+          {
+            "who": "b",
+            "text": "So we're good for Friday?",
+            "mood": "neutral",
+            "gesture": "explain"
+          },
+          {
+            "who": "a",
+            "text": "I want to flag something. Friday is tight to do this well.",
+            "mood": "calm",
+            "gesture": "chest"
+          },
+          {
+            "who": "b",
+            "text": "Okay. What would help?",
+            "mood": "thinking"
+          },
+          {
+            "who": "a",
+            "text": "Cut the appendix, or move it to Tuesday.",
+            "mood": "calm",
+            "gesture": "explain"
+          },
+          {
+            "who": "b",
+            "text": "Cut the appendix. Good call.",
+            "mood": "happy",
+            "gesture": "wave"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "So we're good for Friday?",
+          "show": [
+            "cast",
+            "lines.0"
+          ],
+          "voice": "b"
+        },
+        {
+          "say": "I want to flag something. Friday is tight to do this well.",
+          "show": [
+            "lines.1"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "Okay. What would help?",
+          "show": [
+            "lines.2"
+          ],
+          "voice": "b"
+        },
+        {
+          "say": "Cut the appendix, or move it to Tuesday.",
+          "show": [
+            "lines.3"
+          ],
+          "voice": "a"
+        },
+        {
+          "say": "Cut the appendix. Good call.",
+          "show": [
+            "lines.4"
+          ],
+          "voice": "b"
+        }
+      ]
+    },
+    {
+      "type": "instead_try",
+      "layout": "stack",
+      "nav": "The swap",
+      "data": {
+        "eyebrow": "Old line, new line",
+        "instead": "Yeah. Sure. Friday's fine.",
+        "try": "Friday is tight. What can we cut?"
+      },
+      "beats": [
+        {
+          "say": "Notice the swap. Instead of agreeing just to end the moment,",
+          "show": [
+            "instead"
+          ]
+        },
+        {
+          "say": "drop that line.",
+          "show": [
+            "strike"
+          ]
+        },
+        {
+          "say": "Say the true thing, and offer a way forward.",
+          "show": [
+            "try"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "numbered_steps",
+      "layout": "rows",
+      "nav": "Your turn",
+      "data": {
+        "eyebrow": "Your turn",
+        "headline": "Run your own take 2",
+        "steps": [
+          {
+            "title": "Pick the moment",
+            "text": "One conversation you keep replaying."
+          },
+          {
+            "title": "Write your line",
+            "text": "One sentence: clear, kind and true."
+          },
+          {
+            "title": "Say it out loud, twice",
+            "text": "Out loud, not just in your head."
+          }
+        ]
+      },
+      "beats": [
+        {
+          "say": "Now run your own take two.",
+          "show": [
+            "headline"
+          ]
+        },
+        {
+          "say": "Pick the moment. One conversation you keep replaying.",
+          "show": [
+            "steps.0"
+          ]
+        },
+        {
+          "say": "Write your line. One sentence, clear, kind and true.",
+          "show": [
+            "steps.1"
+          ]
+        },
+        {
+          "say": "Then say it out loud, twice. Out loud, not just in your head.",
+          "show": [
+            "steps.2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "closer",
+      "layout": "center",
+      "nav": "Go",
+      "data": {
+        "pre": "Next time it replays",
+        "headline": "Run your take two.",
+        "meta": "And if a moment keeps hurting, a therapist can rehearse it with you.",
+        "icon": "repeat"
+      },
+      "beats": [
+        {
+          "say": "So next time it replays, run your take two.",
+          "show": [
+            "pre",
+            "headline"
+          ]
+        },
+        {
+          "say": "And if a moment keeps hurting, a therapist can rehearse it with you.",
+          "show": [
+            "meta",
+            "icon"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -18,7 +18,7 @@
     </div>
     {{ set_fg(setting) }}
     <div class="bubbles">
-      {% for ln in get('lines') or [] %}<div class="bub box say from-{{ ln['who'] }} ln-{{ loop.index0 }}" data-who="{{ ln['who'] }}" data-mood="{{ ln.get('mood') or '' }}">{{ t('lines.' ~ loop.index0 ~ '.text') }}<i class="tail"></i></div>{% endfor %}
+      {% for ln in get('lines') or [] %}<div class="bub box say from-{{ ln['who'] }} ln-{{ loop.index0 }}" data-who="{{ ln['who'] }}" data-mood="{{ ln.get('mood') or '' }}" data-gesture="{{ ln.get('gesture') or '' }}">{{ t('lines.' ~ loop.index0 ~ '.text') }}<i class="tail"></i></div>{% endfor %}
       {% for th in get('thoughts') or [] %}<div class="bub box think from-{{ th['who'] }} th-{{ loop.index0 }}" data-who="{{ th['who'] }}" data-mood="{{ th.get('mood') or '' }}">{{ t('thoughts.' ~ loop.index0 ~ '.text') }}<i class="dot d1"></i><i class="dot d2"></i></div>{% endfor %}
     </div>
   </div>

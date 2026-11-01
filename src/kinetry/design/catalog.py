@@ -97,6 +97,7 @@ class Component:
     example_beats: list[dict]
     dir: Path
     speakers: bool = False  # beats carry voice roles from data (dialogue)
+    lipsync: bool = False  # the renderer times mouth shapes from each speaker's own audio (kinetry.visemes)
     inverse_layouts: list[str] = field(default_factory=list)  # layouts set on the brand color
     # cross-field rules: {"needs": ["a", "b"]} (b required when a is set), {"index": "current", "of": "steps"}
     checks: list[dict] = field(default_factory=list)
@@ -477,6 +478,7 @@ def _load_component(d: Path) -> Component:
         example_beats=m.get("example_beats", []),
         dir=d,
         speakers=m.get("speakers", False),
+        lipsync=m.get("lipsync", False),
         inverse_layouts=m.get("inverse_layouts", []),
         checks=m.get("checks", []),
         focus=m.get("focus"),

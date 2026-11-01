@@ -1,61 +1,476 @@
 {
-  "id": "character", "name": "Characters",
-  "purpose": "One or two animated characters in a simple set: they blink, breathe, change expression, and their mouths move while their lines are spoken. Thought bubbles carry what a character is thinking while the narrator talks.",
-  "use_when": ["acting out a relatable moment (a person staring at a message, two people disagreeing)", "a short exchange where seeing the people helps", "showing how someone feels: worried, annoyed, relieved"],
-  "avoid_when": ["lists, steps or numbers (use their scene types)", "more than two people", "long speeches: keep each line short"],
-  "tags": ["people", "story", "role-play", "conversation"],
+  "id": "character",
+  "name": "Characters",
+  "purpose": "One or two animated characters in a simple set: they blink, breathe, gesture, change expression, and their mouths take the shape of each sound while their own lines are spoken. Thought bubbles carry what a character is thinking while the narrator talks.",
+  "use_when": [
+    "acting out a relatable moment (a person staring at a message, two people disagreeing)",
+    "a short exchange where seeing the people helps",
+    "showing how someone feels: worried, annoyed, relieved",
+    "rehearsing a hard moment: the same scene played twice, the old way and a better way"
+  ],
+  "avoid_when": [
+    "lists, steps or numbers (use their scene types)",
+    "more than two people",
+    "long speeches: keep each line short"
+  ],
+  "tags": [
+    "people",
+    "story",
+    "role-play",
+    "conversation"
+  ],
   "speakers": true,
+  "lipsync": true,
   "requires": "characters",
   "fields": {
-    "eyebrow": {"type": "text", "max": 40, "role": "eyebrow", "optional": true},
-    "headline": {"type": "text", "max": 44, "lines": 2, "role": "h2", "optional": true},
-    "setting": {"type": "enum", "values": ["plain", "night", "shower", "office"], "optional": true,
-                "desc": "The set behind the characters: plain (brand colors), night (bedroom, window, moon), shower (tiles and running water), office (desk and window)"},
-    "speakers": {"type": "object", "fields": {
-      "a": {"type": "object", "fields": {
-        "name": {"type": "text", "max": 22, "lines": 1, "role": "h3"},
-        "role": {"type": "text", "max": 22, "lines": 1, "role": "label", "optional": true},
-        "skin": {"type": "enum", "values": ["light", "fair", "tan", "olive", "brown", "deep"], "optional": true},
-        "hair": {"type": "enum", "values": ["short", "long", "curly", "bun", "buzz"], "optional": true},
-        "hair_color": {"type": "enum", "values": ["black", "brown", "auburn", "blonde", "gray"], "optional": true},
-        "top": {"type": "enum", "values": ["brand", "brand2", "ink", "neutral"], "optional": true, "desc": "Shirt color"},
-        "glasses": {"type": "bool", "optional": true},
-        "prop": {"type": "enum", "values": ["none", "phone", "mug"], "optional": true, "desc": "Something in their hand"},
-        "mood": {"type": "enum", "values": ["neutral", "happy", "worried", "annoyed", "thinking", "shocked", "calm"], "optional": true, "desc": "Starting expression"},
-        "imagined": {"type": "bool", "optional": true, "desc": "Drawn as a figure in the other person's head (faded, floating)"}}},
-      "b": {"type": "object", "optional": true, "fields": {
-        "name": {"type": "text", "max": 22, "lines": 1, "role": "h3"},
-        "role": {"type": "text", "max": 22, "lines": 1, "role": "label", "optional": true},
-        "skin": {"type": "enum", "values": ["light", "fair", "tan", "olive", "brown", "deep"], "optional": true},
-        "hair": {"type": "enum", "values": ["short", "long", "curly", "bun", "buzz"], "optional": true},
-        "hair_color": {"type": "enum", "values": ["black", "brown", "auburn", "blonde", "gray"], "optional": true},
-        "top": {"type": "enum", "values": ["brand", "brand2", "ink", "neutral"], "optional": true, "desc": "Shirt color"},
-        "glasses": {"type": "bool", "optional": true},
-        "prop": {"type": "enum", "values": ["none", "phone", "mug"], "optional": true},
-        "mood": {"type": "enum", "values": ["neutral", "happy", "worried", "annoyed", "thinking", "shocked", "calm"], "optional": true},
-        "imagined": {"type": "bool", "optional": true}}}}},
-    "lines": {"type": "list", "min": 0, "max": 5, "optional": true, "desc": "Spoken lines, each in its speaker's voice; the speaker's mouth moves while it plays",
-      "of": {"type": "object", "fields": {
-        "who": {"type": "enum", "values": ["a", "b"]},
-        "text": {"type": "text", "max": 90, "lines": 3, "role": "lead"},
-        "mood": {"type": "enum", "values": ["neutral", "happy", "worried", "annoyed", "thinking", "shocked", "calm"], "optional": true, "desc": "The speaker's expression from this line on"}}}},
-    "thoughts": {"type": "list", "min": 0, "max": 4, "optional": true, "desc": "Thought bubbles, revealed while the narrator speaks",
-      "of": {"type": "object", "fields": {
-        "who": {"type": "enum", "values": ["a", "b"]},
-        "text": {"type": "text", "max": 60, "lines": 2, "role": "lead"},
-        "mood": {"type": "enum", "values": ["neutral", "happy", "worried", "annoyed", "thinking", "shocked", "calm"], "optional": true}}}}
+    "eyebrow": {
+      "type": "text",
+      "max": 40,
+      "role": "eyebrow",
+      "optional": true
+    },
+    "headline": {
+      "type": "text",
+      "max": 44,
+      "lines": 2,
+      "role": "h2",
+      "optional": true
+    },
+    "setting": {
+      "type": "enum",
+      "values": [
+        "plain",
+        "night",
+        "shower",
+        "office"
+      ],
+      "optional": true,
+      "desc": "The set behind the characters: plain (brand colors), night (bedroom, window, moon), shower (tiles and running water), office (desk and window)"
+    },
+    "speakers": {
+      "type": "object",
+      "fields": {
+        "a": {
+          "type": "object",
+          "fields": {
+            "name": {
+              "type": "text",
+              "max": 22,
+              "lines": 1,
+              "role": "h3"
+            },
+            "role": {
+              "type": "text",
+              "max": 22,
+              "lines": 1,
+              "role": "label",
+              "optional": true
+            },
+            "skin": {
+              "type": "enum",
+              "values": [
+                "light",
+                "fair",
+                "tan",
+                "olive",
+                "brown",
+                "deep"
+              ],
+              "optional": true
+            },
+            "hair": {
+              "type": "enum",
+              "values": [
+                "short",
+                "swept",
+                "long",
+                "curly",
+                "bun",
+                "buzz"
+              ],
+              "optional": true
+            },
+            "hair_color": {
+              "type": "enum",
+              "values": [
+                "black",
+                "brown",
+                "auburn",
+                "blonde",
+                "gray",
+                "salt"
+              ],
+              "optional": true,
+              "desc": "salt = dark with gray strands"
+            },
+            "top": {
+              "type": "enum",
+              "values": [
+                "brand",
+                "brand2",
+                "ink",
+                "neutral",
+                "olive",
+                "navy",
+                "white",
+                "gray"
+              ],
+              "optional": true,
+              "desc": "Shirt color"
+            },
+            "collar": {
+              "type": "bool",
+              "optional": true,
+              "desc": "A polo collar"
+            },
+            "glasses": {
+              "type": "bool",
+              "optional": true
+            },
+            "frames": {
+              "type": "enum",
+              "values": [
+                "thin",
+                "bold"
+              ],
+              "optional": true,
+              "desc": "bold = thick round tortoiseshell frames"
+            },
+            "beard": {
+              "type": "enum",
+              "values": [
+                "none",
+                "stubble",
+                "full"
+              ],
+              "optional": true
+            },
+            "prop": {
+              "type": "enum",
+              "values": [
+                "none",
+                "phone",
+                "mug"
+              ],
+              "optional": true,
+              "desc": "Something in their hand"
+            },
+            "mood": {
+              "type": "enum",
+              "values": [
+                "neutral",
+                "happy",
+                "worried",
+                "annoyed",
+                "thinking",
+                "shocked",
+                "calm"
+              ],
+              "optional": true,
+              "desc": "Starting expression"
+            },
+            "imagined": {
+              "type": "bool",
+              "optional": true,
+              "desc": "Drawn as a figure in the other person's head (faded, floating)"
+            }
+          }
+        },
+        "b": {
+          "type": "object",
+          "optional": true,
+          "fields": {
+            "name": {
+              "type": "text",
+              "max": 22,
+              "lines": 1,
+              "role": "h3"
+            },
+            "role": {
+              "type": "text",
+              "max": 22,
+              "lines": 1,
+              "role": "label",
+              "optional": true
+            },
+            "skin": {
+              "type": "enum",
+              "values": [
+                "light",
+                "fair",
+                "tan",
+                "olive",
+                "brown",
+                "deep"
+              ],
+              "optional": true
+            },
+            "hair": {
+              "type": "enum",
+              "values": [
+                "short",
+                "swept",
+                "long",
+                "curly",
+                "bun",
+                "buzz"
+              ],
+              "optional": true
+            },
+            "hair_color": {
+              "type": "enum",
+              "values": [
+                "black",
+                "brown",
+                "auburn",
+                "blonde",
+                "gray",
+                "salt"
+              ],
+              "optional": true,
+              "desc": "salt = dark with gray strands"
+            },
+            "top": {
+              "type": "enum",
+              "values": [
+                "brand",
+                "brand2",
+                "ink",
+                "neutral",
+                "olive",
+                "navy",
+                "white",
+                "gray"
+              ],
+              "optional": true,
+              "desc": "Shirt color"
+            },
+            "collar": {
+              "type": "bool",
+              "optional": true,
+              "desc": "A polo collar"
+            },
+            "glasses": {
+              "type": "bool",
+              "optional": true
+            },
+            "frames": {
+              "type": "enum",
+              "values": [
+                "thin",
+                "bold"
+              ],
+              "optional": true,
+              "desc": "bold = thick round tortoiseshell frames"
+            },
+            "beard": {
+              "type": "enum",
+              "values": [
+                "none",
+                "stubble",
+                "full"
+              ],
+              "optional": true
+            },
+            "prop": {
+              "type": "enum",
+              "values": [
+                "none",
+                "phone",
+                "mug"
+              ],
+              "optional": true
+            },
+            "mood": {
+              "type": "enum",
+              "values": [
+                "neutral",
+                "happy",
+                "worried",
+                "annoyed",
+                "thinking",
+                "shocked",
+                "calm"
+              ],
+              "optional": true
+            },
+            "imagined": {
+              "type": "bool",
+              "optional": true
+            }
+          }
+        }
+      }
+    },
+    "lines": {
+      "type": "list",
+      "min": 0,
+      "max": 5,
+      "optional": true,
+      "desc": "Spoken lines, each in its speaker's voice; the speaker's mouth moves while it plays",
+      "of": {
+        "type": "object",
+        "fields": {
+          "who": {
+            "type": "enum",
+            "values": [
+              "a",
+              "b"
+            ]
+          },
+          "text": {
+            "type": "text",
+            "max": 90,
+            "lines": 3,
+            "role": "lead"
+          },
+          "mood": {
+            "type": "enum",
+            "values": [
+              "neutral",
+              "happy",
+              "worried",
+              "annoyed",
+              "thinking",
+              "shocked",
+              "calm"
+            ],
+            "optional": true,
+            "desc": "The speaker's expression from this line on"
+          },
+          "gesture": {
+            "type": "enum",
+            "values": [
+              "none",
+              "explain",
+              "shrug",
+              "chest",
+              "wave"
+            ],
+            "optional": true,
+            "desc": "What their hands do while they say this line"
+          }
+        }
+      }
+    },
+    "thoughts": {
+      "type": "list",
+      "min": 0,
+      "max": 4,
+      "optional": true,
+      "desc": "Thought bubbles, revealed while the narrator speaks",
+      "of": {
+        "type": "object",
+        "fields": {
+          "who": {
+            "type": "enum",
+            "values": [
+              "a",
+              "b"
+            ]
+          },
+          "text": {
+            "type": "text",
+            "max": 60,
+            "lines": 2,
+            "role": "lead"
+          },
+          "mood": {
+            "type": "enum",
+            "values": [
+              "neutral",
+              "happy",
+              "worried",
+              "annoyed",
+              "thinking",
+              "shocked",
+              "calm"
+            ],
+            "optional": true
+          }
+        }
+      }
+    }
   },
-  "reveals": ["headline", "cast", {"key": "lines.*", "requires": "lines"}, {"key": "thoughts.*", "requires": "thoughts"}],
+  "reveals": [
+    "headline",
+    "cast",
+    {
+      "key": "lines.*",
+      "requires": "lines"
+    },
+    {
+      "key": "thoughts.*",
+      "requires": "thoughts"
+    }
+  ],
   "layouts": {
-    "stage": {"desc": "The set in a large rounded frame, characters standing in it, bubbles above their heads", "formats": ["9:16", "1:1", "16:9"]},
-    "close": {"desc": "Tighter on the characters, bigger faces; best for one character", "formats": ["9:16", "1:1", "16:9"]}
+    "stage": {
+      "desc": "The set in a large rounded frame, characters standing in it, bubbles above their heads",
+      "formats": [
+        "9:16",
+        "1:1",
+        "16:9"
+      ]
+    },
+    "close": {
+      "desc": "Tighter on the characters, bigger faces; best for one character",
+      "formats": [
+        "9:16",
+        "1:1",
+        "16:9"
+      ]
+    }
   },
-  "example": {"eyebrow": "It starts small", "setting": "night",
-              "speakers": {"a": {"name": "You", "skin": "tan", "hair": "short", "hair_color": "black", "top": "brand", "prop": "phone", "mood": "neutral"}},
-              "thoughts": [{"who": "a", "text": "\"ok\"? Just ok?", "mood": "worried"},
-                           {"who": "a", "text": "Did I say something wrong?", "mood": "worried"}]},
-  "example_beats": [{"say": "It's late, and one message is still on your mind.", "show": ["cast"]},
-                    {"say": "They replied: okay. Just okay.", "show": ["thoughts.0"]},
-                    {"say": "And now you're wondering what you did wrong.", "show": ["thoughts.1"]}],
-  "focus": {"key": "cast", "sel": ".cast"}
+  "example": {
+    "eyebrow": "It starts small",
+    "setting": "night",
+    "speakers": {
+      "a": {
+        "name": "You",
+        "skin": "tan",
+        "hair": "short",
+        "hair_color": "black",
+        "top": "brand",
+        "prop": "phone",
+        "mood": "neutral"
+      }
+    },
+    "thoughts": [
+      {
+        "who": "a",
+        "text": "\"ok\"? Just ok?",
+        "mood": "worried"
+      },
+      {
+        "who": "a",
+        "text": "Did I say something wrong?",
+        "mood": "worried"
+      }
+    ]
+  },
+  "example_beats": [
+    {
+      "say": "It's late, and one message is still on your mind.",
+      "show": [
+        "cast"
+      ]
+    },
+    {
+      "say": "They replied: okay. Just okay.",
+      "show": [
+        "thoughts.0"
+      ]
+    },
+    {
+      "say": "And now you're wondering what you did wrong.",
+      "show": [
+        "thoughts.1"
+      ]
+    }
+  ],
+  "focus": {
+    "key": "cast",
+    "sel": ".cast"
+  }
 }
