@@ -30,7 +30,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install (as a server would)
         run: sudo deploy/install.sh "$GITHUB_WORKSPACE"
       - name: Re-run is an in-place upgrade
